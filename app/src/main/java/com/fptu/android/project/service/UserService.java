@@ -6,6 +6,6 @@ import com.fptu.android.project.model.User;
 public class UserService implements UserInterface {
     @Override
     public void doLogin(User user) {
-        
+
     }
 }
