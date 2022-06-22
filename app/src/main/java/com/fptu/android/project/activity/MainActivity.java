@@ -1,10 +1,13 @@
 package com.fptu.android.project.activity;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
-
 import com.fptu.android.project.R;
+import com.fptu.android.project.activity.admin.AdminActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -12,5 +15,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        findViewById(R.id.BarChart).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getAcivity();
+            }
+        });
+    }
+
+    private void getAcivity() {
+        startActivity(new Intent(this, AdminActivity.class));
     }
 }
