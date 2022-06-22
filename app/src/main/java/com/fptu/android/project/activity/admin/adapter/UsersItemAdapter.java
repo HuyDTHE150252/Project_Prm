@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fptu.android.project.R;
+import com.fptu.android.project.model.Product;
 import com.fptu.android.project.model.User;
 
 import java.util.ArrayList;
