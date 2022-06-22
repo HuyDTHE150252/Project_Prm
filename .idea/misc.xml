@@ -3,15 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-       <entry key="..\:/FPT/Term7/PRM392/work-space/Project/app/src/main/res/layout/activity_admin.xml" value="0.2601851851851852" />
-        <entry key="..\:/FPT/Term7/PRM392/work-space/Project/app/src/main/res/layout/activity_admin2.xml" value="0.18541666666666667" />
-        <entry key="..\:/FPT/Term7/PRM392/work-space/Project/app/src/main/res/layout/activity_admin_dashboard_item.xml" value="0.27291666666666664" />
-        <entry key="..\:/FPT/Term7/PRM392/work-space/Project/app/src/main/res/layout/activity_admin_users_item.xml" value="0.3614583333333333" />
-        <entry key="..\:/FPT/Term7/PRM392/work-space/Project/app/src/main/res/layout/activity_cart.xml" value="0.3625" />
-        <entry key="..\:/FPT/Term7/PRM392/work-space/Project/app/src/main/res/layout/activity_main.xml" value="0.18541666666666667" />
-        <entry key="..\:/FPT/Term7/PRM392/work-space/Project/app/src/main/res/layout/fragment_admin_dashboard.xml" value="0.2601851851851852" />
-        <entry key="..\:/FPT/Term7/PRM392/work-space/Project/app/src/main/res/layout/fragment_admin_users.xml" value="0.2601851851851852" />
-        <entry key="..\:/FPT/Term7/PRM392/work-space/Project/app/src/main/res/menu/admin_bottom_navigation.xml" value="0.2601851851851852" />
+      
  
       </map>
     </option>
