@@ -59,7 +59,8 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/titleTxt">
+                        app:layout_constraintTop_toBottomOf="@+id/titleTxt"
+                        tools:ignore="NotSibling">
 
                         <ImageView
                             android:id="@+id/plusCardBtn"
@@ -148,10 +149,11 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:id="@+id/imageView9"
+                            android:id="@+id/imageView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:srcCompat="@drawable/star" />
+                            app:srcCompat="@drawable/star"
+                            tools:ignore="DuplicateIds" />
 
                         <TextView
                             android:id="@+id/starTxt"
@@ -164,7 +166,8 @@
                             android:textAlignment="viewStart"
                             android:textColor="#373b54"
                             android:textSize="14sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:ignore="RtlCompat" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -190,7 +193,8 @@
                             android:textAlignment="viewStart"
                             android:textColor="#373b54"
                             android:textSize="14sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:ignore="RtlCompat" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -203,7 +207,8 @@
                             android:id="@+id/imageView9"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:srcCompat="@drawable/flame" />
+                            app:srcCompat="@drawable/flame"
+                            tools:ignore="DuplicateIds" />
 
                         <TextView
                             android:id="@+id/VicaloriesTxt"
@@ -216,7 +221,8 @@
                             android:textAlignment="viewStart"
                             android:textColor="#373b54"
                             android:textSize="14sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:ignore="RtlCompat" />
                     </LinearLayout>
                 </LinearLayout>
 
