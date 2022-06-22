@@ -9,19 +9,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.fptu.android.project.R;
 import com.fptu.android.project.activity.admin.AdminActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class ProductActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        findViewById(R.id.BarChart).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getAcivity();
-            }
-        });
+        setContentView(R.layout.activity_product);
+////        findViewById(R.id.BarChart).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                getAcivity();
+//            }
+//        });
     }
 
     private void getAcivity() {
