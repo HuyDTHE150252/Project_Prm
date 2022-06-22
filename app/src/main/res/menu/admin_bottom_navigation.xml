@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/navigation_dashboard"
+        android:enabled="true"
+        android:icon="@drawable/admin_dashboard_icon_png_16"
+        android:title="Dashboard" />
+    <item
+        android:id="@+id/navigation_users"
+        android:icon="@drawable/admin_users_icon"
+        android:title="Users" />
+    <item
+        android:id="@+id/navigation_dashboard2"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="Dashboard2" />
+</menu>
