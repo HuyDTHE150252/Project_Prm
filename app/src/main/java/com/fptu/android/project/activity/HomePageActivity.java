@@ -19,6 +19,8 @@ import com.fptu.android.project.adapter.ProductAdapter;
 import com.fptu.android.project.adapter.TrendingAdapter;
 import com.fptu.android.project.model.Category;
 import com.fptu.android.project.model.Product;
+import com.fptu.android.project.model.User;
+import com.fptu.android.project.service.UserService;
 
 import org.w3c.dom.Text;
 
@@ -86,6 +88,8 @@ public class HomePageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         bindingView();
         bindingAction();
+        UserService s = new UserService();
+        s.insert(null);
     }
 
     private List<Product> getListProduct() {

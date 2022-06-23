@@ -49,7 +49,7 @@ public class AdminUsersFragment extends Fragment {
         View view = getView();
         if (view != null) {
             bindingView(view);
-            loadingData();
+            //loadingData();
             renderPieChart(R.id.users_chart_status, view);
             renderPieChart(R.id.users_chart_activities, view);
         }
@@ -109,15 +109,15 @@ public class AdminUsersFragment extends Fragment {
         pieChart.invalidate();
     }
 
-    private void loadingData() {
-        ArrayList<User> data = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            data.add(new User());
-        }
-        adapter = new UsersItemAdapter();
-        adapter.setUserList(data);
-        usersRCV.setAdapter(adapter);
-        usersRCV.setLayoutManager(new LinearLayoutManager(getView().getContext()));
-    }
+//    private void loadingData() {
+//        ArrayList<User> data = new ArrayList<>();
+//        for (int i = 0; i < 100; i++) {
+//            data.add(new User());
+//        }
+//        adapter = new UsersItemAdapter();
+//        adapter.setUserList(data);
+//        usersRCV.setAdapter(adapter);
+//        usersRCV.setLayoutManager(new LinearLayoutManager(getView().getContext()));
+//    }
 
 }
