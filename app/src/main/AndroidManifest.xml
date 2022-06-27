@@ -2,14 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.fptu.android.project">
-<<<<<<< HEAD
     <uses-permission android:name="android.permission.INTERNET"/>
-=======
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
->>>>>>> b153f4a599b686c75fa432c8a5554b861ca36536
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -48,13 +43,7 @@
             android:exported="true">
 
         </activity>
-<<<<<<< HEAD
-        <activity
-            android:name=".activity.admin.AdminActivity"
-            android:exported="false"></activity>
-=======
 
->>>>>>> b153f4a599b686c75fa432c8a5554b861ca36536
     </application>
 
 </manifest>
