@@ -1,6 +1,7 @@
 package com.fptu.android.project.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Product implements Serializable {
 
@@ -9,6 +10,16 @@ public class Product implements Serializable {
     private String product_address;
     private String rate;
     private String status;
+    private ArrayList<Category> categories;
+
+    public Product(int product_image, String product_name, String product_address, String rate, String status, ArrayList<Category> categories) {
+        this.product_image = product_image;
+        this.product_name = product_name;
+        this.product_address = product_address;
+        this.rate = rate;
+        this.status = status;
+        this.categories = categories;
+    }
 
     public Product(int product_image, String product_name, String product_address, String rate, String status) {
         this.product_image = product_image;
@@ -16,6 +27,14 @@ public class Product implements Serializable {
         this.product_address = product_address;
         this.rate = rate;
         this.status = status;
+    }
+
+    public ArrayList<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(ArrayList<Category> categories) {
+        this.categories = categories;
     }
 
     public int getProduct_image() {

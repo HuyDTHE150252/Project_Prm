@@ -3,7 +3,6 @@ package com.fptu.android.project.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -26,6 +25,8 @@ public class HomePageActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,homeFragment).commit();
         bottomnav = findViewById(R.id.menu_bottom);
         bottomnav.setOnNavigationItemSelectedListener(navListener);
+        setContentView(R.layout.activity_message_test);
+
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
