@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "995933215638",
+    "firebase_url": "https://projectprm-392-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "projectprm-392",
+    "storage_bucket": "projectprm-392.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:995933215638:android:a46bb080fc45686d6b5bb7",
+        "android_client_info": {
+          "package_name": "com.fptu.android.project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "995933215638-nuofst4l6u0qpct110k2ptmejf0klb38.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fptu.android.project",
+            "certificate_hash": "23d0864af622cd176355c3a762cac54e108de47a"
+          }
+        },
+        {
+          "client_id": "995933215638-da3d3ludrgbog38g1r351jna25e0jvlp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDN3E0gPmXJvZpCYUZ_t-WxHHwwJ2tmMi0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "995933215638-da3d3ludrgbog38g1r351jna25e0jvlp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

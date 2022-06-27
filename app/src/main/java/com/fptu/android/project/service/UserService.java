@@ -35,13 +35,13 @@ public class UserService implements IUserDao {
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        Log.d("AddUser", "DocumentSnapshot added with ID: " + documentReference.getId());
+                        Log.d("Add1", "DocumentSnapshot added with ID: " + documentReference.getId());
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w("AddUser", "Error adding document", e);
+                        Log.w("Add1", "Error adding document", e);
                     }
                 });
         db.collection("users")
@@ -51,10 +51,10 @@ public class UserService implements IUserDao {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d("TAG", document.getId() + " => " + document.getData());
+                                Log.d("Write1", document.getId() + " => " + document.getData());
                             }
                         } else {
-                            Log.w("TAG", "Error getting documents.", task.getException());
+                            Log.w("Write1", "Error getting documents.", task.getException());
                         }
                     }
                 });

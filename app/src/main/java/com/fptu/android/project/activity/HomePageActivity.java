@@ -1,5 +1,6 @@
 package com.fptu.android.project.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,12 +9,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import com.fptu.android.project.R;
+import com.fptu.android.project.activity.user.LoginActivity;
 import com.fptu.android.project.adapter.CategoryAdapter;
 import com.fptu.android.project.adapter.ProductAdapter;
 import com.fptu.android.project.adapter.TrendingAdapter;
@@ -21,6 +24,12 @@ import com.fptu.android.project.model.Category;
 import com.fptu.android.project.model.Product;
 import com.fptu.android.project.model.User;
 import com.fptu.android.project.service.UserService;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
@@ -36,7 +45,7 @@ public class HomePageActivity extends AppCompatActivity {
     private CategoryAdapter cate_adapter;
     private TrendingAdapter trend_adapter;
     private ProductAdapter product_adapter;
-
+    private Button login;
     private void bindingView() {
         viewFlipper = findViewById(R.id.slider_viewFlipper);
         category = findViewById(R.id.category_recyclerView);
@@ -62,6 +71,7 @@ public class HomePageActivity extends AppCompatActivity {
         product.setAdapter(product_adapter);
 
         product_view = findViewById(R.id.product);
+
     }
 
     private void bindingAction() {
@@ -90,8 +100,28 @@ public class HomePageActivity extends AppCompatActivity {
         bindingAction();
         UserService s = new UserService();
         s.insert(null);
-    }
 
+// //Test connection
+//        DatabaseReference connectedRef = FirebaseDatabase.getInstance().getReference(".info/connected");
+//        connectedRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot snapshot) {
+//                boolean connected = snapshot.getValue(Boolean.class);
+//                if (connected) {
+//                    System.out.println("connected");
+//                } else {
+//                    System.out.println("not connected");
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                System.err.println("Listener was cancelled");
+//            }
+//
+//        });
+    }
+    
     private List<Product> getListProduct() {
         List<Product> list = new ArrayList<>();
         list.add(new Product(R.drawable.ca_phe, "Cà phê", "19 Thôn 3, xã Thạch Hòa, huyện Thạch Thất, Hòa Lạc", "5.0", "ĐÓNG CỬA"));
