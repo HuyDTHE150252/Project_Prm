@@ -1,37 +1,23 @@
 package com.fptu.android.project.activity;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import com.fptu.android.project.R;
-import com.fptu.android.project.activity.user.LoginActivity;
 import com.fptu.android.project.adapter.CategoryAdapter;
 import com.fptu.android.project.adapter.ProductAdapter;
 import com.fptu.android.project.adapter.TrendingAdapter;
 import com.fptu.android.project.model.Category;
 import com.fptu.android.project.model.Product;
-import com.fptu.android.project.model.User;
 import com.fptu.android.project.service.UserService;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;

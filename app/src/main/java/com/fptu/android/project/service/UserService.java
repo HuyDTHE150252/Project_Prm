@@ -26,7 +26,7 @@ public class UserService implements IUserDao {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Map<String, Object> user = new HashMap<>();
         user.put("first", "Tuan");
-        user.put("last", "Duong");
+        user.put("last", "1");
         user.put("born", 2001);
 
 // Add a new document with a generated ID

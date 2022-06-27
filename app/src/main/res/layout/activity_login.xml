@@ -68,7 +68,7 @@
                         android:drawableStart="@drawable/ic_person"
                         android:drawableLeft="@drawable/ic_person"
                         android:drawablePadding="12dp"
-                        android:hint="@string/hint_username"
+                        android:hint="@string/hint_email"
                         android:imeOptions="actionNext"
                         android:minWidth="320dp"
                         android:minHeight="50dp"
@@ -155,6 +155,12 @@
                         android:layout_height="40dp"
                         android:layout_margin="8dp"
                         app:srcCompat="@drawable/ic_facebook" />
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="8dp"
+                        app:srcCompat="@drawable/ic_google" />
 
                     <ImageView
                         android:layout_width="40dp"
