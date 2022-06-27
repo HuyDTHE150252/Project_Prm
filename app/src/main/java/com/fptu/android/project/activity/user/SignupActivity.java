@@ -14,7 +14,7 @@ public class SignupActivity extends AppCompatActivity {
     private Button btn_signup;
     private FirebaseAuth mAuth;
     void bindingView(){
-        et_email = findViewById(R.id.et_email)
+        et_email = findViewById(R.id.et_email);
     }
     void bindingAction(){
 

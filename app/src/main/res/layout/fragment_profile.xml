@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey"
-    android:orientation="vertical"
-    tools:context=".activity.user.ProfileActivity">
+    tools:context=".activity.fragment.ProfileFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -73,6 +71,7 @@
     </LinearLayout>
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/topbar"
@@ -414,14 +413,9 @@
                                 android:textColor="@color/goodgrey"
                                 android:textSize="15sp" />
                         </LinearLayout>
-
                     </LinearLayout>
                 </LinearLayout>
-
-
             </LinearLayout>
-
-
         </LinearLayout>
 
     </ScrollView>
