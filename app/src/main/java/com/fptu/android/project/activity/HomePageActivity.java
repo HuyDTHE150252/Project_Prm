@@ -1,17 +1,16 @@
 package com.fptu.android.project.activity;
 
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.ViewFlipper;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.ViewFlipper;
 
 import com.fptu.android.project.R;
 import com.fptu.android.project.adapter.CategoryAdapter;
@@ -19,10 +18,7 @@ import com.fptu.android.project.adapter.ProductAdapter;
 import com.fptu.android.project.adapter.TrendingAdapter;
 import com.fptu.android.project.model.Category;
 import com.fptu.android.project.model.Product;
-import com.fptu.android.project.model.User;
 import com.fptu.android.project.service.UserService;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,11 +81,19 @@ public class HomePageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        bindingView();
-        bindingAction();
+        setContentView(R.layout.activity_message_test);
+        //bindingView();
+        // bindingAction();
         UserService s = new UserService();
+        EditText t = findViewById(R.id.message1);
         s.insert(null);
+        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                s.sendMessage(t.getText().toString());
+                s.getMessage();
+            }
+        });
     }
 
     private List<Product> getListProduct() {
