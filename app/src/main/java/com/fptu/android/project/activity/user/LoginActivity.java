@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         bindingAction();
     }
     void bindingView(){
-        btn_signup=findViewById(R.id.btn_signup);
+        btn_signup=findViewById(R.id.btn_donothaveaccount);
         btn_signin=findViewById(R.id.btn_signin);
         et_username=findViewById(R.id.et_username);
         et_password=findViewById(R.id.et_password);
