@@ -8,8 +8,11 @@ buildscript {
     }
     dependencies {
     classpath 'com.google.gms:google-services:4.3.12'
+<<<<<<< HEAD
         classpath 'com.android.tools.build:gradle:3.4.0'
         classpath 'com.google.firebase:perf-plugin:1.4.1'
+=======
+>>>>>>> b153f4a599b686c75fa432c8a5554b861ca36536
     }
 }
 

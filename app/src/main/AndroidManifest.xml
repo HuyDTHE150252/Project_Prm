@@ -2,7 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.fptu.android.project">
+<<<<<<< HEAD
     <uses-permission android:name="android.permission.INTERNET"/>
+=======
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+>>>>>>> b153f4a599b686c75fa432c8a5554b861ca36536
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -18,19 +25,34 @@
             android:value="true" />
         <activity
             android:name=".activity.ProductActivity"
-            android:exported="false" />
+            android:exported="false"></activity>
         <activity
             android:name=".activity.HomePageActivity"
+            android:exported="true"></activity>
+
+        <activity
+            android:name=".activity.admin.AdminActivity"
+            android:exported="true"></activity>
+        <activity
+            android:name=".activity.user.SignupActivity"
+            android:exported="true">
+
+        </activity>
+        <activity
+            android:name=".activity.user.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
         <activity
             android:name=".activity.admin.AdminActivity"
             android:exported="false"></activity>
+=======
+
+>>>>>>> b153f4a599b686c75fa432c8a5554b861ca36536
     </application>
 
 </manifest>

@@ -12,6 +12,15 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+<<<<<<< HEAD
+=======
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.ViewFlipper;
+
+>>>>>>> b153f4a599b686c75fa432c8a5554b861ca36536
 import com.fptu.android.project.R;
 import com.fptu.android.project.adapter.CategoryAdapter;
 import com.fptu.android.project.adapter.ProductAdapter;
@@ -32,7 +41,7 @@ public class HomePageActivity extends AppCompatActivity {
     private CategoryAdapter cate_adapter;
     private TrendingAdapter trend_adapter;
     private ProductAdapter product_adapter;
-
+    private Button login;
     private void bindingView() {
         viewFlipper = findViewById(R.id.slider_viewFlipper);
         category = findViewById(R.id.category_recyclerView);
@@ -58,6 +67,7 @@ public class HomePageActivity extends AppCompatActivity {
         product.setAdapter(product_adapter);
 
         product_view = findViewById(R.id.product);
+
     }
 
     private void bindingAction() {
@@ -87,6 +97,7 @@ public class HomePageActivity extends AppCompatActivity {
         UserService s = new UserService();
         EditText t = findViewById(R.id.message1);
         s.insert(null);
+<<<<<<< HEAD
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,7 +106,30 @@ public class HomePageActivity extends AppCompatActivity {
             }
         });
     }
+=======
+>>>>>>> b153f4a599b686c75fa432c8a5554b861ca36536
 
+// //Test connection
+//        DatabaseReference connectedRef = FirebaseDatabase.getInstance().getReference(".info/connected");
+//        connectedRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot snapshot) {
+//                boolean connected = snapshot.getValue(Boolean.class);
+//                if (connected) {
+//                    System.out.println("connected");
+//                } else {
+//                    System.out.println("not connected");
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                System.err.println("Listener was cancelled");
+//            }
+//
+//        });
+    }
+    
     private List<Product> getListProduct() {
         List<Product> list = new ArrayList<>();
         list.add(new Product(R.drawable.ca_phe, "Cà phê", "19 Thôn 3, xã Thạch Hòa, huyện Thạch Thất, Hòa Lạc", "5.0", "ĐÓNG CỬA"));
