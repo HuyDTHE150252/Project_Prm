@@ -1,6 +1,8 @@
 package com.fptu.android.project.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fptu.android.project.R;
+import com.fptu.android.project.activity.ProductDetailActivity;
 import com.fptu.android.project.model.Category;
 import com.fptu.android.project.model.Product;
 
@@ -40,7 +43,7 @@ public class TrendingAdapter extends RecyclerView.Adapter<TrendingAdapter.Trendi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TrendingViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TrendingViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Product trending = listTrending.get(position);
         if(trending == null){
             return;
@@ -50,6 +53,14 @@ public class TrendingAdapter extends RecyclerView.Adapter<TrendingAdapter.Trendi
         holder.product_address.setText(trending.getProduct_address());
         holder.rate.setText(trending.getRate());
         holder.status.setText(trending.getStatus());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ProductDetailActivity.class);
+                intent.putExtra("detailed",listTrending.get(position));
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

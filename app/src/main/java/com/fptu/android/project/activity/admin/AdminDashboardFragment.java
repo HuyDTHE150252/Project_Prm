@@ -56,10 +56,10 @@ public class AdminDashboardFragment extends Fragment {
         dashboardRCV.setLayoutManager(new LinearLayoutManager(getView().getContext()));
     }
 
+
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        View view = getView();
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         if (view != null) {
             bindingView(view);
             loadingData();

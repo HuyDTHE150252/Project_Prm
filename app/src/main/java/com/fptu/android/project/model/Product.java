@@ -1,6 +1,7 @@
 package com.fptu.android.project.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Product implements Serializable {
 
@@ -9,13 +10,26 @@ public class Product implements Serializable {
     private String product_address;
     private String rate;
     private String status;
+    private ArrayList<Category> categories;
+    private int quantity,price;
 
-    public Product(int product_image, String product_name, String product_address, String rate, String status) {
+    public Product(int product_image, String product_name, String product_address, String rate, String status, ArrayList<Category> categories) {
         this.product_image = product_image;
         this.product_name = product_name;
         this.product_address = product_address;
         this.rate = rate;
         this.status = status;
+        this.categories = categories;
+    }
+
+    public Product(int product_image, String product_name, String product_address, String rate, String status, int quantity, int price) {
+        this.product_image = product_image;
+        this.product_name = product_name;
+        this.product_address = product_address;
+        this.rate = rate;
+        this.status = status;
+        this.quantity = quantity;
+        this.price = price;
     }
 
     public int getProduct_image() {
@@ -56,6 +70,30 @@ public class Product implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public ArrayList<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(ArrayList<Category> categories) {
+        this.categories = categories;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     @Override
