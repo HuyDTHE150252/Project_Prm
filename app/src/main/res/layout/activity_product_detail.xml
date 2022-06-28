@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ProductDetailActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/productdetaill_toolbar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/productdetail_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:backgroundTint="#d9d9d9"
+                app:cardCornerRadius="10dp">
+
+                <ImageView
+                    android:id="@+id/productdetail_image"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/ca_phe" />
+
+                <TextView
+                    android:id="@+id/productdetail_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="225dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Capuchino"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+
+                <ScrollView
+                    android:layout_width="180dp"
+                    android:layout_height="170dp"
+                    android:layout_marginLeft="218dp"
+                    android:layout_marginTop="40dp">
+
+                    <TextView
+                        android:id="@+id/productdetail_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="- Cà phê capuchino gồm có 3 phần, đó là: cà phê espresso, sữa nóng được tạo bọt và một ít bột cacao (hoặc bột sô cô la, bột quế)."
+                        android:textSize="18dp" />
+                </ScrollView>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/txtview1_productdetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/productdetail_cardview"
+                android:layout_marginStart="70dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="Được cung cấp bởi" />
+
+            <TextView
+                android:id="@+id/productdetail_shopname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/productdetail_cardview"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_toRightOf="@id/txtview1_productdetail"
+                android:text="Quán Crush"
+                android:textSize="17dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtview2_productdetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtview1_productdetail"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="Địa chỉ : "
+                android:textColor="@color/black"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/productdetail_shopaddress"
+                android:layout_width="380dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/txtview2_productdetail"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:background="#d9d9d9"
+                android:padding="5dp"
+                android:text="19 Thôn 3, xã Thạch Hòa, huyện Thạch Thất, Hòa Lạc"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/txtview3_productdetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/productdetail_shopaddress"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="Loại : "
+                android:textColor="@color/black"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/productdetail_producttype"
+                android:layout_width="80dp"
+                android:layout_height="30dp"
+                android:layout_below="@+id/productdetail_shopaddress"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="3dp"
+                android:layout_toRightOf="@+id/txtview3_productdetail"
+                android:padding="5dp"
+                android:text="Drink"
+                android:textSize="17dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtview3_productdetail"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="Chọn size : "
+                android:textColor="@color/black"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/productdetail_type"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/txtview3_productdetail"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="30dp"
+                android:background="#d9d9d9"
+                android:drawableEnd="@drawable/ic_dropdown"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text=" - - - Chọn Size - - -  " />
+
+            <TextView
+                android:id="@+id/productdetail_addtocart"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_below="@+id/txtview3_productdetail"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="40dp"
+                android:layout_toRightOf="@+id/productdetail_type"
+                android:background="@color/md_red_700"
+                android:drawableStart="@drawable/ic_cart_menu"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="Thêm vào giỏ hàng"
+                android:textColor="@color/white" />
+
+            <RatingBar
+                android:id="@+id/productdetail_rating"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/productdetail_type"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:clickable="false"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:stepSize="0.5" />
+
+            <TextView
+                android:id="@+id/productdetail_feedback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/productdetail_rating"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:text="Feedback :"
+                android:textSize="15dp"
+                android:textColor="@color/black"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/productdetail_feedback"
+                />
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

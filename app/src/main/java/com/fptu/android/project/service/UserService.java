@@ -32,7 +32,6 @@ public class UserService implements IUserDao {
     @Override
     public void insert(User u) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-<<<<<<< HEAD
         Map<String, ArrayList<Product>> products = new HashMap<>();
         ArrayList<Category> categories = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
@@ -44,12 +43,10 @@ public class UserService implements IUserDao {
             listProducts1.add(new Product(i,"Product name " + i, "Product address " + i, "" + i,"Active", categories));
         }
         products.put("products", listProducts1);
-=======
         Map<String, Object> user = new HashMap<>();
         user.put("first", "Tuan");
         user.put("last", "1");
         user.put("born", 2001);
->>>>>>> b153f4a599b686c75fa432c8a5554b861ca36536
 
 // Add a new document with a generated ID
         db.collection("products")
@@ -57,12 +54,9 @@ public class UserService implements IUserDao {
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-<<<<<<< HEAD
                         System.out.println(documentReference.getId());
                         Log.d("AddUser", "DocumentSnapshot added with ID: " + documentReference.getId());
-=======
                         Log.d("Add1", "DocumentSnapshot added with ID: " + documentReference.getId());
->>>>>>> b153f4a599b686c75fa432c8a5554b861ca36536
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

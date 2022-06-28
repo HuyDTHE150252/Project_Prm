@@ -1,11 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
-<<<<<<< HEAD
     id 'com.google.firebase.firebase-perf'
-
-=======
->>>>>>> b153f4a599b686c75fa432c8a5554b861ca36536
 }
 
 android {
@@ -47,7 +43,6 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.navigation:navigation-fragment:2.4.2'
     implementation 'androidx.navigation:navigation-ui:2.4.2'
-<<<<<<< HEAD
 
     implementation platform('com.google.firebase:firebase-bom:30.1.0')
     implementation 'com.google.firebase:firebase-firestore:24.1.2'
@@ -57,12 +52,10 @@ dependencies {
 
 
 
-=======
     implementation platform('com.google.firebase:firebase-bom:30.1.0')
     implementation 'com.google.firebase:firebase-firestore:24.2.0'
     implementation 'com.google.firebase:firebase-database:20.0.5'
     implementation 'com.google.firebase:firebase-auth:21.0.5'
->>>>>>> b153f4a599b686c75fa432c8a5554b861ca36536
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
