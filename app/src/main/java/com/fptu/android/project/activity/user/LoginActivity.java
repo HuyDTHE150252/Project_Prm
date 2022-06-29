@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.fptu.android.project.R;
 import com.fptu.android.project.activity.HomePageActivity;
+import com.fptu.android.project.activity.fragment.ProfileFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -24,11 +25,15 @@ import org.jetbrains.annotations.NotNull;
 public class LoginActivity extends AppCompatActivity {
     private Button btn_signup, btn_signin;
     private EditText et_username, et_password;
-    private FirebaseAuth mAuth;
+    private FirebaseAuth fAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAuth = FirebaseAuth.getInstance();
+        fAuth = FirebaseAuth.getInstance();
+        if(fAuth.getCurrentUser() != null){
+            startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
+            finish();
+        }
         setContentView(R.layout.activity_login);
         bindingView();
         bindingAction();
@@ -62,7 +67,8 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this,"Password >= 6 char!!",Toast.LENGTH_SHORT).show();
             return;
         }
-        mAuth.signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+        fAuth.signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
                 if(task.isSuccessful()){

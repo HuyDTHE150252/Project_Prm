@@ -48,10 +48,10 @@ public class SignupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
-//        if(fAuth.getCurrentUser() != null){
-//            startActivity(new Intent(SignupActivity.this, HomePageActivity.class));
-//            finish();
-//        }
+        if(fAuth.getCurrentUser() != null){
+            startActivity(new Intent(SignupActivity.this, HomePageActivity.class));
+            finish();
+        }
         bindingView();
         bindingAction();
 
@@ -77,31 +77,31 @@ public class SignupActivity extends AppCompatActivity {
         cfpassword = et_cfpassword.getText().toString();
         phone = et_phone.getText().toString();
         username = et_username.getText().toString();
-//        if (TextUtils.isEmpty(email)) {
-//            Toast.makeText(this, "Vui lòng nhập email!!", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//        if (TextUtils.isEmpty(username)) {
-//            Toast.makeText(this, "Vui lòng nhập tên!!", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//        if (TextUtils.isEmpty(phone)) {
-//            Toast.makeText(this, "Vui lòng nhập sđt!!", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//        if (TextUtils.isEmpty(pass)) {
-//            Toast.makeText(this, "Vui lòng nhập password!!", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//        if (TextUtils.isEmpty(cfpass)) {
-//            Toast.makeText(this, "Vui lòng xác nhận password!!", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//        if (!TextUtils.equals(pass, cfpass)) {
-//            Toast.makeText(this, "Vui lòng xác nhận đúng mật khẩu", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
+        if (TextUtils.isEmpty(email)) {
+            Toast.makeText(this, "Vui lòng nhập email!!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (TextUtils.isEmpty(username)) {
+            Toast.makeText(this, "Vui lòng nhập tên!!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (TextUtils.isEmpty(phone)) {
+            Toast.makeText(this, "Vui lòng nhập sđt!!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (TextUtils.isEmpty(password)) {
+            Toast.makeText(this, "Vui lòng nhập password!!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (TextUtils.isEmpty(cfpassword)) {
+            Toast.makeText(this, "Vui lòng xác nhận password!!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!TextUtils.equals(password, cfpassword)) {
+            Toast.makeText(this, "Vui lòng xác nhận đúng mật khẩu", Toast.LENGTH_SHORT).show();
+            return;
+        }
 //        mAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 //            @Override
 //            public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
