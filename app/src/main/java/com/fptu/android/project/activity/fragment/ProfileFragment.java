@@ -76,7 +76,7 @@ public class ProfileFragment extends Fragment {
         userId = fAuth.getCurrentUser().getUid();
         user = fAuth.getCurrentUser();
         DocumentReference documentReference = fStore.collection("users").document(userId);
-        documentReference.addSnapshotListener((Executor) this, new EventListener<DocumentSnapshot>() {
+        documentReference.addSnapshotListener( new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@javax.annotation.Nullable DocumentSnapshot documentSnapshot, @javax.annotation.Nullable FirebaseFirestoreException e) {
                 if(documentSnapshot.exists()){
