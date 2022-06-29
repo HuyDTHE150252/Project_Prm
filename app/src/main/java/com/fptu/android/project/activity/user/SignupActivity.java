@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fptu.android.project.R;
@@ -40,6 +41,7 @@ public class SignupActivity extends AppCompatActivity {
     private Button btn_signup;
     private FirebaseAuth fAuth;
     private FirebaseFirestore fStore;
+    private TextView loginNow;
     String userID;
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     @Override
@@ -64,13 +66,20 @@ public class SignupActivity extends AppCompatActivity {
         et_password = findViewById(R.id.et_password);
         et_cfpassword = findViewById(R.id.et_confirm_password);
         btn_signup = findViewById(R.id.btnSignup);
+        loginNow = findViewById(R.id.loginNow);
     }
 
     void bindingAction() {
-        btn_signup.setOnClickListener(this::signup1);
+        btn_signup.setOnClickListener(this::onSignup);
+        loginNow.setOnClickListener(this::onLoginnow);
     }
 
-    private void signup1(View view) {
+    private void onLoginnow(View view) {
+        Intent i = new Intent(SignupActivity.this,LoginActivity.class);
+        startActivity(i);
+    }
+
+    private void onSignup(View view) {
         String email, password, cfpassword, phone, username;
         email = et_email.getText().toString();
         password = et_password.getText().toString();

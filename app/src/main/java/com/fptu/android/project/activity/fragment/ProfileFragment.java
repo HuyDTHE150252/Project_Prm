@@ -30,6 +30,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.Objects;
 import java.util.concurrent.Executor;
 
 //import com.squareup.picasso.Picasso;
@@ -79,7 +80,7 @@ public class ProfileFragment extends Fragment {
         userId = fAuth.getCurrentUser().getUid();
         user = fAuth.getCurrentUser();
         DocumentReference documentReference = fStore.collection("users").document(userId);
-        documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+        documentReference.addSnapshotListener( new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@javax.annotation.Nullable DocumentSnapshot documentSnapshot, @javax.annotation.Nullable FirebaseFirestoreException e) {
                 if (documentSnapshot.exists()) {
@@ -95,9 +96,8 @@ public class ProfileFragment extends Fragment {
     }
 
     public void logout(View view) {
-        startActivity(new Intent(getActivity(), LoginActivity.class));
         FirebaseAuth.getInstance().signOut();//logout
-
+        startActivity(new Intent(getActivity(), LoginActivity.class));
 
     }
 
