@@ -141,12 +141,39 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtview3_productdetail"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:text="Chọn size : "
                 android:textColor="@color/black"
                 android:textSize="15dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtPriceTitle"
+                android:layout_below="@+id/txtview3_productdetail"
+                android:layout_marginStart="20dp"
+
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="Price: "
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                />
+
+            <TextView
+                android:id="@+id/txtPriceNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtview3_productdetail"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginEnd="11dp"
+                android:layout_marginBottom="11dp"
+                android:layout_toRightOf="@id/txtPriceTitle"
+                android:text="100$ "
+                android:textColor="@color/black"
+                android:textSize="17dp" />
 
             <TextView
                 android:id="@+id/productdetail_type"
@@ -154,7 +181,7 @@
                 android:layout_height="50dp"
                 android:layout_below="@+id/txtview3_productdetail"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="60dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="30dp"
                 android:background="#d9d9d9"
@@ -163,13 +190,26 @@
                 android:padding="5dp"
                 android:text=" - - - Chọn Size - - -  " />
 
+<!--            <ImageView-->
+<!--                android:id="@+id/minusCardBtn"-->
+<!--                android:layout_width="30dp"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:layout_below="@+id/txtview3_productdetail"-->
+<!--                android:layout_toRightOf="@id/txtPriceNumber"-->
+<!--                android:background="@color/yellow"-->
+<!--                android:layout_marginStart="80dp"-->
+<!--                android:layout_marginTop="3dp"-->
+<!--                android:layout_marginEnd="30dp"-->
+<!--                android:layout_marginBottom="30dp"-->
+<!--                app:srcCompat="@drawable/minus" />-->
+
             <TextView
                 android:id="@+id/productdetail_addtocart"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_below="@+id/txtview3_productdetail"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="60dp"
                 android:layout_toRightOf="@+id/productdetail_type"
                 android:background="@color/md_red_700"
                 android:drawableStart="@drawable/ic_cart_menu"
@@ -193,6 +233,7 @@
                 android:numStars="5"
                 android:stepSize="0.5" />
 
+
             <TextView
                 android:id="@+id/productdetail_feedback"
                 android:layout_width="wrap_content"
@@ -209,6 +250,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/productdetail_feedback"
                 />
+
 
         </RelativeLayout>
     </ScrollView>

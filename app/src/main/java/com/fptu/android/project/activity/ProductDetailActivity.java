@@ -35,7 +35,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         img = findViewById(R.id.productdetail_image);
         tvProductName = findViewById(R.id.productdetail_name);
 //        tvQuantity = findViewById(R.id.tvQuantity);
-//        tvPrice = findViewById(R.id.priceTxt);
+        tvPrice = findViewById(R.id.txtPriceNumber);
         tvProductAddress = findViewById(R.id.productdetail_description);
         btnAddToCart=findViewById(R.id.productdetail_addtocart);
     }
@@ -56,7 +56,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             tvProductName.setText(product.getProduct_name());
         tvProductAddress.setText(product.getProduct_address());
                img.setImageResource(product.getProduct_image());
-//        tvPrice.setText(String.valueOf(product.getPrice()));
+        tvPrice.setText(String.valueOf(product.getPrice()));
 //        tvQuantity.setText(String.valueOf(product.getQuantity()));
 
 
@@ -73,8 +73,10 @@ public class ProductDetailActivity extends AppCompatActivity {
         cartMap.put("productName",tvProductName.getText().toString());
         cartMap.put("currentTime",saveCurrentTime);
         cartMap.put("currentDate",saveCurrentDate);
+
         firestore.collection("AddToCart").document(auth.getCurrentUser().getUid())
-                .collection("users").add(cartMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                .collection("CurrentUser")
+                .add(cartMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentReference> task) {
                         Toast.makeText(ProductDetailActivity.this,"Added to cart",Toast.LENGTH_SHORT).show();
