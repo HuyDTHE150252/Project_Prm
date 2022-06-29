@@ -34,7 +34,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     void bidingView() {
         img = findViewById(R.id.productdetail_image);
         tvProductName = findViewById(R.id.productdetail_name);
-//        tvQuantity = findViewById(R.id.tvQuantity);
+        tvQuantity = findViewById(R.id.tvQuantity);
         tvPrice = findViewById(R.id.txtPriceNumber);
         tvProductAddress = findViewById(R.id.productdetail_description);
         btnAddToCart=findViewById(R.id.productdetail_addtocart);
@@ -57,7 +57,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         tvProductAddress.setText(product.getProduct_address());
                img.setImageResource(product.getProduct_image());
         tvPrice.setText(String.valueOf(product.getPrice()));
-//        tvQuantity.setText(String.valueOf(product.getQuantity()));
+        tvQuantity.setText(String.valueOf(product.getQuantity()));
 
 
 
@@ -71,6 +71,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         saveCurrentTime=currentDate.format(calForDate.getTime());
         HashMap<String,Object> cartMap =new HashMap<>();
         cartMap.put("productName",tvProductName.getText().toString());
+        cartMap.put("quantity",tvQuantity.getText().toString());
         cartMap.put("currentTime",saveCurrentTime);
         cartMap.put("currentDate",saveCurrentDate);
 
