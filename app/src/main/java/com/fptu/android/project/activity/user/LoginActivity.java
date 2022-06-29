@@ -58,8 +58,8 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this,"Vui lòng nhập password!!",Toast.LENGTH_SHORT).show();
             return;
         }
-        if(pass.length()<=6){
-            Toast.makeText(this,"Password > 6 char!!",Toast.LENGTH_SHORT).show();
+        if(pass.length()<=5){
+            Toast.makeText(this,"Password >= 6 char!!",Toast.LENGTH_SHORT).show();
             return;
         }
         mAuth.signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
