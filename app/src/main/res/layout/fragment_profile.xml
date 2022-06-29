@@ -20,12 +20,6 @@
         android:gravity="center_vertical"
         android:padding="16dp">
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:padding="10dp"
-            android:src="@drawable/ic_arrow_back_24dp" />
-
         <Space
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -49,23 +43,14 @@
             android:layout_height="50dp">
 
             <ImageView
+                android:id="@+id/logout"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerInParent="true"
+                android:onClick="logout"
                 android:padding="6dp"
-                android:src="@drawable/ic_notifications_white_24dp" />
+                android:src="@drawable/logout" />
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:padding="4dp"
-                android:src="@drawable/circleyellowfil" />
         </RelativeLayout>
 
     </LinearLayout>
@@ -114,6 +99,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/profileName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -357,11 +343,12 @@
                                 android:src="@drawable/ic_call_24dp" />
 
                             <TextView
+                                android:id="@+id/profilePhone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
                                 android:fontFamily="@font/proximanovaregular"
-                                android:text="+91 7999193854"
+                                android:text="Phone Number"
                                 android:textColor="@color/goodgrey"
                                 android:textSize="15sp" />
                         </LinearLayout>
@@ -381,6 +368,7 @@
                                 android:src="@drawable/ic_email_24dp" />
 
                             <TextView
+                                android:id="@+id/profileEmail"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"

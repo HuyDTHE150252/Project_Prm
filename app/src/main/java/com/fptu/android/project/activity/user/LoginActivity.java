@@ -45,11 +45,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void signin(View view) {
-//        String username = et_username.getText().toString();
-//        String password = et_password.getText().toString();
-//        if (username.isEmpty() || password.isEmpty()) {
-//            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_LONG).show();
-//            return;
+
         String email,pass;
         email=et_username.getText().toString();
         pass=et_password.getText().toString();
@@ -60,6 +56,10 @@ public class LoginActivity extends AppCompatActivity {
         }
         if(TextUtils.isEmpty(pass)){
             Toast.makeText(this,"Vui lòng nhập password!!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(pass.length()<=5){
+            Toast.makeText(this,"Password >= 6 char!!",Toast.LENGTH_SHORT).show();
             return;
         }
         mAuth.signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {

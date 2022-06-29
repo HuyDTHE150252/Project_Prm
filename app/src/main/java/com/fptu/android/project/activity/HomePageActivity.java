@@ -23,10 +23,10 @@ public class HomePageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         HomeFragment homeFragment = new HomeFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,homeFragment).commit();
+        ProfileFragment profileFragment = new ProfileFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,profileFragment).commit();
         bottomnav = findViewById(R.id.menu_bottom);
         bottomnav.setOnNavigationItemSelectedListener(navListener);
-        setContentView(R.layout.activity_message_test);
-
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {

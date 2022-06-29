@@ -45,6 +45,42 @@ public class UserService implements IUserDao {
         }
         products.put("products", listProducts1);
 
+        Map<String, Object> user = new HashMap<>();
+        user.put("first", "Ada");
+        user.put("last", "Lovelace");
+        user.put("born", 1815);
+
+// Add a new document with a generated ID
+        db.collection("users")
+                .add(user)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d("a", "DocumentSnapshot added with ID: " + documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("a", "Error adding document", e);
+                    }
+                });
+        db.collection("users")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("a", document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                            Log.w("a", "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+
+
 // Add a new document with a generated ID
         db.collection("products")
                 .add(products)
@@ -104,5 +140,5 @@ public class UserService implements IUserDao {
 
     public void getMessage() {
 
-    }
+   }
 }
