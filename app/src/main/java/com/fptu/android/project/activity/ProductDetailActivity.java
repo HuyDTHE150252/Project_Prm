@@ -23,14 +23,13 @@ import java.util.HashMap;
 
 public class ProductDetailActivity extends AppCompatActivity {
 
-    ImageView img,plus,minus;
-    int quantity=1;
-    int totalPrice=0;
+    ImageView img, plus, minus;
+    int quantity = 1;
+    int totalPrice = 0;
     TextView tvProductName, tvQuantity, tvPrice, tvProductAddress;
     FirebaseFirestore firestore;
     TextView btnAddToCart;
     FirebaseAuth auth;
-
 
 
     void bidingView() {
@@ -41,7 +40,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         tvQuantity = findViewById(R.id.tvQuantity);
         tvPrice = findViewById(R.id.txtPriceNumber);
         tvProductAddress = findViewById(R.id.productdetail_description);
-        btnAddToCart=findViewById(R.id.productdetail_addtocart);
+        btnAddToCart = findViewById(R.id.productdetail_addtocart);
     }
 
     void bidingAction() {
@@ -52,20 +51,20 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     private void plusQuantity(View view) {
         Product product = (Product) getIntent().getSerializableExtra("detailed");
-        int currentQuantity=product.getQuantity();
-        if(quantity<currentQuantity){
+        int currentQuantity = product.getQuantity();
+        if (quantity < currentQuantity) {
             quantity++;
             tvQuantity.setText(String.valueOf(quantity));
         }
-        Toast.makeText(ProductDetailActivity.this,"Nice",Toast.LENGTH_SHORT).show();
+        Toast.makeText(ProductDetailActivity.this, "Nice", Toast.LENGTH_SHORT).show();
     }
 
     private void minusQuantity(View view) {
-        if(quantity>1){
+        if (quantity > 1) {
             quantity--;
             tvQuantity.setText(String.valueOf(quantity));
         }
-        Toast.makeText(ProductDetailActivity.this,"Plus ik",Toast.LENGTH_SHORT).show();
+        Toast.makeText(ProductDetailActivity.this, "Plus ik", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -75,7 +74,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         bidingView();
         bidingAction();
         firestore = FirebaseFirestore.getInstance();
-        auth=FirebaseAuth.getInstance();
+        auth = FirebaseAuth.getInstance();
         Product product = (Product) getIntent().getSerializableExtra("detailed");
         tvProductName.setText(product.getProduct_name());
         tvProductAddress.setText(product.getProduct_address());
@@ -86,34 +85,38 @@ public class ProductDetailActivity extends AppCompatActivity {
 //        tvQuantity.setText(String.valueOf(product.getQuantity()));
 
 
-
     }
+
     public void addToCart() {
         Product product = (Product) getIntent().getSerializableExtra("detailed");
-        totalPrice=Integer.parseInt(tvQuantity.getText().toString())*(product.getPrice());
-        String saveCurrentTime,saveCurrentDate;
-        Calendar calForDate=Calendar.getInstance();
-        SimpleDateFormat currentDate= new SimpleDateFormat("MM dd,yyyy");
-        saveCurrentDate=currentDate.format(calForDate.getTime());
-        SimpleDateFormat currentTime= new SimpleDateFormat("HH:mm:ss a");
-        saveCurrentTime=currentDate.format(calForDate.getTime());
-        HashMap<String,Object> cartMap =new HashMap<>();
-        cartMap.put("productName",tvProductName.getText().toString());
-        cartMap.put("quantity",tvQuantity.getText().toString());
-        cartMap.put("currentTime",saveCurrentTime);
-        cartMap.put("currentDate",saveCurrentDate);
-        cartMap.put("totalPrice",totalPrice);
+        totalPrice = Integer.parseInt(tvQuantity.getText().toString()) * (product.getPrice());
+        String saveCurrentTime, saveCurrentDate;
+        Calendar calForDate = Calendar.getInstance();
+        SimpleDateFormat currentDate = new SimpleDateFormat("MM dd,yyyy");
+        saveCurrentDate = currentDate.format(calForDate.getTime());
+        SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
+        saveCurrentTime = currentDate.format(calForDate.getTime());
+        HashMap<String, Object> cartMap = new HashMap<>();
+        cartMap.put("productName", tvProductName.getText().toString());
+        cartMap.put("quantity", tvQuantity.getText().toString());
+        cartMap.put("currentTime", saveCurrentTime);
+        cartMap.put("currentDate", saveCurrentDate);
+        cartMap.put("totalPrice", totalPrice);
+        if (quantity == 0) {
+            Toast.makeText(ProductDetailActivity.this, "Nothing add  to cart", Toast.LENGTH_SHORT).show();
+            finish();
+        } else {
+            firestore.collection("AddToCart").document(auth.getCurrentUser().getUid())
+                    .collection("CurrentUser")
+                    .add(cartMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentReference> task) {
+                            Toast.makeText(ProductDetailActivity.this, "Added to cart", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    });
+        }
 
-
-        firestore.collection("AddToCart").document(auth.getCurrentUser().getUid())
-                .collection("CurrentUser")
-                .add(cartMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentReference> task) {
-                        Toast.makeText(ProductDetailActivity.this,"Added to cart",Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
-                });
 
     }
 

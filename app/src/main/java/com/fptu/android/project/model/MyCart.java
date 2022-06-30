@@ -8,6 +8,9 @@ public class MyCart {
     String totalQuantity;
     int totalPrice;
 
+    public MyCart() {
+    }
+
     public MyCart(String productName, String currentTime, String currentDate, String totalQuantity, int totalPrice) {
         this.productName = productName;
 //        this.productPrice = productPrice;
@@ -63,5 +66,16 @@ public class MyCart {
 
     public void setTotalPrice(int totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    @Override
+    public String toString() {
+        return "MyCart{" +
+                "productName='" + productName + '\'' +
+                ", currentTime='" + currentTime + '\'' +
+                ", currentDate='" + currentDate + '\'' +
+                ", totalQuantity='" + totalQuantity + '\'' +
+                ", totalPrice=" + totalPrice +
+                '}';
     }
 }

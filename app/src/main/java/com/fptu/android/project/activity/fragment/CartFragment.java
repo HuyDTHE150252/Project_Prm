@@ -1,6 +1,7 @@
 package com.fptu.android.project.activity.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,6 +33,7 @@ public class CartFragment extends Fragment {
     List<MyCart> cartList;
     FirebaseAuth auth;
     FirebaseFirestore db;
+    MyCart cartViewModel;
 
 
     @Nullable
@@ -43,6 +46,7 @@ public class CartFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         cartList = new ArrayList<>();
         cartAdapter = new MyCartAdapter(getActivity(), cartList);
+//        cartViewModel= new ViewModelProvider(getActivity()).get(MyCart.class);
 //        cartAdapter.setData(getListCart());
         recyclerView.setAdapter(cartAdapter);
         db.collection("AddToCart").document(auth.getCurrentUser().getUid())
@@ -51,10 +55,13 @@ public class CartFragment extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()){
                             for (DocumentSnapshot documentSnapshot:task.getResult().getDocuments()){
-                                MyCart cart=documentSnapshot.toObject(MyCart.class);
-                                cartList.add(cart);
+                                 cartViewModel=documentSnapshot.toObject(MyCart.class);
+                                cartList.add(cartViewModel);
                                 cartAdapter.notifyDataSetChanged();
+                                Log.d("Write1", documentSnapshot.getId() + " => " + documentSnapshot.getData());
                             }
+                        } else {
+                            Log.w("Write1", "Error getting documents.", task.getException());
                         }
                     }
                 });
@@ -62,7 +69,7 @@ public class CartFragment extends Fragment {
     }
 //    private List<MyCart> getListCart(){
 //        cartList.add(new MyCart("a","a","a","b",100));
-//        cartList.add(new MyCart("a","a","a","b",100));
+//        cartList.add(new MyCart("a","a","a","b",200));
 //        cartList.add(new MyCart("a","a","a","b",100));
 //        cartList.add(new MyCart("a","a","a","b",100));
 //        return cartList;
