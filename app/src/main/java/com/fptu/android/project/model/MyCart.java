@@ -6,6 +6,7 @@ public class MyCart {
     String currentTime;
     String currentDate;
     String totalQuantity;
+    String documentId;
     int totalPrice;
 
     public MyCart() {
@@ -27,14 +28,6 @@ public class MyCart {
     public void setProductName(String productName) {
         this.productName = productName;
     }
-
-//    public String getProductPrice() {
-//        return productPrice;
-//    }
-//
-//    public void setProductPrice(String productPrice) {
-//        this.productPrice = productPrice;
-//    }
 
     public String getCurrentTime() {
         return currentTime;
@@ -58,6 +51,14 @@ public class MyCart {
 
     public void setTotalQuantity(String totalQuantity) {
         this.totalQuantity = totalQuantity;
+    }
+
+    public String getDocumentId() {
+        return documentId;
+    }
+
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
     }
 
     public int getTotalPrice() {

@@ -1,15 +1,22 @@
 package com.fptu.android.project.activity.fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,6 +41,8 @@ public class CartFragment extends Fragment {
     FirebaseAuth auth;
     FirebaseFirestore db;
     MyCart cartViewModel;
+    TextView overTotalAmount;
+
 
 
     @Nullable
@@ -46,6 +55,11 @@ public class CartFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         cartList = new ArrayList<>();
         cartAdapter = new MyCartAdapter(getActivity(), cartList);
+        overTotalAmount = view.findViewById(R.id.totalTxt);
+
+        LocalBroadcastManager.getInstance(getActivity())
+                .registerReceiver(mMessageReceiver, new IntentFilter("MyTotalAmount"));
+
 //        cartViewModel= new ViewModelProvider(getActivity()).get(MyCart.class);
 //        cartAdapter.setData(getListCart());
         recyclerView.setAdapter(cartAdapter);
@@ -53,9 +67,12 @@ public class CartFragment extends Fragment {
                 .collection("CurrentUser").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()){
-                            for (DocumentSnapshot documentSnapshot:task.getResult().getDocuments()){
-                                 cartViewModel=documentSnapshot.toObject(MyCart.class);
+                        if (task.isSuccessful()) {
+                            for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {
+
+                                String docId=documentSnapshot.getId();
+                                cartViewModel = documentSnapshot.toObject(MyCart.class);
+                                cartViewModel.setDocumentId(docId);
                                 cartList.add(cartViewModel);
                                 cartAdapter.notifyDataSetChanged();
                                 Log.d("Write1", documentSnapshot.getId() + " => " + documentSnapshot.getData());
@@ -65,8 +82,16 @@ public class CartFragment extends Fragment {
                         }
                     }
                 });
-                return view;
+        return view;
     }
+
+    public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int totalBill = intent.getIntExtra("totalAmount", 0);
+            overTotalAmount.setText(totalBill + "$");
+        }
+    };
 //    private List<MyCart> getListCart(){
 //        cartList.add(new MyCart("a","a","a","b",100));
 //        cartList.add(new MyCart("a","a","a","b",200));

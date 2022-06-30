@@ -95,7 +95,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         SimpleDateFormat currentDate = new SimpleDateFormat("MM dd,yyyy");
         saveCurrentDate = currentDate.format(calForDate.getTime());
         SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
-        saveCurrentTime = currentDate.format(calForDate.getTime());
+        saveCurrentTime = currentTime.format(calForDate.getTime());
         HashMap<String, Object> cartMap = new HashMap<>();
         cartMap.put("productName", tvProductName.getText().toString());
         cartMap.put("quantity", tvQuantity.getText().toString());
