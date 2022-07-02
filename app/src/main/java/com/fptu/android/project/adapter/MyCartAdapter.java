@@ -64,6 +64,9 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
         holder.quantity.setText(cartList.get(position).getTotalQuantity());
         holder.totalPrice.setText(String.valueOf(cartList.get(position).getTotalPrice()));
         totalPrice = totalPrice + cartList.get(position).getTotalPrice();
+        Intent intent = new Intent("MyTotalAmount");
+        intent.putExtra("totalAmount", totalPrice);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
         holder.deleteItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,9 +113,7 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
 
 
 
-        Intent intent = new Intent("MyTotalAmount");
-        intent.putExtra("totalAmount", totalPrice);
-        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+
     }
 
     @Override
