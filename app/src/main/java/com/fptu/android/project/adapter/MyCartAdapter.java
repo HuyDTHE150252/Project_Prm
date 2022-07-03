@@ -17,9 +17,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fptu.android.project.R;
-import com.fptu.android.project.activity.ProductDetailActivity;
 import com.fptu.android.project.model.MyCart;
-import com.fptu.android.project.model.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -67,6 +65,7 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
         Intent intent = new Intent("MyTotalAmount");
         intent.putExtra("totalAmount", totalPrice);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+
         holder.deleteItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -123,7 +122,7 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView name, quantity, currentT, currentD, totalPrice;
+        TextView name, quantity, currentT, currentD, totalPrice,cartCheckout;
         ImageView deleteItem;
 
         public ViewHolder(@NonNull View itemView) {
@@ -134,6 +133,7 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
             currentD = itemView.findViewById(R.id.cart_currentdate);
             currentT = itemView.findViewById(R.id.cart_currenttime);
             deleteItem = itemView.findViewById(R.id.imgDeleteItem);
+
         }
     }
 }

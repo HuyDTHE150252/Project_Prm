@@ -3,6 +3,7 @@ package com.fptu.android.project.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -26,7 +27,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     ImageView img, plus, minus;
     int quantity = 1;
     int totalPrice = 0;
-    TextView tvProductName, tvQuantity, tvPrice, tvProductAddress;
+    TextView tvProductName, tvQuantity, tvPrice, tvProductAddress,checkout;
     FirebaseFirestore firestore;
     TextView btnAddToCart;
     FirebaseAuth auth;
@@ -40,6 +41,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         tvQuantity = findViewById(R.id.tvQuantity);
         tvPrice = findViewById(R.id.txtPriceNumber);
         tvProductAddress = findViewById(R.id.productdetail_description);
+        checkout=findViewById(R.id.productdetail_checkout);
         btnAddToCart = findViewById(R.id.productdetail_addtocart);
     }
 
@@ -47,6 +49,13 @@ public class ProductDetailActivity extends AppCompatActivity {
         btnAddToCart.setOnClickListener(this::onClick);
         minus.setOnClickListener(this::minusQuantity);
         plus.setOnClickListener(this::plusQuantity);
+        checkout.setOnClickListener(this::checkOut);
+    }
+
+    private void checkOut(View view) {
+        startActivity(new Intent(ProductDetailActivity.this,AddressShippingActivity.class));
+
+
     }
 
     private void plusQuantity(View view) {

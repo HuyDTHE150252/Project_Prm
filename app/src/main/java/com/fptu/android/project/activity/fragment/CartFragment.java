@@ -43,8 +43,6 @@ public class CartFragment extends Fragment {
     MyCart cartViewModel;
     TextView overTotalAmount;
 
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -59,10 +57,8 @@ public class CartFragment extends Fragment {
 
         LocalBroadcastManager.getInstance(getActivity())
                 .registerReceiver(mMessageReceiver, new IntentFilter("MyTotalAmount"));
-
-//        cartViewModel= new ViewModelProvider(getActivity()).get(MyCart.class);
-//        cartAdapter.setData(getListCart());
         recyclerView.setAdapter(cartAdapter);
+        //addto cart
         db.collection("AddToCart").document(auth.getCurrentUser().getUid())
                 .collection("CurrentUser").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -92,11 +88,5 @@ public class CartFragment extends Fragment {
             overTotalAmount.setText(totalBill + "$");
         }
     };
-//    private List<MyCart> getListCart(){
-//        cartList.add(new MyCart("a","a","a","b",100));
-//        cartList.add(new MyCart("a","a","a","b",200));
-//        cartList.add(new MyCart("a","a","a","b",100));
-//        cartList.add(new MyCart("a","a","a","b",100));
-//        return cartList;
-//    }
+
 }

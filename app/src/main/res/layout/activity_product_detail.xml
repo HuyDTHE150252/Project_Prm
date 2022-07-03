@@ -300,6 +300,7 @@
                 android:drawableStart="@drawable/ic_cart_menu"
 
                 android:textColor="@color/white" />
+
             <TextView
                 android:id="@+id/productdetail_checkout"
                 android:layout_width="140dp"
