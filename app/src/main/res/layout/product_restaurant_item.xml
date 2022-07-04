@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutProductItem"
+    android:layout_width="400dp"
+    android:layout_height="152dp"
+    android:layout_marginHorizontal="0dp"
+    android:layout_marginVertical="0dp">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="406dp"
+        android:layout_height="170dp"
+        android:backgroundTint="#e6e6e6"
+        app:cardCornerRadius="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <RelativeLayout
+            android:layout_width="354dp"
+            android:layout_height="158dp">
+
+
+            <Button
+                android:id="@+id/button_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/product_name"
+                android:layout_marginStart="49dp"
+                android:layout_marginLeft="680dp"
+                android:layout_marginTop="58dp"
+                android:layout_toEndOf="@+id/product_image"
+                android:padding="10dp"
+                android:text="Delete"
+                android:textColor="#eb3434"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/product_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/tra_sua_nuong" />
+
+            <TextView
+                android:id="@+id/product_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="5dp"
+                android:layout_toEndOf="@+id/product_image"
+                android:text="Trà Sữa Nướng"
+                android:textColor="@color/black"
+                android:textSize="25dp" />
+
+            <TextView
+                android:id="@+id/product_address"
+                android:layout_width="194dp"
+                android:layout_height="48dp"
+                android:layout_below="@id/product_name"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="45dp"
+                android:layout_marginTop="3dp"
+                android:layout_toEndOf="@+id/product_image"
+                android:text="10A Thôn 2, Thạch Hòa, Thạch Thất, Hòa Lạc"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/product_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/product_name"
+                android:layout_marginStart="-78dp"
+                android:layout_marginLeft="600dp"
+                android:layout_marginTop="75dp"
+                android:layout_toEndOf="@+id/product_image"
+                android:drawableStart="@drawable/ic_rate_star"
+                android:text=" 5.0"
+                android:textSize="22dp" />
+
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

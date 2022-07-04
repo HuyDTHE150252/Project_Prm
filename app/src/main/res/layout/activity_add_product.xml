@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/shippingAddress"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/addNewProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Add New Product"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="RestaurantId"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/addNewProduct"
+        app:layout_constraintTop_toBottomOf="@+id/addNewProduct" />
+
+    <TextView
+        android:id="@+id/textPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="Price"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/edtImg"
+        app:layout_constraintTop_toBottomOf="@+id/edtImg" />
+
+    <EditText
+        android:id="@+id/edtImg"
+        android:layout_width="375dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:hint="Restaurant Id"
+        android:inputType="textPersonName"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/textImg"
+        app:layout_constraintTop_toBottomOf="@+id/textImg" />
+
+    <EditText
+        android:id="@+id/edtPrice"
+        android:layout_width="374dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:hint="Enter Price"
+        android:inputType="textPersonName"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/edtImg"
+        app:layout_constraintStart_toStartOf="@+id/textPrice"
+        app:layout_constraintTop_toBottomOf="@+id/textPrice" />
+
+    <EditText
+        android:id="@+id/edtAddress"
+        android:layout_width="375dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:hint="Enter Name's Product"
+        android:inputType="textPersonName"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/edtPrice"
+        app:layout_constraintStart_toStartOf="@+id/textPrice"
+        app:layout_constraintTop_toBottomOf="@+id/textAdress" />
+
+    <TextView
+        android:id="@+id/textAdress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="Name Product"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/edtPrice"
+        app:layout_constraintTop_toBottomOf="@+id/edtPrice" />
+
+    <Button
+        android:id="@+id/btnConfirmAddProduct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp"
+        android:onClick="onConfirmAddressClick"
+        android:text="Add New Product"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/edtAddress"
+        app:layout_constraintStart_toStartOf="@+id/edtAddress" />
+
+    <Button
+        android:id="@+id/btnShow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="22dp"
+        android:text="Show"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewAdd" />
+
+    <ImageView
+        android:id="@+id/imageViewAdd"
+        android:layout_width="375dp"
+        android:layout_height="177dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="66dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtAddress"
+        app:srcCompat="@drawable/ic_baseline_add_photo_alternate_24" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="111dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="18dp"
+        android:text="Add Image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtAddress" />
+</androidx.constraintlayout.widget.ConstraintLayout>
