@@ -26,6 +26,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         this.context = context;
     }
 
+    public ProductAdapter(Context context, List<Product> listProduct) {
+        this.context = context;
+        this.listProduct = listProduct;
+    }
+
     public void setData(List<Product> list) {
         this.listProduct = list;
         notifyDataSetChanged();

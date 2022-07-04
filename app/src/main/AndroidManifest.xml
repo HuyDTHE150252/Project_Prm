@@ -4,8 +4,6 @@
     package="com.fptu.android.project">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
@@ -19,10 +17,16 @@
         android:theme="@style/Theme.Project"
         tools:targetApi="31">
         <activity
+            android:name=".activity.OrderHistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.EmptyCartActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.PaymentActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.AddressShippingActivity"
+            android:name=".activity.OrderActivity"
             android:exported="false" />
         <activity
             android:name=".activity.ProductDetailActivity"

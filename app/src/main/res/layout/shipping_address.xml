@@ -5,7 +5,7 @@
     android:id="@+id/shippingAddress"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.AddressShippingActivity">
+    tools:context=".activity.OrderActivity">
 
     <TextView
         android:id="@+id/totalCost"

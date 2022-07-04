@@ -28,8 +28,5 @@ public class CartService implements CartInterface {
 
     }
 
-    @Override
-    public void getCartView() {
 
-    }
 }

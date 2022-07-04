@@ -157,6 +157,7 @@
                         app:srcCompat="@drawable/ic_facebook" />
 
                     <ImageView
+                        android:id="@+id/login_gg"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_margin="8dp"

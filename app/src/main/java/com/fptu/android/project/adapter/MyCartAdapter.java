@@ -17,30 +17,33 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fptu.android.project.R;
-import com.fptu.android.project.model.MyCart;
+import com.fptu.android.project.activity.EmptyCartActivity;
+import com.fptu.android.project.activity.OrderActivity;
+import com.fptu.android.project.model.Order;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder> {
     Context context;
-    List<MyCart> cartList;
+    List<Order> cartList;
     int totalPrice = 0;
     FirebaseFirestore firestore;
 
     FirebaseAuth auth;
 
-    public MyCartAdapter(Context context, List<MyCart> cartList) {
+    public MyCartAdapter(Context context, List<Order> cartList) {
         this.context = context;
         this.cartList = cartList;
         firestore = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
     }
 
-    public void setData(List<MyCart> cartList) {
+    public void setData(List<Order> cartList) {
         this.cartList = cartList;
         notifyDataSetChanged();
     }
@@ -61,50 +64,12 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
         holder.currentD.setText(cartList.get(position).getCurrentDate());
         holder.quantity.setText(cartList.get(position).getTotalQuantity());
         holder.totalPrice.setText(String.valueOf(cartList.get(position).getTotalPrice()));
-        totalPrice = totalPrice + cartList.get(position).getTotalPrice();
-        Intent intent = new Intent("MyTotalAmount");
-        intent.putExtra("totalAmount", totalPrice);
-        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+
 
         holder.deleteItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(context);
-                alert.setTitle("Delete");
-                alert.setMessage("Are you sure you want to delete?");
-                alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        firestore.collection("AddToCart").document(auth.getCurrentUser().getUid())
-                                .collection("CurrentUser")
-                                .document(cartList.get(position).getDocumentId())
-                                .delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            cartList.remove(cartList.get(position));
-                                            notifyDataSetChanged();
-                                            Toast.makeText(context, "Item deleted", Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                });
-
-                        dialog.dismiss();
-                    }
-                });
-
-                alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-
-                alert.show();
+                deleteItemCart(position);
 
 
             }
@@ -113,6 +78,46 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
 
 
 
+
+    }
+    public void deleteItemCart(int position){
+        AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        alert.setTitle("Delete");
+        alert.setMessage("Are you sure you want to delete?");
+        alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                firestore.collection("AddToCart").document(auth.getCurrentUser().getUid())
+                        .collection("CurrentUser")
+                        .document(cartList.get(position).getDocumentId())
+                        .delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    cartList.remove(cartList.get(position));
+                                    notifyDataSetChanged();
+                                    Toast.makeText(context, "Item deleted", Toast.LENGTH_SHORT).show();
+
+                                } else {
+                                    Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+
+                dialog.dismiss();
+            }
+        });
+
+        alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        alert.show();
     }
 
     @Override

@@ -1,9 +1,13 @@
 package com.fptu.android.project.activity.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
@@ -16,11 +20,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fptu.android.project.R;
+import com.fptu.android.project.activity.HomePageActivity;
+import com.fptu.android.project.activity.user.LoginActivity;
 import com.fptu.android.project.adapter.CategoryAdapter;
 import com.fptu.android.project.adapter.ProductAdapter;
 import com.fptu.android.project.adapter.TrendingAdapter;
 import com.fptu.android.project.model.Category;
 import com.fptu.android.project.model.Product;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +46,8 @@ public class HomeFragment extends Fragment {
     private TrendingAdapter trend_adapter;
     private ProductAdapter product_adapter;
 
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,7 +57,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if(view != null){
+
+        if(view != null) {
             viewFlipper = view.findViewById(R.id.slider_viewFlipper);
             for (int i = 0; i < slider.length; i++) {
                 ImageView imageView = new ImageView(view.getContext());
@@ -75,6 +90,7 @@ public class HomeFragment extends Fragment {
             product.setLayoutManager(productLayoutManager);
             product_adapter.setData(getListProduct());
             product.setAdapter(product_adapter);
+
 
         }
     }

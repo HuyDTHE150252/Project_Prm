@@ -45,11 +45,11 @@
             app:layout_constraintTop_toBottomOf="@+id/textView40" />
 
         <TextView
-            android:id="@+id/textView18"
+            android:id="@+id/order_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="Status : "
+            android:text="Address : "
             app:layout_constraintStart_toStartOf="@+id/is_order_date"
             app:layout_constraintTop_toBottomOf="@+id/is_order_date" />
 
@@ -70,12 +70,12 @@
             app:layout_constraintTop_toTopOf="@+id/is_order_date" />
 
         <TextView
-            android:id="@+id/order_history_item_status"
+            android:id="@+id/order_history_item_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="STATUS"
-            app:layout_constraintStart_toEndOf="@+id/textView18"
-            app:layout_constraintTop_toTopOf="@+id/textView18" />
+            android:text="Address"
+            app:layout_constraintStart_toEndOf="@+id/order_address"
+            app:layout_constraintTop_toTopOf="@+id/order_address" />
 
         <Button
             android:id="@+id/viewDetailButton"
@@ -85,6 +85,6 @@
             android:text="View detail"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/order_history_item_status" />
+            app:layout_constraintTop_toBottomOf="@+id/order_history_item_address" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

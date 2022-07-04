@@ -1,6 +1,8 @@
 package com.fptu.android.project.model;
 
-public class MyCart {
+import java.io.Serializable;
+
+public class Order implements Serializable {
     String productName;
 //    String productPrice;
     String currentTime;
@@ -8,11 +10,18 @@ public class MyCart {
     String totalQuantity;
     String documentId;
     int totalPrice;
+    String address;
 
-    public MyCart() {
+    public Order() {
     }
 
-    public MyCart(String productName, String currentTime, String currentDate, String totalQuantity, int totalPrice) {
+    public Order(String productName, String currentDate, String address) {
+        this.productName = productName;
+        this.currentDate = currentDate;
+        this.address = address;
+    }
+
+    public Order(String productName, String currentTime, String currentDate, String totalQuantity, int totalPrice) {
         this.productName = productName;
 //        this.productPrice = productPrice;
         this.currentTime = currentTime;
@@ -39,6 +48,14 @@ public class MyCart {
 
     public String getCurrentDate() {
         return currentDate;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public void setCurrentDate(String currentDate) {
