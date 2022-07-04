@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,8 +18,10 @@ import androidx.fragment.app.Fragment;
 
 import com.fptu.android.project.R;
 import com.fptu.android.project.activity.HomePageActivity;
+import com.fptu.android.project.activity.user.EditProflieActivity;
 import com.fptu.android.project.activity.user.LoginActivity;
 import com.fptu.android.project.activity.user.SignupActivity;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,14 +38,14 @@ import java.util.concurrent.Executor;
 
 //import com.squareup.picasso.Picasso;
 public class ProfileFragment extends Fragment {
-    TextView fullName, email, phone, verifyMsg;
+    TextView fullName, email, phone, editProfile, verifyMsg;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userId;
     Button resendCode;
     Button resetPassLocal, changeProfileImage;
     FirebaseUser user;
-    ImageView logout, profileImage;
+    ImageView logout,iveditProfile, profileImage;
     StorageReference storageReference;
 
     @Nullable
@@ -64,6 +67,10 @@ public class ProfileFragment extends Fragment {
         storageReference = FirebaseStorage.getInstance().getReference();
         logout = view.findViewById(R.id.logout);
         logout.setOnClickListener(this::logout);
+//        iveditProfile.findViewById(R.id.editProfile);
+//        iveditProfile.setOnClickListener(this::editProfile);
+        editProfile = view.findViewById(R.id.tveditProfile);
+        editProfile.setOnClickListener(this::editProfile);
         StorageReference profileRef = storageReference.child("users/" + fAuth.getCurrentUser().getUid() + "/profile.jpg");
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -79,8 +86,9 @@ public class ProfileFragment extends Fragment {
 
         userId = fAuth.getCurrentUser().getUid();
         user = fAuth.getCurrentUser();
+
         DocumentReference documentReference = fStore.collection("users").document(userId);
-        documentReference.addSnapshotListener( new EventListener<DocumentSnapshot>() {
+        documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@javax.annotation.Nullable DocumentSnapshot documentSnapshot, @javax.annotation.Nullable FirebaseFirestoreException e) {
                 if (documentSnapshot.exists()) {
@@ -93,6 +101,36 @@ public class ProfileFragment extends Fragment {
                 }
             }
         });
+    }
+
+    //    if(!user.isEmailVerified()){
+//        verifyMsg.setVisibility(View.VISIBLE);
+//        resendCode.setVisibility(View.VISIBLE);
+//
+//        resendCode.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(final View v) {
+//
+//                user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//                        Toast.makeText(v.getContext(), "Verification Email Has been Sent.", Toast.LENGTH_SHORT).show();
+//                    }
+//                }).addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Log.d("tag", "onFailure: Email not sent " + e.getMessage());
+//                    }
+//                });
+//            }
+//        });
+//    }
+    private void editProfile(View view) {
+        Intent i = new Intent(view.getContext(), EditProflieActivity.class);
+        i.putExtra("fullName", fullName.getText().toString());
+        i.putExtra("email", email.getText().toString());
+        i.putExtra("phone", phone.getText().toString());
+        startActivity(i);
     }
 
     public void logout(View view) {

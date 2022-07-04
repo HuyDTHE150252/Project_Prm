@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.fptu.android.project" >
+    package="com.fptu.android.project">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -15,21 +15,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Project"
-        tools:targetApi="31" >
+        tools:targetApi="31">
         <activity
             android:name=".activity.OrderHistoryActivity"
             android:exported="false" />
         <activity
             android:name=".activity.EmptyCartActivity"
             android:exported="false" />
-<!--        <activity-->
-<!--            android:name=".activity."-->
-<!--            android:exported="false" />-->
-<!--        <activity-->
-<!--            android:name=".EditProfile"-->
-<!--            android:exported="false"-->
-<!--            android:label="@string/title_activity_edit_profile"-->
-<!--            android:theme="@style/Theme.Project.NoActionBar" />-->
+        <activity
+            android:name=".activity.user.EditProflieActivity"
+            android:exported="false" />
         <activity
             android:name=".activity.PaymentActivity"
             android:exported="false" />
@@ -49,17 +44,12 @@
             android:exported="false" />
         <activity
             android:name=".activity.user.LoginActivity"
-
             android:exported="true">
-
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
         </activity>
         <activity
             android:name=".activity.HomePageActivity"
@@ -70,21 +60,6 @@
         <activity
             android:name=".activity.user.SignupActivity"
             android:exported="true" />
-        <activity
-            android:name=".activity.restaurant.RestaurantCrudActivity"
-            android:exported="true" >
-
-    </activity>
-        <activity
-            android:name=".activity.restaurant.ShowActivity"
-            android:exported="true" />
-        <activity
-            android:name=".activity.restaurant.RestaurantDetailActivity"
-            android:exported="true" />
-        <activity
-            android:name=".activity.restaurant.RestaurantActivity"
-            android:exported="true" />
-
     </application>
 
 </manifest>
