@@ -2,7 +2,7 @@ package com.fptu.android.project.model;
 
 public class Model {
     private  String pid, pimg, pprice, pname;
-    private String image;
+    private String image, status;
 
     public Model() {
     }
