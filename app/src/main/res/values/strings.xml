@@ -38,4 +38,5 @@
     <string name="contact">Contact</string>
     <string name="skills">Skills</string>
     <string name="ratings">Star Ratings</string>
+    <string name="title_activity_edit_profile">EditProfile</string>
 </resources>
