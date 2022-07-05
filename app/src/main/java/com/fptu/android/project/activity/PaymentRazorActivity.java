@@ -7,12 +7,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fptu.android.project.R;
+import com.fptu.android.project.model.Order;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,18 +26,20 @@ import com.razorpay.PaymentResultListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class PaymentRazorActivity extends AppCompatActivity implements PaymentResultListener {
     TextView totalPrice;
     Button payBtn;
-    FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-    FirebaseAuth auth = FirebaseAuth.getInstance();
+    FirebaseFirestore firestore ;
+    FirebaseAuth auth ;
     private void bidingView() {
-
         payBtn=findViewById(R.id.pay_btn);
-
+        firestore = FirebaseFirestore.getInstance();
+        auth = FirebaseAuth.getInstance();
     }
 
     void bidingAction(){
@@ -49,7 +53,7 @@ public class PaymentRazorActivity extends AppCompatActivity implements PaymentRe
                  //set key id
                  checkout.setKeyID("rzp_test_manmXiBRI19pqj");
                  //set image
-                 checkout.setImage(R.drawable.rzp);
+                 checkout.setImage(R.drawable.razor_logo);
                  //init  json
                  JSONObject object= new JSONObject();
                  try {
@@ -96,23 +100,52 @@ public class PaymentRazorActivity extends AppCompatActivity implements PaymentRe
         builder.setTitle("Payment Id");
         builder.setMessage(s);
         builder.show();
-        HashMap<String,String> map=new HashMap<>();
-//        map.put("paymentID", String.valueOf(builder.show()));
-        map.put("status","Payment Successfully");
-        map.put("totalAmount",sAmount);
-        firestore.collection("Payment").document(auth.getUid()).
-                collection("CurrentUser").add(map).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentReference> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(PaymentRazorActivity.this, "Payment Success", Toast.LENGTH_SHORT).show();
+        List<Order> list = (ArrayList<Order>) getIntent().getSerializableExtra("itemListA");
+        if (list != null ) {
 
 
-                        }
-                    }
-                });
-        Intent intent = new Intent(PaymentRazorActivity.this, HomePageActivity.class);
-        startActivity(intent);
+            for (Order o : list) {
+                HashMap<String, Object> cartMap = new HashMap<>();
+                String uId=auth.getCurrentUser().getUid();
+                String orderId=firestore.collection("Order").document(uId).collection("CurrentUser").document().getId();
+                cartMap.put("userId",uId);
+                cartMap.put("orderId",orderId);
+                cartMap.put("productName", o.getProductName());
+                cartMap.put("quantity", o.getTotalQuantity());
+//                            cartMap.put("currentTime", o.getCurrentTime());
+                cartMap.put("currentDate", o.getCurrentDate());
+                cartMap.put("totalPrice", o.getTotalPrice());
+//                OrderActivity or= new OrderActivity();
+//                String final_address=or.finalAddress();
+//                            cartMap.put("Status",  jsonObject.getJSONObject("response").getString("state"));
+//                cartMap.put("userAddressShiping", final_address);
+                cartMap.put("status","Payment Successfully");
+                firestore.collection("Order").document(uId).
+                        collection("CurrentUser").add(cartMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentReference> task) {
+                                if (task.isSuccessful()) {
+
+                                    Toast.makeText(PaymentRazorActivity.this, "Payment successfull", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(PaymentRazorActivity.this, HomePageActivity.class);
+                                    startActivity(intent);
+
+                                }else{
+                                    Toast.makeText(PaymentRazorActivity.this, "Payment fail", Toast.LENGTH_SHORT).show();
+
+                                }
+                            }
+                        });
+            }
+
+        }else{
+            Intent intent = new Intent(PaymentRazorActivity.this, HomePageActivity.class);
+            Toast.makeText(PaymentRazorActivity.this, "Payment fail", Toast.LENGTH_SHORT).show();
+            startActivity(intent);
+        }
+
+
+
     }
 
     @Override

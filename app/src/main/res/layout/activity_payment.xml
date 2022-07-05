@@ -28,7 +28,7 @@
         app:layout_constraintHorizontal_bias="0.434"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/payment_toolbar"
-        app:srcCompat="@drawable/card_payment" />
+        app:srcCompat="@drawable/razor_logo" />
 
     <TextView
         android:id="@+id/textView12"

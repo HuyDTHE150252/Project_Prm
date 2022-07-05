@@ -25,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,65 +55,50 @@ public class OrderActivity extends AppCompatActivity {
 
     }
 
+  public String finalAddress(){
+
+      String fullName = fullname.getText().toString();
+      String addressT = shippingAddress.getText().toString();
+      String phoneT = phone.getText().toString();
+      String final_address = " ";
+      if (!fullName.isEmpty()) {
+          final_address += fullName + " ";
+      }
+      if (!phoneT.isEmpty()) {
+          final_address += phoneT + " ";
+      }
+      if (!addressT.isEmpty()) {
+          final_address += addressT + " ";
+      }
+      if (!fullName.isEmpty() && !addressT.isEmpty() && !phoneT.isEmpty()) {
+          List<Order> list = (ArrayList<Order>) getIntent().getSerializableExtra("itemList");
+
+          if(list!=null){
+              Intent intent = new Intent(OrderActivity.this, PaymentRazorActivity.class);
+              intent.putExtra("itemListA", (Serializable) list);
+              startActivity(intent);
+
+          }else{
+              Intent intent = new Intent(OrderActivity.this, HomePageActivity.class);
+//              intent.putExtra("itemListA", (Serializable) list);
+              startActivity(intent);
+          }
+
+
+      } else {
+          Toast.makeText(OrderActivity.this, "Please input all information to checkout", Toast.LENGTH_SHORT).show();
+      }
+      return  final_address;
+
+  }
 
     void bidingAction() {
         btnBack.setOnClickListener(this::backScreen);
         btnConfirmAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String fullName = fullname.getText().toString();
-                String addressT = shippingAddress.getText().toString();
-                String phoneT = phone.getText().toString();
-                String final_address = " ";
-                if (!fullName.isEmpty()) {
-                    final_address += fullName + " ";
-                }
-                if (!phoneT.isEmpty()) {
-                    final_address += phoneT + " ";
-                }
-                if (!addressT.isEmpty()) {
-                    final_address += addressT + " ";
-                }
-                if (!fullName.isEmpty() && !addressT.isEmpty() && !phoneT.isEmpty()) {
-                    List<Order> list = (ArrayList<Order>) getIntent().getSerializableExtra("itemList");
-                    if (list != null && list.size() > 0) {
 
-
-                        for (Order o : list) {
-                            HashMap<String, Object> cartMap = new HashMap<>();
-                            String uId=auth.getCurrentUser().getUid();
-                            String orderId=firestore.collection("Order").document(uId).collection("CurrentUser").document().getId();
-                            cartMap.put("userId",uId);
-                            cartMap.put("orderId",orderId);
-                            cartMap.put("productName", o.getProductName());
-                            cartMap.put("quantity", o.getTotalQuantity());
-//                            cartMap.put("currentTime", o.getCurrentTime());
-                            cartMap.put("currentDate", o.getCurrentDate());
-                            cartMap.put("totalPrice", o.getTotalPrice());
-//                            cartMap.put("Status",  jsonObject.getJSONObject("response").getString("state"));
-                            cartMap.put("userAddressShiping", final_address);
-
-
-                            firestore.collection("Order").document(uId).
-                                    collection("CurrentUser").add(cartMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<DocumentReference> task) {
-                                            if (task.isSuccessful()) {
-                                                Toast.makeText(OrderActivity.this, "Nice", Toast.LENGTH_SHORT).show();
-
-
-                                            }
-                                        }
-                                    });
-                            Intent intent = new Intent(OrderActivity.this, PaymentRazorActivity.class);
-                            startActivity(intent);
-                        }
-                    }
-
-                } else {
-                    Toast.makeText(OrderActivity.this, "Please input all information to checkout", Toast.LENGTH_SHORT).show();
-                }
-
+                finalAddress();
             }
 
 
