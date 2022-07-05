@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.fptu.android.project.R;
 import com.fptu.android.project.activity.EmptyCartActivity;
 import com.fptu.android.project.activity.OrderActivity;
+import com.fptu.android.project.activity.PaymentRazorActivity;
 import com.fptu.android.project.adapter.MyCartAdapter;
 import com.fptu.android.project.model.Order;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,7 +47,6 @@ public class CartFragment extends Fragment {
     TextView tvCheckout;
 
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -53,21 +54,25 @@ public class CartFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
         recyclerView = view.findViewById(R.id.cart_recycle_view);
-        tvCheckout=view.findViewById(R.id.cart_checkout);
+        tvCheckout = view.findViewById(R.id.cart_checkout);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         cartList = new ArrayList<>();
         cartAdapter = new MyCartAdapter(getActivity(), cartList);
         overTotalAmount = view.findViewById(R.id.totalTxt);
-//        if(cartAdapter.getItemCount()==0){
-//            Intent intent=new Intent(getContext(), EmptyCartActivity.class);
-//            startActivity(intent);
-//        }
+
         tvCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                      Intent intent=new Intent(getContext(), OrderActivity.class);
-                      intent.putExtra("itemList", (Serializable) cartList);
-                      startActivity(intent);
+                if (cartList.size() > 0) {
+                    Intent intent = new Intent(getContext(), OrderActivity.class);
+                    intent.putExtra("itemList", (Serializable) cartList);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getContext(), "Your cart is empty", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getContext(), EmptyCartActivity.class);
+                    startActivity(intent);
+                }
+
 
             }
         });
@@ -78,9 +83,8 @@ public class CartFragment extends Fragment {
         return view;
     }
 
-    private void getAllListProductCart(){
-        db.collection("AddToCart").document(auth.getCurrentUser().getUid())
-                .collection("CurrentUser").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+    private void getAllListProductCart() {
+        db.collection("AddToCart").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
@@ -94,10 +98,10 @@ public class CartFragment extends Fragment {
                                 recyclerView.setVisibility(View.VISIBLE);
 
 
-
                                 Log.d("Write1", documentSnapshot.getId() + " => " + documentSnapshot.getData());
                             }
                             calculateTotalAmount(cartList);
+
                         } else {
                             Log.w("Write1", "Error getting documents.", task.getException());
                         }
@@ -105,12 +109,12 @@ public class CartFragment extends Fragment {
                 });
     }
 
-    private void calculateTotalAmount(List<Order> cartList) {
-        double totalAmount=0.0;
-        for (Order o:cartList){
-            totalAmount+=o.getTotalPrice();
+    public void calculateTotalAmount(List<Order> cartList) {
+        double totalAmount = 0.0;
+        for (Order o : cartList) {
+            totalAmount += o.getTotalPrice();
         }
-        overTotalAmount.setText(""+totalAmount);
+        overTotalAmount.setText("" + totalAmount);
     }
 
 

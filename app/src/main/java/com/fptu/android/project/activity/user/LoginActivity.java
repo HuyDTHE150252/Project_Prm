@@ -51,7 +51,11 @@ public class LoginActivity extends AppCompatActivity {
 
 
 //        if(fAuth.getCurrentUser() != null){
+<<<<<<< HEAD
 //            startActivity(new Intent(getApplicationContext(), OrderHistoryActivity.class));
+=======
+//            startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
+>>>>>>> c7211433c9ce73b2baa9540c6bcefb806b371a8b
 //            finish();
 //        }
         setContentView(R.layout.activity_login);
