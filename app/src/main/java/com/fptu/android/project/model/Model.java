@@ -4,7 +4,7 @@ public class Model {
     private  String pid, pimg, pprice, pname;
     private String image, status;
 
-    public Model() {
+    public Model(String s) {
     }
 
     public Model(String pimg, String pprice, String pname) {

@@ -1,14 +1,17 @@
 package com.fptu.android.project.activity.restaurant;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -28,6 +31,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.OnProgressListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -40,13 +44,13 @@ public class RestaurantCrudActivity extends AppCompatActivity {
     private EditText edit_img, edit_price, edit_address;
     private Button btnAdd;
     private FirebaseFirestore db;
-    private Button btnShow;
+    private Button btnShow, uploadBtn;
     private String pid, pimg, pprice, pname;
-//    private ImageView imageView;
-//    private Uri imageUri;
-   //private ProgressBar progressBar;
-//    private DatabaseReference root = FirebaseDatabase.getInstance().getReference("Image");
-//    private StorageReference reference = FirebaseStorage.getInstance().getReference();
+    private ImageView imageView;
+    private Uri imageUri;
+   private ProgressBar progressBar;
+    private DatabaseReference root = FirebaseDatabase.getInstance().getReference("Image");
+    private StorageReference reference = FirebaseStorage.getInstance().getReference();
 
 
 
@@ -59,6 +63,10 @@ public class RestaurantCrudActivity extends AppCompatActivity {
          edit_address = findViewById(R.id.edtAddress);
          btnAdd = findViewById(R.id.btnConfirmAddProduct);
          btnShow = findViewById(R.id.btnShow);
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
+        uploadBtn = findViewById(R.id.upload_btn);
+        imageView = findViewById(R.id.imageViewAdd);
 
          db = FirebaseFirestore.getInstance();
 
@@ -78,7 +86,7 @@ public class RestaurantCrudActivity extends AppCompatActivity {
              btnAdd.setText("Save");
 
          }
-//        imageView = findViewById(R.id.imageViewAdd);
+
 //         imageView.setOnClickListener(new View.OnClickListener() {
 //             @Override
 //             public void onClick(View v) {
@@ -100,6 +108,25 @@ public class RestaurantCrudActivity extends AppCompatActivity {
 //            }
 //        });
 //    }
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent galleryIntent = new Intent();
+                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+                galleryIntent.setType("image/*");
+                startActivityForResult(galleryIntent , 2);
+            }
+        });
+        uploadBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (imageUri != null){
+                    uploadToFirebase(imageUri);
+                }else{
+                    Toast.makeText(RestaurantCrudActivity.this, "Please Select Image", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
 
          btnShow.setOnClickListener(new View.OnClickListener() {
@@ -254,4 +281,60 @@ public class RestaurantCrudActivity extends AppCompatActivity {
 //        return mime.getExtensionFromMimeType(cr.getType(mUri));
 //
 //    }
+@Override
+protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+
+    if (requestCode ==2 && resultCode == RESULT_OK && data != null){
+
+        imageUri = data.getData();
+        imageView.setImageURI(imageUri);
+
+    }
+}
+
+    private void uploadToFirebase(Uri uri){
+
+        final StorageReference fileRef = reference.child(System.currentTimeMillis() + "." + getFileExtension(uri));
+        fileRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+
+                        Model model = new Model(uri.toString());
+                        String modelId = root.push().getKey();
+                        root.child(modelId).setValue(model);
+                        progressBar.setVisibility(View.INVISIBLE);
+                        Toast.makeText(RestaurantCrudActivity.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
+                        imageView.setImageResource(R.drawable.ic_baseline_add_photo_alternate_24);
+                    }
+                });
+            }});
+//        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+//            @Override
+//            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+//                progressBar.setVisibility(View.VISIBLE);
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                progressBar.setVisibility(View.INVISIBLE);
+//               Toast.makeText(RestaurantCrudActivity.this, "Uploading Failed !!", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+    }
+
+
+
+    private String getFileExtension(Uri mUri){
+
+        ContentResolver cr = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cr.getType(mUri));
+
+    }
+
+
 }
