@@ -7,15 +7,9 @@ public class Shipper {
     private String shipId;
     List<Order> order;
     private String endTime;
+    private String status;
 
     public Shipper() {
-    }
-
-    public Shipper(String uId, String shipId, List<Order> order, String endTime) {
-        this.uId = uId;
-        this.shipId = shipId;
-        this.order = order;
-        this.endTime = endTime;
     }
 
     @Override
@@ -25,6 +19,7 @@ public class Shipper {
                 ", shipId='" + shipId + '\'' +
                 ", order=" + order +
                 ", endTime='" + endTime + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 
@@ -58,5 +53,21 @@ public class Shipper {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Shipper(String uId, String shipId, List<Order> order, String endTime, String status) {
+        this.uId = uId;
+        this.shipId = shipId;
+        this.order = order;
+        this.endTime = endTime;
+        this.status = status;
     }
 }
