@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.fptu.android.project.R;
 import com.fptu.android.project.activity.EmptyCartActivity;
 import com.fptu.android.project.activity.OrderActivity;
+import com.fptu.android.project.activity.fragment.CartFragment;
 import com.fptu.android.project.model.Order;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -88,8 +89,7 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                firestore.collection("AddToCart").document(auth.getCurrentUser().getUid())
-                        .collection("CurrentUser")
+                firestore.collection("AddToCart")
                         .document(cartList.get(position).getDocumentId())
                         .delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -98,7 +98,6 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
                                     cartList.remove(cartList.get(position));
                                     notifyDataSetChanged();
                                     Toast.makeText(context, "Item deleted", Toast.LENGTH_SHORT).show();
-
                                 } else {
                                     Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
                                 }

@@ -16,8 +16,10 @@ import com.fptu.android.project.model.Order;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -48,22 +50,18 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
     }
     private void loadListOrder(){
-        db.collection("Order").document(auth.getCurrentUser().getUid())
-                .collection("CurrentUser").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("Order")
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {
-
                                 String docId = documentSnapshot.getId();
                                 orderViewModel = documentSnapshot.toObject(Order.class);
                                 orderViewModel.setDocumentId(docId);
                                 orderList.add(orderViewModel);
                                 orderHistoryAdapter.notifyDataSetChanged();
                                 recyclerView.setVisibility(View.VISIBLE);
-
-
-
                             }
 
                         } else {
@@ -71,6 +69,29 @@ public class OrderHistoryActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+    private void loadAllOrder(){
+        CollectionReference collectionReference= db.collection("Order");
+        Query query=collectionReference.orderBy("currentDate", Query.Direction.ASCENDING);
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+
+                    for (DocumentSnapshot doc : task.getResult()) {
+                        String docId = doc.getId();
+                        orderViewModel = doc.toObject(Order.class);
+                        orderViewModel.setDocumentId(docId);
+                        orderList.add(orderViewModel);
+                        orderHistoryAdapter.notifyDataSetChanged();
+                    }
+
+
+                } else {
+                    Log.d("err", "Error getting documents: ", task.getException());
+                }
+            }
+        });
     }
 
 

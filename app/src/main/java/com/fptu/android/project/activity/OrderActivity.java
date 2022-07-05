@@ -56,11 +56,10 @@ public class OrderActivity extends AppCompatActivity {
     }
 
   public String finalAddress(){
-
       String fullName = fullname.getText().toString();
       String addressT = shippingAddress.getText().toString();
       String phoneT = phone.getText().toString();
-      String final_address = " ";
+      String final_address="";
       if (!fullName.isEmpty()) {
           final_address += fullName + " ";
       }
@@ -70,12 +69,15 @@ public class OrderActivity extends AppCompatActivity {
       if (!addressT.isEmpty()) {
           final_address += addressT + " ";
       }
+
       if (!fullName.isEmpty() && !addressT.isEmpty() && !phoneT.isEmpty()) {
           List<Order> list = (ArrayList<Order>) getIntent().getSerializableExtra("itemList");
 
           if(list!=null){
               Intent intent = new Intent(OrderActivity.this, PaymentRazorActivity.class);
               intent.putExtra("itemListA", (Serializable) list);
+              intent.putExtra("addressShipping", final_address);
+
               startActivity(intent);
 
           }else{
@@ -85,11 +87,12 @@ public class OrderActivity extends AppCompatActivity {
           }
 
 
+
       } else {
           Toast.makeText(OrderActivity.this, "Please input all information to checkout", Toast.LENGTH_SHORT).show();
       }
-      return  final_address;
 
+      return  final_address;
   }
 
     void bidingAction() {

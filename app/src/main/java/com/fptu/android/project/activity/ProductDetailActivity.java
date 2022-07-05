@@ -28,13 +28,14 @@ public class ProductDetailActivity extends AppCompatActivity implements CartInte
     ImageView img, plus, minus;
     int quantity = 1;
     int totalPrice = 0;
-    TextView tvProductName, tvQuantity, tvPrice, tvProductAddress,checkout;
+    TextView tvProductName, tvQuantity, tvPrice, tvProductAddress,feedback;
     FirebaseFirestore firestore;
     TextView btnAddToCart;
     FirebaseAuth auth;
 
 
     void bidingView() {
+        feedback=findViewById(R.id.productdetail_feedback);
         img = findViewById(R.id.productdetail_image);
         plus = findViewById(R.id.plusCardBtn);
         minus = findViewById(R.id.minusCardBtn);
@@ -47,10 +48,14 @@ public class ProductDetailActivity extends AppCompatActivity implements CartInte
     }
 
     void bidingAction() {
+        feedback.setOnClickListener(this::feedbackProduct);
         btnAddToCart.setOnClickListener(this::onClick);
         minus.setOnClickListener(this::minusQuantity);
         plus.setOnClickListener(this::plusQuantity);
 //        checkout.setOnClickListener(this::checkOut);
+    }
+
+    private void feedbackProduct(View view) {
     }
 
 //    private void checkOut(View view) {
@@ -118,9 +123,8 @@ public class ProductDetailActivity extends AppCompatActivity implements CartInte
             Toast.makeText(ProductDetailActivity.this, "Nothing add  to cart", Toast.LENGTH_SHORT).show();
             finish();
         } else {
-            firestore.collection("AddToCart").document(uId)
-                    .collection("CurrentUser")
-                    .add(cartMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+            firestore.collection("AddToCart").
+                    add(cartMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentReference> task) {
                             Toast.makeText(ProductDetailActivity.this, "Added to cart", Toast.LENGTH_SHORT).show();
