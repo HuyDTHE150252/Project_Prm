@@ -53,6 +53,7 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
         holder.name.setText(orderList.get(position).getProductName());
         holder.currentD.setText(orderList.get(position).getCurrentDate());
         holder.addressOrder.setText(orderList.get(position).getAddress());
+        holder.orderID.setText(orderList.get(position).getDocumentId());
     }
 
     @Override
@@ -62,11 +63,12 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView name, currentD,addressOrder;
+        TextView name, currentD,addressOrder,orderID;
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            orderID=itemView.findViewById(R.id.order_history_item_id);
             name = itemView.findViewById(R.id.order_history_item_name);
             currentD = itemView.findViewById(R.id.order_history_item_order_date);
             addressOrder=itemView.findViewById(R.id.order_history_item_address);

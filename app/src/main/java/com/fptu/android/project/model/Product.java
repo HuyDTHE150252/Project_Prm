@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Product implements Serializable {
-
+    private int product_id;
     private int product_image;
     private String product_name;
     private String product_address;
@@ -12,6 +12,18 @@ public class Product implements Serializable {
     private String status;
     private ArrayList<Category> categories;
     private int quantity,price;
+
+    public Product(int product_id, int product_image, String product_name, String product_address, String rate, String status, ArrayList<Category> categories, int quantity, int price) {
+        this.product_id = product_id;
+        this.product_image = product_image;
+        this.product_name = product_name;
+        this.product_address = product_address;
+        this.rate = rate;
+        this.status = status;
+        this.categories = categories;
+        this.quantity = quantity;
+        this.price = price;
+    }
 
     public Product(int product_image, String product_name, String product_address, String rate, String status, ArrayList<Category> categories) {
         this.product_image = product_image;
@@ -30,6 +42,14 @@ public class Product implements Serializable {
         this.status = status;
         this.quantity = quantity;
         this.price = price;
+    }
+
+    public int getProduct_id() {
+        return product_id;
+    }
+
+    public void setProduct_id(int product_id) {
+        this.product_id = product_id;
     }
 
     public int getProduct_image() {

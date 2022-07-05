@@ -50,10 +50,10 @@ public class SignupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
-        if(fAuth.getCurrentUser() != null){
-            startActivity(new Intent(SignupActivity.this, HomePageActivity.class));
-            finish();
-        }
+//        if(fAuth.getCurrentUser() != null){
+//            startActivity(new Intent(SignupActivity.this, HomePageActivity.class));
+//            finish();
+//        }
         bindingView();
         bindingAction();
 
@@ -176,6 +176,7 @@ public class SignupActivity extends AppCompatActivity {
                     userID = fAuth.getCurrentUser().getUid();
                     DocumentReference documentReference = fStore.collection("users").document(userID);
                     Map<String,Object> user = new HashMap<>();
+                    user.put("uId",userID);
                     user.put("fName",username);
                     user.put("email",email);
                     user.put("phone",phone);

@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.fptu.android.project.R;
 import com.fptu.android.project.adapter.MyAdapter;
 
-import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
+//import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 public class TouchHelper extends ItemTouchHelper.SimpleCallback {
 
@@ -42,13 +42,13 @@ public class TouchHelper extends ItemTouchHelper.SimpleCallback {
     @Override
     public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
 
-        new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-                .addSwipeRightBackgroundColor(Color.RED)
-                .addSwipeRightActionIcon(R.drawable.ic_baseline_delete_24)
-                .addSwipeLeftBackgroundColor(R.color.purple_500)
-                .addSwipeLeftActionIcon(R.drawable.ic_baseline_edit_24)
-                .create()
-                .decorate();
+//        new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+//                .addSwipeRightBackgroundColor(Color.RED)
+//                .addSwipeRightActionIcon(R.drawable.ic_baseline_delete_24)
+//                .addSwipeLeftBackgroundColor(R.color.purple_500)
+//                .addSwipeLeftActionIcon(R.drawable.ic_baseline_edit_24)
+//                .create()
+//                .decorate();
 
 
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);

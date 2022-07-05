@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
@@ -106,6 +107,8 @@ public class ProductDetailActivity extends AppCompatActivity implements CartInte
         SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
         saveCurrentTime = currentTime.format(calForDate.getTime());
         HashMap<String, Object> cartMap = new HashMap<>();
+        String uId=auth.getCurrentUser().getUid();
+        cartMap.put("userId",uId);
         cartMap.put("productName", tvProductName.getText().toString());
         cartMap.put("quantity", tvQuantity.getText().toString());
         cartMap.put("currentTime", saveCurrentTime);
@@ -115,7 +118,7 @@ public class ProductDetailActivity extends AppCompatActivity implements CartInte
             Toast.makeText(ProductDetailActivity.this, "Nothing add  to cart", Toast.LENGTH_SHORT).show();
             finish();
         } else {
-            firestore.collection("AddToCart").document(auth.getCurrentUser().getUid())
+            firestore.collection("AddToCart").document(uId)
                     .collection("CurrentUser")
                     .add(cartMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                         @Override

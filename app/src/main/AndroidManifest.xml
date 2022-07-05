@@ -26,7 +26,7 @@
             android:name=".activity.user.EditProflieActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.PaymentActivity"
+            android:name=".activity.PaymentRazorActivity"
             android:exported="false" />
         <activity
             android:name=".activity.OrderActivity"
