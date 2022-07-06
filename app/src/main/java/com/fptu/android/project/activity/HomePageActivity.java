@@ -2,6 +2,7 @@ package com.fptu.android.project.activity;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -14,13 +15,17 @@ import com.fptu.android.project.R;
 import com.fptu.android.project.activity.fragment.CartFragment;
 import com.fptu.android.project.activity.fragment.HomeFragment;
 import com.fptu.android.project.activity.fragment.ProfileFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-
+import com.google.firebase.auth.FirebaseAuth;
 
 public class HomePageActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private NavigationView nav_menu;
+    private BottomNavigationView bottomnav;
+    ProgressBar progressBar;
+    FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,26 +67,49 @@ public class HomePageActivity extends AppCompatActivity {
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+            setContentView(R.layout.activity_homepage);
+
+            HomeFragment homeFragment = new HomeFragment();
+            auth = FirebaseAuth.getInstance();
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, homeFragment).commit();
         }
     }
 
-    //    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
-//        @Override
-//        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//            Fragment selectedFragment = null;
-//            switch (item.getItemId()){
-//                case R.id.homepage:
-//                    selectedFragment = new HomeFragment();
-//                    break;
-//                case R.id.cart:
-//                    selectedFragment = new CartFragment();
-//                    break;
-//                case R.id.proflie:
-//                    selectedFragment = new ProfileFragment();
-//                    break;
+//        private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                Fragment selectedFragment = null;
+//                switch (item.getItemId()) {
+//                    case R.id.homepage:
+//                        selectedFragment = new HomeFragment();
+//                        break;
+//                    case R.id.cart:
+//                        if (auth.getCurrentUser() != null) {
+//                            selectedFragment = new CartFragment();
+//                        } else {
+//
+//                            Intent intent = new Intent(HomePageActivity.this, LoginActivity.class);
+//                            Toast.makeText(HomePageActivity.this, "Login first then Add to cart", Toast.LENGTH_SHORT).show();
+//                            startActivity(intent);
+//                        }
+//
+//
+//                        break;
+//                    case R.id.proflie:
+//                        selectedFragment = new ProfileFragment();
+//                        break;
+//                }
+//
+//                getSupportFragmentManager().
+//
+//                        beginTransaction().
+//
+//                        replace(R.id.fragment_container, selectedFragment).
+//
+//                        commit();
+//                return true;
 //            }
-//            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
-//            return true;
 //        }
-//    };
+
 }

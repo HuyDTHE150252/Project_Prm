@@ -153,6 +153,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_phone"
+                            android:inputType="phone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -262,6 +263,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Sign Up" />
+
+                    <TextView
+                        android:id="@+id/loginNow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:text="Already have an account? Login Now"
+                        android:textStyle="bold"
+                        android:textColor="@color/md_black_1000"/>
 
                     <TextView
                         android:layout_width="wrap_content"

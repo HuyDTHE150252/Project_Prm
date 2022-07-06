@@ -1,12 +1,10 @@
 package com.fptu.android.project.activity.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
@@ -40,8 +38,8 @@ public class HomeFragment extends Fragment {
     private CategoryAdapter cate_adapter;
     private TrendingAdapter trend_adapter;
     private ProductAdapter product_adapter;
-    private ImageView cate_img;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
+
 
     @Nullable
     @Override
@@ -91,26 +89,26 @@ public class HomeFragment extends Fragment {
 
     private List<Product> getListProduct() {
         List<Product> list = new ArrayList<>();
-        list.add(new Product(R.drawable.ca_phe, "Cà phê", "19 Thôn 3, xã Thạch Hòa, huyện Thạch Thất, Hòa Lạc", "5.0", "ĐÓNG CỬA"));
-        list.add(new Product(R.drawable.tra_sua_nuong, "Trà Sữa Nướng", "10A Thôn 2, xã Thạch Hòa, huyện Thạch Thất, Hòa Lạc", "4.9", "ĐÓNG CỬA"));
-        list.add(new Product(R.drawable.tra_dao, "Trà Đào", "45 Thôn 9, xã Thạch Hòa, huyện Thạch Thất, Hòa Lạc", "4.7", "ĐÓNG CỬA"));
-        list.add(new Product(R.drawable.tra_dao, "Đồ ăn Hàn", "12 Thôn 9, xã Tân Xã, huyện Thạch Thất, Hòa Lạc", "4.5", "ĐÓNG CỬA"));
-        list.add(new Product(R.drawable.bun_dau_mam_tom, "Bún Đậu", "55 Thôn 3, thị trấn Liên Quan, huyện Thạch Thất, Hòa Lạc", "4.5", "ĐÓNG CỬA"));
-        list.add(new Product(R.drawable.com_rang, "Cơm Rang", "1B Thôn 4, xã Thạch Hòa, huyện Thạch Thất, Hòa Lạc", "4.0", "ĐÓNG CỬA"));
-        list.add(new Product(R.drawable.ga_u_muoi, "Gà Ủ Muối", "23 Thôn 8, xã Thạch Hòa, huyện Thạch Thất, Hòa Lạc", "4.0", "ĐÓNG CỬA"));
+        list.add(new Product(R.drawable.ca_phe, "Cà phê", "19 Thôn 3, xã Thạch Hòa, huyện Thạch Thất, Hòa Lạc", "5.0", "ĐÓNG CỬA", 11, 111, 1));
+        list.add(new Product(R.drawable.tra_sua_nuong, "Trà Sữa Nướng", "10A Thôn 2, xã Thạch Hòa, huyện Thạch Thất, Hòa Lạc", "4.5", "ĐÓNG CỬA", 11, 111, 1));
+        list.add(new Product(R.drawable.tra_dao, "Trà Đào", "45 Thôn 9, xã Thạch Hòa, huyện Thạch Thất, Hòa Lạc", "4.5", "ĐÓNG CỬA", 11, 111, 2));
+        list.add(new Product(R.drawable.tra_dao, "Đồ ăn Hàn", "12 Thôn 9, xã Tân Xã, huyện Thạch Thất, Hòa Lạc", "4.5", "ĐÓNG CỬA", 11, 111, 2));
+        list.add(new Product(R.drawable.bun_dau_mam_tom, "Bún Đậu", "55 Thôn 3, thị trấn Liên Quan, huyện Thạch Thất, Hòa Lạc", "4.5", "ĐÓNG CỬA", 11, 111, 1));
+        list.add(new Product(R.drawable.com_rang, "Cơm Rang", "1B Thôn 4, xã Thạch Hòa, huyện Thạch Thất, Hòa Lạc", "4.0", "ĐÓNG CỬA", 11, 111, 1));
+        list.add(new Product(R.drawable.ga_u_muoi, "Gà Ủ Muối", "23 Thôn 8, xã Thạch Hòa, huyện Thạch Thất, Hòa Lạc", "4.0", "ĐÓNG CỬA", 11, 111, 1));
 
         return list;
     }
 
     private List<Product> getListTrending() {
         List<Product> list = new ArrayList<>();
-        list.add(new Product(R.drawable.ca_phe, "Cà phê", "19 Thôn 3, xã Thạch Hòa, huyện Thạch Thất, Hòa Lạc", "5.0", "ĐÓNG CỬA"));
-        list.add(new Product(R.drawable.tra_sua_nuong, "Trà Sữa Nướng", "10A Thôn 2, xã Thạch Hòa, huyện Thạch Thất, Hòa Lạc", "4.9", "ĐÓNG CỬA"));
-        list.add(new Product(R.drawable.tra_dao, "Trà Đào", "45 Thôn 9, xã Thạch Hòa, huyện Thạch Thất, Hòa Lạc", "4.7", "ĐÓNG CỬA"));
-        list.add(new Product(R.drawable.tra_dao, "Đồ ăn Hàn", "12 Thôn 9, xã Tân Xã, huyện Thạch Thất, Hòa Lạc", "4.5", "ĐÓNG CỬA"));
-        list.add(new Product(R.drawable.bun_dau_mam_tom, "Bún Đậu", "55 Thôn 3, thị trấn Liên Quan, huyện Thạch Thất, Hòa Lạc", "4.5", "ĐÓNG CỬA"));
-        list.add(new Product(R.drawable.com_rang, "Cơm Rang", "1B Thôn 4, xã Thạch Hòa, huyện Thạch Thất, Hòa Lạc", "4.0", "ĐÓNG CỬA"));
-        list.add(new Product(R.drawable.ga_u_muoi, "Gà Ủ Muối", "23 Thôn 8, xã Thạch Hòa, huyện Thạch Thất, Hòa Lạc", "4.0", "ĐÓNG CỬA"));
+        list.add(new Product(R.drawable.ca_phe, "Cà phê", "19 Thôn 3, xã Thạch Hòa, huyện Thạch Thất, Hòa Lạc", "5.0", "ĐÓNG CỬA", 11, 111, 1));
+        list.add(new Product(R.drawable.tra_sua_nuong, "Trà Sữa Nướng", "10A Thôn 2, xã Thạch Hòa, huyện Thạch Thất, Hòa Lạc", "4.5", "ĐÓNG CỬA", 11, 111, 1));
+        list.add(new Product(R.drawable.tra_dao, "Trà Đào", "45 Thôn 9, xã Thạch Hòa, huyện Thạch Thất, Hòa Lạc", "4.5", "ĐÓNG CỬA", 11, 111, 2));
+        list.add(new Product(R.drawable.tra_dao, "Đồ ăn Hàn", "12 Thôn 9, xã Tân Xã, huyện Thạch Thất, Hòa Lạc", "4.5", "ĐÓNG CỬA", 11, 111, 2));
+        list.add(new Product(R.drawable.bun_dau_mam_tom, "Bún Đậu", "55 Thôn 3, thị trấn Liên Quan, huyện Thạch Thất, Hòa Lạc", "4.5", "ĐÓNG CỬA", 11, 111, 1));
+        list.add(new Product(R.drawable.com_rang, "Cơm Rang", "1B Thôn 4, xã Thạch Hòa, huyện Thạch Thất, Hòa Lạc", "4.0", "ĐÓNG CỬA", 11, 111, 1));
+        list.add(new Product(R.drawable.ga_u_muoi, "Gà Ủ Muối", "23 Thôn 8, xã Thạch Hòa, huyện Thạch Thất, Hòa Lạc", "4.0", "ĐÓNG CỬA", 11, 111, 1));
 
         return list;
     }

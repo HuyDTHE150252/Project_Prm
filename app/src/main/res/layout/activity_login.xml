@@ -112,8 +112,8 @@
             </androidx.cardview.widget.CardView>
 
             <Button
-                android:id="@+id/button_forgot_password"
-                style="@style/TextyButton"
+                android:id="@+id/btn_forgot_password"
+                style="@style/Widget.AppCompat.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
@@ -157,6 +157,7 @@
                         app:srcCompat="@drawable/ic_facebook" />
 
                     <ImageView
+                        android:id="@+id/login_gg"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_margin="8dp"
@@ -172,9 +173,9 @@
 
             <Button
                 android:id="@+id/btn_donothaveaccount"
-                style="@style/TextyButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="319dp"
+                android:layout_height="67dp"
                 android:layout_gravity="center"
                 android:padding="20dp"
 

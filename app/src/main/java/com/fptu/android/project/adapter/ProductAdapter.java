@@ -1,6 +1,7 @@
 package com.fptu.android.project.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fptu.android.project.R;
+import com.fptu.android.project.activity.ProductDetailActivity;
 import com.fptu.android.project.model.Product;
 
 import java.util.List;
@@ -22,6 +24,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     public ProductAdapter(Context context) {
         this.context = context;
+    }
+
+    public ProductAdapter(Context context, List<Product> listProduct) {
+        this.context = context;
+        this.listProduct = listProduct;
     }
 
     public void setData(List<Product> list) {
@@ -47,6 +54,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.product_address.setText(product.getProduct_address());
         holder.rate.setText(product.getRate());
         holder.status.setText(product.getStatus());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ProductDetailActivity.class);
+                intent.putExtra("detailed",product);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

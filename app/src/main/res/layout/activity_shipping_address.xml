@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/shippingAddress"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".controller.ShippingAddressActivity">
+    android:layout_height="match_parent">
+
 
     <TextView
         android:id="@+id/totalCost"
@@ -92,10 +92,25 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="5dp"
-        android:onClick="onConfirmAddressClick"
-        android:text="Shipp to this address"
+        android:layout_marginBottom="232dp"
+
+        android:text="Ship to this address"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/edtShipAddress"
+        app:layout_constraintHorizontal_bias="0.621"
+        app:layout_constraintStart_toStartOf="@+id/edtShipAddress" />
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="164dp"
+
+        android:text="Back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/edtShipAddress"
+        app:layout_constraintHorizontal_bias="0.432"
         app:layout_constraintStart_toStartOf="@+id/edtShipAddress" />
 </androidx.constraintlayout.widget.ConstraintLayout>

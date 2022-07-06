@@ -4,13 +4,37 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Product implements Serializable {
-
+    private int product_id;
     private int product_image;
     private String product_name;
     private String product_address;
     private String rate;
     private String status;
     private ArrayList<Category> categories;
+    private int quantity,price;
+    private int restaurentId;
+
+    public int getRestaurentId() {
+        return restaurentId;
+    }
+
+
+
+    public void setRestaurentId(int restaurentId) {
+        this.restaurentId = restaurentId;
+    }
+
+    public Product(int product_id, int product_image, String product_name, String product_address, String rate, String status, ArrayList<Category> categories, int quantity, int price) {
+        this.product_id = product_id;
+        this.product_image = product_image;
+        this.product_name = product_name;
+        this.product_address = product_address;
+        this.rate = rate;
+        this.status = status;
+        this.categories = categories;
+        this.quantity = quantity;
+        this.price = price;
+    }
 
     public Product(int product_image, String product_name, String product_address, String rate, String status, ArrayList<Category> categories) {
         this.product_image = product_image;
@@ -21,20 +45,23 @@ public class Product implements Serializable {
         this.categories = categories;
     }
 
-    public Product(int product_image, String product_name, String product_address, String rate, String status) {
+    public Product(int product_image, String product_name, String product_address, String rate, String status, int quantity, int price,int restaurentId) {
         this.product_image = product_image;
         this.product_name = product_name;
         this.product_address = product_address;
         this.rate = rate;
         this.status = status;
+        this.quantity = quantity;
+        this.price = price;
+        this.restaurentId=restaurentId;
     }
 
-    public ArrayList<Category> getCategories() {
-        return categories;
+    public int getProduct_id() {
+        return product_id;
     }
 
-    public void setCategories(ArrayList<Category> categories) {
-        this.categories = categories;
+    public void setProduct_id(int product_id) {
+        this.product_id = product_id;
     }
 
     public int getProduct_image() {
@@ -75,6 +102,30 @@ public class Product implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public ArrayList<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(ArrayList<Category> categories) {
+        this.categories = categories;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     @Override
