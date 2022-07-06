@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.fptu.android.project.R;
 import com.fptu.android.project.activity.fragment.CartFragment;
@@ -27,17 +28,15 @@ public class HomePageActivity extends AppCompatActivity {
     FirebaseAuth auth;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         HomeFragment homeFragment = new HomeFragment();
-        auth=FirebaseAuth.getInstance();
+        auth = FirebaseAuth.getInstance();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,homeFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, homeFragment).commit();
 //        ProfileFragment profileFragment = new ProfileFragment();
 //        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,profileFragment).commit();
         bottomnav = findViewById(R.id.menu_bottom);
@@ -48,18 +47,34 @@ public class HomePageActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment selectedFragment = null;
-            switch (item.getItemId()){
+            switch (item.getItemId()) {
                 case R.id.homepage:
                     selectedFragment = new HomeFragment();
                     break;
                 case R.id.cart:
-                    selectedFragment = new CartFragment();
+                    if (auth.getCurrentUser() != null) {
+                        selectedFragment = new CartFragment();
+                    } else {
+
+                        Intent intent = new Intent(HomePageActivity.this, LoginActivity.class);
+                        Toast.makeText(HomePageActivity.this, "Login first then Add to cart", Toast.LENGTH_SHORT).show();
+                        startActivity(intent);
+                    }
+
+
                     break;
                 case R.id.proflie:
                     selectedFragment = new ProfileFragment();
                     break;
             }
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
+
+            getSupportFragmentManager().
+
+                    beginTransaction().
+
+                    replace(R.id.fragment_container, selectedFragment).
+
+                    commit();
             return true;
         }
     };

@@ -2,14 +2,21 @@ package com.fptu.android.project.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fptu.android.project.R;
+import com.fptu.android.project.activity.user.LoginActivity;
 import com.fptu.android.project.interfaces.CartInterface;
 import com.fptu.android.project.model.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,11 +30,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 
-public class ProductDetailActivity extends AppCompatActivity implements CartInterface {
+public class ProductDetailActivity extends AppCompatActivity  {
 
     ImageView img, plus, minus;
     int quantity = 1;
     int totalPrice = 0;
+    RatingBar ratingBar;
     TextView tvProductName, tvQuantity, tvPrice, tvProductAddress,feedback;
     FirebaseFirestore firestore;
     TextView btnAddToCart;
@@ -45,6 +53,7 @@ public class ProductDetailActivity extends AppCompatActivity implements CartInte
         tvProductAddress = findViewById(R.id.productdetail_description);
 //        checkout=findViewById(R.id.productdetail_checkout);
         btnAddToCart = findViewById(R.id.productdetail_addtocart);
+        ratingBar=(RatingBar) findViewById(R.id.productdetail_rating);
     }
 
     void bidingAction() {
@@ -80,6 +89,7 @@ public class ProductDetailActivity extends AppCompatActivity implements CartInte
             tvQuantity.setText(String.valueOf(quantity));
         }
         Toast.makeText(ProductDetailActivity.this, "Plus ik", Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
@@ -95,6 +105,12 @@ public class ProductDetailActivity extends AppCompatActivity implements CartInte
         tvProductAddress.setText(product.getProduct_address());
         img.setImageResource(product.getProduct_image());
         tvPrice.setText(String.valueOf(product.getPrice()));
+//        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+//            @Override
+//            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+//                feedback.setText("Rate: "+ratingBar);
+//            }
+//        });
 
 
 //        tvQuantity.setText(String.valueOf(product.getQuantity()));
@@ -137,6 +153,13 @@ public class ProductDetailActivity extends AppCompatActivity implements CartInte
     }
 
     private void onClick(View view) {
-        addToCart();
+        if (auth.getCurrentUser() != null) {
+            addToCart();
+        }else{
+            Intent intent= new Intent(ProductDetailActivity.this, LoginActivity.class);
+            Toast.makeText(ProductDetailActivity.this, "Login first then Add to cart", Toast.LENGTH_SHORT).show();
+            startActivity(intent);
+        }
+
     }
 }

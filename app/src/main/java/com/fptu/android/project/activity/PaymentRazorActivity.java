@@ -4,8 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,8 +21,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fptu.android.project.R;
+import com.fptu.android.project.adapter.MyCartAdapter;
 import com.fptu.android.project.model.Order;
 import com.fptu.android.project.model.Product;
+import com.fptu.android.project.service.CartService;
 import com.fptu.android.project.service.NotificationService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -41,12 +48,15 @@ public class PaymentRazorActivity extends AppCompatActivity implements PaymentRe
     Button payBtn;
     FirebaseFirestore firestore;
     FirebaseAuth auth;
+    CartService cartService;
+
 
 
     private void bidingView() {
         payBtn = findViewById(R.id.pay_btn);
         firestore = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
+        totalPrice=findViewById(R.id.total_amt);
 
 
     }
@@ -55,7 +65,7 @@ public class PaymentRazorActivity extends AppCompatActivity implements PaymentRe
         payBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String sAmount = "100";
+                String sAmount = "222";
                 int amount = Math.round(Float.parseFloat(sAmount) * 100);
                 //razor check
                 Checkout checkout = new Checkout();
@@ -104,12 +114,16 @@ public class PaymentRazorActivity extends AppCompatActivity implements PaymentRe
 
     @Override
     public void onPaymentSuccess(String s) {
-        String sAmount = "100";
-//        int amount=Math.round(Float.parseFloat(sAmount)*100);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Payment Id");
         builder.setMessage(s);
         builder.show();
+
+        //notification
+
+
+
         List<Order> list = (ArrayList<Order>) getIntent().getSerializableExtra("itemListA");
         if (list != null) {
 
@@ -138,7 +152,12 @@ public class PaymentRazorActivity extends AppCompatActivity implements PaymentRe
 
                                     Toast.makeText(PaymentRazorActivity.this, "Payment successfull", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(PaymentRazorActivity.this, HomePageActivity.class);
+
+
                                     startActivity(intent);
+                                    //clean cart
+                                    MyCartAdapter m= new MyCartAdapter(getApplicationContext(),list);
+                                    m.cleanCart();
 
                                 } else {
                                     Toast.makeText(PaymentRazorActivity.this, "Payment fail", Toast.LENGTH_SHORT).show();
@@ -147,6 +166,7 @@ public class PaymentRazorActivity extends AppCompatActivity implements PaymentRe
                             }
                         });
             }
+
 
         } else {
             Intent intent = new Intent(PaymentRazorActivity.this, HomePageActivity.class);
