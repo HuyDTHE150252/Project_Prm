@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="Address : "
+            android:text="RestaurentID : "
             app:layout_constraintStart_toStartOf="@+id/is_order_date"
             app:layout_constraintTop_toBottomOf="@+id/is_order_date" />
 

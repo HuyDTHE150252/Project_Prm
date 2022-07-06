@@ -46,11 +46,11 @@ public class OrderHistoryActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager= new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(orderHistoryAdapter);
-        loadListOrder();
+        loadAllOrder();
 
     }
     private void loadListOrder(){
-        db.collection("Order")
+        db.collection("Order").orderBy("currentDate", Query.Direction.ASCENDING)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -70,29 +70,26 @@ public class OrderHistoryActivity extends AppCompatActivity {
                     }
                 });
     }
-    private void loadAllOrder(){
-        CollectionReference collectionReference= db.collection("Order");
-        Query query=collectionReference.orderBy("currentDate", Query.Direction.ASCENDING);
-        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
+    private void loadAllOrder() {
+        db.collection("Order").whereEqualTo("userId",auth.getCurrentUser().getUid())
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {
+                                String docId = documentSnapshot.getId();
+                                orderViewModel = documentSnapshot.toObject(Order.class);
+                                orderViewModel.setDocumentId(docId);
+                                orderList.add(orderViewModel);
+                                orderHistoryAdapter.notifyDataSetChanged();
+                                recyclerView.setVisibility(View.VISIBLE);
+                            }
 
-                    for (DocumentSnapshot doc : task.getResult()) {
-                        String docId = doc.getId();
-                        orderViewModel = doc.toObject(Order.class);
-                        orderViewModel.setDocumentId(docId);
-                        orderList.add(orderViewModel);
-                        orderHistoryAdapter.notifyDataSetChanged();
+                        } else {
+                            Log.w("err", "Error getting documents.", task.getException());
+                        }
                     }
+                });
 
-
-                } else {
-                    Log.d("err", "Error getting documents: ", task.getException());
-                }
-            }
-        });
     }
-
-
 }

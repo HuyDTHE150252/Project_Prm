@@ -123,8 +123,8 @@ public class ProductDetailActivity extends AppCompatActivity implements CartInte
             Toast.makeText(ProductDetailActivity.this, "Nothing add  to cart", Toast.LENGTH_SHORT).show();
             finish();
         } else {
-            firestore.collection("AddToCart").
-                    add(cartMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+            firestore.collection("AddToCart").document(auth.getCurrentUser().getUid()).collection("CurrentUser")
+                    .add(cartMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentReference> task) {
                             Toast.makeText(ProductDetailActivity.this, "Added to cart", Toast.LENGTH_SHORT).show();

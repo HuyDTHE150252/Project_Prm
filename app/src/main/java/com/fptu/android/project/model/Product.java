@@ -12,6 +12,17 @@ public class Product implements Serializable {
     private String status;
     private ArrayList<Category> categories;
     private int quantity,price;
+    private int restaurentId;
+
+    public int getRestaurentId() {
+        return restaurentId;
+    }
+
+
+
+    public void setRestaurentId(int restaurentId) {
+        this.restaurentId = restaurentId;
+    }
 
     public Product(int product_id, int product_image, String product_name, String product_address, String rate, String status, ArrayList<Category> categories, int quantity, int price) {
         this.product_id = product_id;
@@ -34,7 +45,7 @@ public class Product implements Serializable {
         this.categories = categories;
     }
 
-    public Product(int product_image, String product_name, String product_address, String rate, String status, int quantity, int price) {
+    public Product(int product_image, String product_name, String product_address, String rate, String status, int quantity, int price,int restaurentId) {
         this.product_image = product_image;
         this.product_name = product_name;
         this.product_address = product_address;
@@ -42,6 +53,7 @@ public class Product implements Serializable {
         this.status = status;
         this.quantity = quantity;
         this.price = price;
+        this.restaurentId=restaurentId;
     }
 
     public int getProduct_id() {
