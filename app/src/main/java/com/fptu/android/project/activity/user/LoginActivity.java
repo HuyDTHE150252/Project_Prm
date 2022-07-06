@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.fptu.android.project.R;
 import com.fptu.android.project.activity.HomePageActivity;
+import com.fptu.android.project.activity.OrderHistoryActivity;
 import com.fptu.android.project.activity.fragment.ProfileFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -50,7 +51,11 @@ public class LoginActivity extends AppCompatActivity {
 
 
 //        if(fAuth.getCurrentUser() != null){
+
+//            startActivity(new Intent(getApplicationContext(), OrderHistoryActivity.class));
+
 //            startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
+
 //            finish();
 //        }
         setContentView(R.layout.activity_login);
@@ -207,7 +212,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(getApplicationContext(),"Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
-                    Intent intent =new Intent(LoginActivity.this, HomePageActivity.class);
+                    Intent intent =new Intent(LoginActivity.this, OrderHistoryActivity.class);
                     startActivity(intent);
                 }else{
                     Toast.makeText(getApplicationContext(),"Đăng nhập không thành công!", Toast.LENGTH_SHORT).show();

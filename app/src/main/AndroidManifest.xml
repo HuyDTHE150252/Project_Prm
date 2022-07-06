@@ -22,6 +22,15 @@
             </intent-filter>
         </service>
         <activity
+            android:name=".activity.shipper.ShipperActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>>
+        <activity
             android:name=".activity.OrderHistoryActivity"
             android:exported="false" />
         <activity
@@ -50,11 +59,7 @@
         <activity
             android:name=".activity.user.LoginActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activity.HomePageActivity"
@@ -64,6 +69,18 @@
             android:exported="true" />
         <activity
             android:name=".activity.user.SignupActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.restaurant.RestaurantCrudActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.restaurant.RestaurantActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.restaurant.RestaurantDetailActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.restaurant.ShowActivity"
             android:exported="true" />
     </application>
 
