@@ -2,6 +2,7 @@ package com.fptu.android.project.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +11,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fptu.android.project.R;
 import com.fptu.android.project.model.Order;
+import com.fptu.android.project.service.NotificationService;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -62,6 +65,8 @@ public class ShipperApdapter extends RecyclerView.Adapter<ShipperApdapter.ViewHo
             public void onClick(View v) {
                 holder.completed_btn.setVisibility(View.GONE);
                 holder.stick.setVisibility(View.VISIBLE);
+
+
             }
         });
     }

@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +19,7 @@ import com.fptu.android.project.R;
 import com.fptu.android.project.activity.HomePageActivity;
 import com.fptu.android.project.activity.OrderHistoryActivity;
 import com.fptu.android.project.activity.fragment.ProfileFragment;
+import com.fptu.android.project.service.NotificationService;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -32,6 +34,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -50,14 +53,14 @@ public class LoginActivity extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
 
 
-//        if(fAuth.getCurrentUser() != null){
+        if(fAuth.getCurrentUser() != null){
 
-//            startActivity(new Intent(getApplicationContext(), OrderHistoryActivity.class));
+            startActivity(new Intent(getApplicationContext(), OrderHistoryActivity.class));
 
-//            startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
+            startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
 
-//            finish();
-//        }
+            finish();
+        }
         setContentView(R.layout.activity_login);
         bindingView();
         bindingAction();
@@ -212,8 +215,9 @@ public class LoginActivity extends AppCompatActivity {
             public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(getApplicationContext(),"Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
-                    Intent intent =new Intent(LoginActivity.this, OrderHistoryActivity.class);
+                    Intent intent =new Intent(LoginActivity.this, HomePageActivity.class);
                     startActivity(intent);
+
                 }else{
                     Toast.makeText(getApplicationContext(),"Đăng nhập không thành công!", Toast.LENGTH_SHORT).show();
                 }

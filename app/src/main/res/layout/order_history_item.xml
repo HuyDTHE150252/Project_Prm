@@ -81,22 +81,22 @@
             android:id="@+id/completed_btn"
             android:layout_width="127dp"
             android:layout_height="53dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:text="Completed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/order_address" />
 
         <ImageButton
             android:id="@+id/tickIMG"
-            android:layout_width="125dp"
-            android:layout_height="130dp"
-            android:layout_marginStart="97dp"
-            android:layout_marginTop="26dp"
+            android:layout_width="112dp"
+            android:layout_height="121dp"
+            android:layout_marginStart="132dp"
+            android:layout_marginTop="8dp"
+
             app:layout_constraintStart_toEndOf="@+id/completed_btn"
             app:layout_constraintTop_toTopOf="parent"
-
-            app:srcCompat="@drawable/done" />
+            app:srcCompat="@drawable/order_successfully" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

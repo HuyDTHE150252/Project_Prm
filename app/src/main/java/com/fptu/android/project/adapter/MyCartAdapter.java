@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,6 +22,7 @@ import com.fptu.android.project.activity.EmptyCartActivity;
 import com.fptu.android.project.activity.OrderActivity;
 import com.fptu.android.project.activity.fragment.CartFragment;
 import com.fptu.android.project.model.Order;
+import com.fptu.android.project.service.NotificationService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,7 +36,6 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
     List<Order> cartList;
     int totalPrice = 0;
     FirebaseFirestore firestore;
-
     FirebaseAuth auth;
 
     public MyCartAdapter(Context context, List<Order> cartList) {
@@ -89,7 +90,8 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                firestore.collection("AddToCart")
+                firestore.collection("AddToCart").document(auth.getCurrentUser().getUid())
+                        .collection("CurrentUser")
                         .document(cartList.get(position).getDocumentId())
                         .delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -97,7 +99,10 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
                                 if (task.isSuccessful()) {
                                     cartList.remove(cartList.get(position));
                                     notifyDataSetChanged();
+
+
                                     Toast.makeText(context, "Item deleted", Toast.LENGTH_SHORT).show();
+
                                 } else {
                                     Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
                                 }
@@ -138,6 +143,8 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
             currentT = itemView.findViewById(R.id.cart_currenttime);
             deleteItem = itemView.findViewById(R.id.imgDeleteItem);
 
+
         }
     }
+
 }

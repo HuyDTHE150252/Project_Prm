@@ -5,12 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Notification;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.fptu.android.project.R;
+import com.fptu.android.project.activity.user.LoginActivity;
 import com.fptu.android.project.adapter.OrderHistoryAdapter;
 import com.fptu.android.project.adapter.ShipperApdapter;
 import com.fptu.android.project.model.Order;
@@ -22,6 +26,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +44,7 @@ public class ShipperActivity extends AppCompatActivity {
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_shipper);
+
             db=FirebaseFirestore.getInstance();
             auth=FirebaseAuth.getInstance();
             recyclerView=findViewById(R.id.recycleListShipper);
@@ -51,7 +57,10 @@ public class ShipperActivity extends AppCompatActivity {
             loadListOrder();
 
         }
-        private void loadListOrder(){
+
+
+
+    private void loadListOrder(){
             db.collection("Order")
                     .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
@@ -71,6 +80,7 @@ public class ShipperActivity extends AppCompatActivity {
                             }
                         }
                     });
+
         }
         private void loadAllOrder(){
             CollectionReference collectionReference= db.collection("Order");
