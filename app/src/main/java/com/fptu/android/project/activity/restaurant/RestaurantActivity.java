@@ -73,11 +73,11 @@ public class RestaurantActivity extends AppCompatActivity {
 
     private List<Restaurant> getListRestaurant() {
         List<Restaurant> list = new ArrayList<>();
-        list.add(new Restaurant(R.drawable.nhahangngon, 1, 1 , "Nam Le Quan", "Thon 3 Thach Hoa", "4.5","Mo cua"));
-        list.add(new Restaurant(R.drawable.do_an_nhanh, 2, 2 , "Nem Nuong Hung Anh", "Thon 3 Thach Hoa", "4.5","Mo cua"));
-        list.add(new Restaurant(R.drawable.do_an_vat, 3, 3 , "Bun Dau", "Thon 3 Thach Hoa", "4.5","Mo cua"));
-        list.add(new Restaurant(R.drawable.birthday_cake_icon, 4, 4 , "My Cay Anh Hai", "Thon 3 Thach Hoa", "4.5","Mo cua"));
-        list.add(new Restaurant(R.drawable.nhahangngon, 5, 5 , "Com Minh Hanh", "Thon 3 Thach Hoa", "4.5","Mo cua"));
+        list.add(new Restaurant(R.drawable.nhahangngon, 1, 1 , "Nam Le Quan", "Thon 3 Thach Hoa", "4.5","Mo cua","Nhiều món ngon"));
+        list.add(new Restaurant(R.drawable.do_an_nhanh, 2, 2 , "Nem Nuong Hung Anh", "Thon 3 Thach Hoa", "4.5","Mo cua","Nhiều món ngon"));
+        list.add(new Restaurant(R.drawable.do_an_vat, 3, 3 , "Bun Dau", "Thon 3 Thach Hoa", "4.5","Mo cua","Nhiều món ngon"));
+        list.add(new Restaurant(R.drawable.birthday_cake_icon, 4, 4 , "My Cay Anh Hai", "Thon 3 Thach Hoa", "4.5","Mo cua","Nhiều món ngon"));
+        list.add(new Restaurant(R.drawable.nhahangngon, 5, 5 , "Com Minh Hanh", "Thon 3 Thach Hoa", "4.5","Mo cua","Nhiều món ngon"));
         return list;
     }
     public void insertRestaurants(){

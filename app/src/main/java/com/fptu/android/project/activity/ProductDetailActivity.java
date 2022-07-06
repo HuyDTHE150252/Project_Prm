@@ -1,7 +1,9 @@
 package com.fptu.android.project.activity;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatRatingBar;
 import androidx.core.app.NotificationCompat;
 
 import android.app.NotificationManager;
@@ -9,6 +11,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -18,6 +21,7 @@ import android.widget.Toast;
 import com.fptu.android.project.R;
 import com.fptu.android.project.activity.user.LoginActivity;
 import com.fptu.android.project.interfaces.CartInterface;
+import com.fptu.android.project.model.ListFeedback;
 import com.fptu.android.project.model.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -65,6 +69,26 @@ public class ProductDetailActivity extends AppCompatActivity  {
     }
 
     private void feedbackProduct(View view) {
+        showRatingDialog();
+    }
+
+    private void showRatingDialog() {
+        AlertDialog.Builder builder= new AlertDialog.Builder(ProductDetailActivity.this);
+        builder.setTitle("Rating food")
+                .setMessage("Nice")
+                ;
+        View itemView= LayoutInflater.from(getApplicationContext()).inflate(R.layout.activity_rate_product_dialog,null);
+        builder.setView(itemView);builder.setNegativeButton("Cancael",(dialogInterface, i) ->
+        {
+           dialogInterface.dismiss();
+        });
+        builder.setPositiveButton("Ok",(dialogInterface, i) -> {
+            ListFeedback listFeedback= new ListFeedback();
+
+
+        });
+        AlertDialog dialog=builder.create();
+        dialog.show();
     }
 
 //    private void checkOut(View view) {
@@ -104,7 +128,9 @@ public class ProductDetailActivity extends AppCompatActivity  {
         tvProductName.setText(product.getProduct_name());
         tvProductAddress.setText(product.getProduct_address());
         img.setImageResource(product.getProduct_image());
-        tvPrice.setText(String.valueOf(product.getPrice()));
+        totalPrice = Integer.parseInt(tvQuantity.getText().toString()) * (product.getPrice());
+        tvPrice.setText(String.valueOf(totalPrice));
+
 //        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
 //            @Override
 //            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {

@@ -68,7 +68,7 @@
             android:name=".activity.shipper.ShipperActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.user.LoginActivity"
+            android:name=".activity.restaurant.RestaurantActivity"
             android:exported="true" />
         <activity
             android:name=".activity.admin.AdminActivity"
@@ -80,7 +80,7 @@
             android:name=".activity.restaurant.RestaurantCrudActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.restaurant.RestaurantActivity"
+            android:name=".activity.user.LoginActivity"
             android:exported="true" />
         <activity
             android:name=".activity.restaurant.RestaurantDetailActivity"

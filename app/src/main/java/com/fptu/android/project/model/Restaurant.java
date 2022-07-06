@@ -10,8 +10,9 @@ public class Restaurant implements Serializable {
     private String restaurant_address;
     private String restaurant_rate;
     private String restaurant_status;
+    private String   des;
 
-    public Restaurant(int restaurant_image, int restaurant_id, int uid, String restaurant_name, String restaurant_address, String restaurant_rate, String restaurant_status) {
+    public Restaurant(int restaurant_image, int restaurant_id, int uid, String restaurant_name, String restaurant_address, String restaurant_rate, String restaurant_status, String des) {
         this.restaurant_image = restaurant_image;
         this.restaurant_id = restaurant_id;
         this.uid = uid;
@@ -19,6 +20,7 @@ public class Restaurant implements Serializable {
         this.restaurant_address = restaurant_address;
         this.restaurant_rate = restaurant_rate;
         this.restaurant_status = restaurant_status;
+        this.des = des;
     }
 
     public int getRestaurant_image() {
@@ -77,9 +79,17 @@ public class Restaurant implements Serializable {
         this.restaurant_status = restaurant_status;
     }
 
+    public String getDes() {
+        return des;
+    }
+
+    public void setDes(String des) {
+        this.des = des;
+    }
+
     @Override
     public String toString() {
-        return "restaurant{" +
+        return "Restaurant{" +
                 "restaurant_image=" + restaurant_image +
                 ", restaurant_id=" + restaurant_id +
                 ", uid=" + uid +
@@ -87,6 +97,7 @@ public class Restaurant implements Serializable {
                 ", restaurant_address='" + restaurant_address + '\'' +
                 ", restaurant_rate='" + restaurant_rate + '\'' +
                 ", restaurant_status='" + restaurant_status + '\'' +
+                ", des='" + des + '\'' +
                 '}';
     }
 }
