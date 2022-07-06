@@ -34,9 +34,9 @@ public class UserService implements IUserDao {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Map<String, ArrayList<Product>> products = new HashMap<>();
         ArrayList<Category> categories = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            categories.add(new Category(i,"Cate name " + i));
-        }
+//        for (int i = 0; i < 2; i++) {
+//            categories.add(new Category(i,"Cate name " + i));
+//        }
 
         ArrayList<Product> listProducts1 = new ArrayList<>();
         for (int i = 0; i < 100; i++) {

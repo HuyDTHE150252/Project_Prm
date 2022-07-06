@@ -5,11 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.ProductDetailActivity">
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/productdetaill_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#fc8403" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/productdetaill_toolbar">
+        android:layout_below="@+id/productdetaill_toolbar"
+        android:layout_marginTop="10dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -198,17 +205,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/productdetail_rating"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
                 android:text="Feedback :"
-                android:textSize="15dp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:textSize="15dp" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvFeedback"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/productdetail_feedback"
-                />
+                android:layout_below="@+id/productdetail_feedback" />
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

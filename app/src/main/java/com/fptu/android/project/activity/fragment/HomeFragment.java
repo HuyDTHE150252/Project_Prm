@@ -1,6 +1,7 @@
 package com.fptu.android.project.activity.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,12 @@ import com.fptu.android.project.adapter.ProductAdapter;
 import com.fptu.android.project.adapter.TrendingAdapter;
 import com.fptu.android.project.model.Category;
 import com.fptu.android.project.model.Product;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,17 +40,19 @@ public class HomeFragment extends Fragment {
     private CategoryAdapter cate_adapter;
     private TrendingAdapter trend_adapter;
     private ProductAdapter product_adapter;
+    private ImageView cate_img;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home,container,false);
+        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if(view != null){
+        if (view != null) {
             viewFlipper = view.findViewById(R.id.slider_viewFlipper);
             for (int i = 0; i < slider.length; i++) {
                 ImageView imageView = new ImageView(view.getContext());
@@ -76,6 +85,7 @@ public class HomeFragment extends Fragment {
             product_adapter.setData(getListProduct());
             product.setAdapter(product_adapter);
 
+
         }
     }
 
@@ -107,14 +117,25 @@ public class HomeFragment extends Fragment {
 
     private List<Category> getListCategory() {
         List<Category> list = new ArrayList<>();
-        list.add(new Category(R.drawable.food_icon, "Food"));
-        list.add(new Category(R.drawable.drink_icon, "Drink"));
-        list.add(new Category(R.drawable.fast_food_icon, "FastFood"));
-        list.add(new Category(R.drawable.raw_food_icon, "RawFood"));
-        list.add(new Category(R.drawable.fruit_icon, "Fruit"));
-        list.add(new Category(R.drawable.icecream_icon, "IceCream"));
-        list.add(new Category(R.drawable.birthday_cake_icon, "Cake"));
-        list.add(new Category(R.drawable.beer_icon, "Beer"));
+        DatabaseReference myRef = database.getInstance().getReference();
+        Query query = myRef.child("category");
+       query.addListenerForSingleValueEvent(new ValueEventListener() {
+           @Override
+           public void onDataChange(@NonNull DataSnapshot snapshot) {
+               for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                   Category category = new Category();
+                   category.setCate_id(Integer.valueOf(dataSnapshot.child("id").getValue().toString()));
+                   category.setCate_name(dataSnapshot.child("name").getValue().toString());
+                   category.setUrl(dataSnapshot.child("url").getValue().toString());
+                   list.add(category);
+               }
+           }
+
+           @Override
+           public void onCancelled(@NonNull DatabaseError error) {
+
+           }
+       });
 
         return list;
     }
