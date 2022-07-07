@@ -38,5 +38,8 @@
     <string name="contact">Contact</string>
     <string name="skills">Skills</string>
     <string name="ratings">Star Ratings</string>
+
+    <string name="navigation_drawer_open">Open navigaion drawer</string>
+    <string name="navigation_drawer_close">Close navigaion drawer</string>
     <string name="title_activity_edit_profile">EditProfile</string>
 </resources>

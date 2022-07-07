@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.fptu.android.project.R;
 import com.fptu.android.project.model.Category;
 
@@ -42,7 +43,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         if(cate == null){
             return;
         }
-        holder.resourceImage.setImageResource(cate.getResourceImage());
+        Glide.with(context).load(listcategory.get(position).getUrl()).into(holder.resourceImage);
         holder.cate_name.setText(cate.getCate_name());
     }
 
@@ -61,7 +62,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             resourceImage = itemView.findViewById(R.id.cate_image);
             cate_name = itemView.findViewById(R.id.cate_name);
         }
-
 
     }
 }

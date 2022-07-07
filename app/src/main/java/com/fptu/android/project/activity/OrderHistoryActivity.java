@@ -24,6 +24,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class OrderHistoryActivity extends AppCompatActivity {
     RecyclerView recyclerView;
@@ -41,16 +42,19 @@ public class OrderHistoryActivity extends AppCompatActivity {
         auth=FirebaseAuth.getInstance();
         recyclerView=findViewById(R.id.orderHisRecyclerView);
         orderList= new ArrayList<>();
-        orderHistoryAdapter= new OrderHistoryAdapter(getApplicationContext(),orderList);
+        orderHistoryAdapter= new OrderHistoryAdapter(this,orderList);
 //        orderHistoryAdapter.setData(getListOrder());
-        LinearLayoutManager linearLayoutManager= new LinearLayoutManager(getApplicationContext());
+        LinearLayoutManager linearLayoutManager= new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(orderHistoryAdapter);
-        loadAllOrder();
+        loadListMyOrder();
+        //loadAllOrder();
 
     }
-    private void loadListOrder(){
-        db.collection("Order").orderBy("currentDate", Query.Direction.ASCENDING)
+    private void loadListMyOrder(){
+
+        db.collection("CurrentUserOrder").document(auth.getCurrentUser().getUid())
+                .collection("Order").orderBy("currentDateOrder", Query.Direction.ASCENDING)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -71,7 +75,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
                 });
     }
     private void loadAllOrder() {
-        db.collection("Order").whereEqualTo("userId",auth.getCurrentUser().getUid())
+        db.collection("CurrentUserOrder")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {

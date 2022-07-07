@@ -46,7 +46,7 @@ import java.util.List;
 public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder> {
     Context context;
     List<Order> cartList;
-    int totalPrice = 0;
+
     FirebaseFirestore firestore;
     FirebaseAuth auth;
 
@@ -74,8 +74,7 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
 
         holder.name.setText(cartList.get(position).getProductName());
 
-        holder.currentT.setText(cartList.get(position).getCurrentTime());
-        holder.currentD.setText(cartList.get(position).getCurrentDate());
+
         holder.quantity.setText(cartList.get(position).getTotalQuantity());
         holder.totalPrice.setText(String.valueOf(cartList.get(position).getTotalPrice()));
 
@@ -84,7 +83,6 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
             @Override
             public void onClick(View view) {
                 deleteItemCart(position);
-
 
             }
         });
@@ -144,7 +142,9 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
                                 if (task.isSuccessful()) {
 
                                     cartList.remove(cartList.get(position));
+                                    notifyItemChanged(position);
                                     notifyDataSetChanged();
+
                                     Toast.makeText(context, "Item deleted", Toast.LENGTH_SHORT).show();
 
                                 } else {
@@ -170,6 +170,7 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
         alert.show();
     }
 
+
     @Override
     public int getItemCount() {
         return cartList.size();
@@ -185,9 +186,8 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
             name = itemView.findViewById(R.id.cart_product_name);
             totalPrice = itemView.findViewById(R.id.cart_totalPrice);
             quantity = itemView.findViewById(R.id.cart_totalQuantity);
-            currentD = itemView.findViewById(R.id.cart_currentdate);
-            currentT = itemView.findViewById(R.id.cart_currenttime);
             deleteItem = itemView.findViewById(R.id.imgDeleteItem);
+
 
 
         }

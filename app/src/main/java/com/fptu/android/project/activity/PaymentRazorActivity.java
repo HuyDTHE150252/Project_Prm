@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
+import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -31,13 +32,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -51,12 +55,11 @@ public class PaymentRazorActivity extends AppCompatActivity implements PaymentRe
     CartService cartService;
 
 
-
     private void bidingView() {
         payBtn = findViewById(R.id.pay_btn);
         firestore = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
-        totalPrice=findViewById(R.id.total_amt);
+        totalPrice = findViewById(R.id.total_amt);
 
 
     }
@@ -123,49 +126,51 @@ public class PaymentRazorActivity extends AppCompatActivity implements PaymentRe
         //notification
 
 
-
         List<Order> list = (ArrayList<Order>) getIntent().getSerializableExtra("itemListA");
         if (list != null) {
+            HashMap<String, Object> cartMap = new HashMap<>();
+            String uId = auth.getCurrentUser().getUid();
+            String orderId = UUID.randomUUID().toString();
 
-
-            for (Order o : list) {
-                HashMap<String, Object> cartMap = new HashMap<>();
-
-                String uId = auth.getCurrentUser().getUid();
-                String orderId = UUID.randomUUID().toString();
-                cartMap.put("userId", uId);
-                cartMap.put("orderId", orderId);
-                cartMap.put("productName", o.getProductName());
-                cartMap.put("quantity", o.getTotalQuantity());
-                cartMap.put("currentDate", o.getCurrentDate());
-                String final_address = (String) getIntent().getSerializableExtra("addressShipping");
-                cartMap.put("addressShipping",final_address);
-                cartMap.put("totalPrice", o.getTotalPrice());
-                OrderActivity or = new OrderActivity();
-
-                cartMap.put("status", "Payment Successfully");
-                firestore.collection("Order").
-                        add(cartMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentReference> task) {
-                                if (task.isSuccessful()) {
-
-                                    Toast.makeText(PaymentRazorActivity.this, "Payment successfull", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(PaymentRazorActivity.this, HomePageActivity.class);
-
-
-                                    startActivity(intent);
-                                    //clean cart
-                                    MyCartAdapter m= new MyCartAdapter(getApplicationContext(),list);
-                                    m.cleanCart();
-
-                                } else {
-                                    Toast.makeText(PaymentRazorActivity.this, "Payment fail", Toast.LENGTH_SHORT).show();
-
-                                }
+            Calendar calForDate = Calendar.getInstance();
+            SimpleDateFormat currentDate = new SimpleDateFormat("MM dd,yyyy");
+            String saveCurrentDate = currentDate.format(calForDate.getTime());
+            SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
+            String saveCurrentTime = currentTime.format(calForDate.getTime());
+            cartMap.put("userId", uId);
+            cartMap.put("currentTimeOrder", saveCurrentTime);
+            cartMap.put("currentDateOrder", saveCurrentDate);
+            String final_address = (String) getIntent().getSerializableExtra("addressShipping");
+            cartMap.put("addressShipping", final_address);
+            cartMap.put("status", "Payment Successfully");
+            firestore.collection("CurrentUserOrder").document(auth.getCurrentUser().getUid())
+                    .collection("Order").document(orderId)
+                    .set(cartMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            for (int i = 0; i < list.size(); i++) {
+                                String name = list.get(i).getProductName();
+                                String quantity = list.get(i).getTotalQuantity();
+                                String totalP = String.valueOf(list.get(i).getTotalPrice());
+                                HashMap<String, String> cap = new HashMap<>();
+                                cap.put("productName", name);
+                                cap.put("quantity", quantity);
+                                cap.put("totalP", totalP);
+                                firestore.collection("CurrentUserOrder").document(auth.getCurrentUser().getUid())
+                                        .collection("Order").document(orderId).collection("Items").add(cap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentReference> task) {
+                                                Toast.makeText(PaymentRazorActivity.this, "Payment successfull", Toast.LENGTH_SHORT).show();
+                                                Intent intent = new Intent(PaymentRazorActivity.this, HomePageActivity.class);
+                                                startActivity(intent);
+                                                //clean cart
+                                                MyCartAdapter m = new MyCartAdapter(getApplicationContext(), list);
+                                                m.cleanCart();
+                                            }
+                                        });
                             }
-                        });
-            }
+                        }
+                    });
 
 
         } else {
@@ -173,9 +178,8 @@ public class PaymentRazorActivity extends AppCompatActivity implements PaymentRe
             Toast.makeText(PaymentRazorActivity.this, "Payment fail", Toast.LENGTH_SHORT).show();
             startActivity(intent);
         }
-
-
     }
+
 
     @Override
     public void onPaymentError(int i, String s) {

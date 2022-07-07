@@ -35,13 +35,13 @@ public class UserService implements IUserDao {
 
         Map<String, ArrayList<Product>> products = new HashMap<>();
         ArrayList<Category> categories = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            categories.add(new Category(i,"Cate name " + i));
-        }
+//        for (int i = 0; i < 2; i++) {
+//            categories.add(new Category(i,"Cate name " + i));
+//        }
 
         ArrayList<Product> listProducts1 = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
-            listProducts1.add(new Product(i,"Product name " + i, "Product address " + i, "" + i,"Active", categories));
+            listProducts1.add(new Product(i, "Product name " + i, "Product address " + i, "" + i, "Active", categories));
         }
         products.put("products", listProducts1);
 
@@ -140,5 +140,5 @@ public class UserService implements IUserDao {
 
     public void getMessage() {
 
-   }
+    }
 }

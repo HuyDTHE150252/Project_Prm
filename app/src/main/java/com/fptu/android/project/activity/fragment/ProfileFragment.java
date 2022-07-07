@@ -67,8 +67,6 @@ public class ProfileFragment extends Fragment {
         storageReference = FirebaseStorage.getInstance().getReference();
         logout = view.findViewById(R.id.logout);
         logout.setOnClickListener(this::logout);
-//        iveditProfile.findViewById(R.id.editProfile);
-//        iveditProfile.setOnClickListener(this::editProfile);
         editProfile = view.findViewById(R.id.tveditProfile);
         editProfile.setOnClickListener(this::editProfile);
         StorageReference profileRef = storageReference.child("users/" + fAuth.getCurrentUser().getUid() + "/profile.jpg");

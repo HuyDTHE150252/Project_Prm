@@ -80,6 +80,7 @@ public class CartFragment extends Fragment {
         recyclerView.setAdapter(cartAdapter);
         // cart
         getAllListProductCart();
+
         return view;
     }
 
@@ -98,6 +99,7 @@ public class CartFragment extends Fragment {
                                 recyclerView.setVisibility(View.VISIBLE);
 
 
+
                                 Log.d("Write1", documentSnapshot.getId() + " => " + documentSnapshot.getData());
                             }
                             calculateTotalAmount(cartList);
@@ -110,11 +112,13 @@ public class CartFragment extends Fragment {
     }
 
     public void calculateTotalAmount(List<Order> cartList) {
+
         double totalAmount = 0.0;
         for (Order o : cartList) {
             totalAmount += o.getTotalPrice();
+            overTotalAmount.setText("" + totalAmount);
         }
-        overTotalAmount.setText("" + totalAmount);
+
     }
 
 

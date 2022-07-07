@@ -126,10 +126,9 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:background="#fc8403"
-        app:menu="@menu/menu_navigation"
         app:itemIconTint="@drawable/selector_menu"
-        app:itemTextColor="@drawable/selector_menu">
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+        app:itemTextColor="@drawable/selector_menu"
+        app:menu="@menu/menu_navigation"></com.google.android.material.bottomnavigation.BottomNavigationView>
 
 </RelativeLayout>
 
