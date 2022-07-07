@@ -42,7 +42,7 @@ public class ShipperActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_history);
+        setContentView(R.layout.activity_order_history_shipper);
         db=FirebaseFirestore.getInstance();
         auth=FirebaseAuth.getInstance();
         recyclerView=findViewById(R.id.orderHisRecyclerView);

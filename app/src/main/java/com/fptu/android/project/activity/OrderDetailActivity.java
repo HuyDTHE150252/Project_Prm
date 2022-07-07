@@ -23,8 +23,8 @@ public class OrderDetailActivity extends AppCompatActivity {
         bidingView();
         bidingAction();
         Order order=(Order)getIntent().getSerializableExtra("detailedOrder");
-//        tvOrderId.setText(order.getDocumentId());
-//        orderDate.setText(order.getCurrentTime()+" "+order.getCurrentDate());
+        tvOrderId.setText(order.getDocumentId());
+        orderDate.setText(order.getCurrentTime()+" "+order.getCurrentDate());
         orderAddress.setText(order.getAddress());
     }
 }

@@ -6,14 +6,17 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fptu.android.project.R;
 import com.fptu.android.project.activity.OrderDetailActivity;
 import com.fptu.android.project.model.Order;
+import com.fptu.android.project.service.MyForegroundService;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -56,7 +59,7 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
         holder.currentD.setText(orderList.get(position).getCurrentDate());
         holder.addressOrder.setText("1");
         holder.orderID.setText(orderList.get(position).getDocumentId());
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//        holder.btnDetailOrder.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
 //                    Intent intent= new Intent(context,OrderDetailActivity.class);
@@ -64,6 +67,14 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
 //                    context.startActivity(intent);
 //            }
 //        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(context, MyForegroundService.class);
+                i.putExtra("data","Detail");
+                ContextCompat.startForegroundService(context,i);
+            }
+        });
     }
 
     @Override
@@ -74,13 +85,14 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView name, currentD,addressOrder,orderID;
+        Button btnDetailOrder;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             orderID=itemView.findViewById(R.id.order_history_item_id);
             name = itemView.findViewById(R.id.order_history_item_name);
             currentD = itemView.findViewById(R.id.order_history_item_order_date);
             addressOrder=itemView.findViewById(R.id.order_history_item_address);
-
+            btnDetailOrder=itemView.findViewById(R.id.btndetailORDER);
         }
     }
 }

@@ -17,6 +17,7 @@ import com.fptu.android.project.R;
 import com.fptu.android.project.activity.fragment.CartFragment;
 import com.fptu.android.project.activity.fragment.HomeFragment;
 import com.fptu.android.project.activity.fragment.ProfileFragment;
+import com.fptu.android.project.activity.restaurant.RestaurantActivity;
 import com.fptu.android.project.activity.user.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -68,6 +69,11 @@ public class HomePageActivity extends AppCompatActivity {
                         Intent intent = new Intent(HomePageActivity.this, OrderHistoryActivity.class);
                         Toast.makeText(HomePageActivity.this, "List order", Toast.LENGTH_SHORT).show();
                         startActivity(intent);
+                        break;
+                    case R.id.restaurant:
+                        Intent i = new Intent(HomePageActivity.this, RestaurantActivity.class);
+                        Toast.makeText(HomePageActivity.this, "List Restaurant", Toast.LENGTH_SHORT).show();
+                        startActivity(i);
                         break;
                 }
 

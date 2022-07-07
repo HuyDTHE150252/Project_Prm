@@ -5,7 +5,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <application
         android:name=".activity.notification.MyApplication"
         android:allowBackup="true"
@@ -17,6 +17,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Project"
         tools:targetApi="31">
+        <service android:name=".service.MyForegroundService"/>
+        <service
+            android:name=".service.NotificationService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
         <activity
             android:name=".activity.RateProductActivity"
             android:exported="false" />
@@ -27,13 +35,6 @@
             android:name=".activity.ListFeedbackActivity"
             android:exported="false" />
 
-        <service
-            android:name=".service.NotificationService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
 
         <activity
             android:name=".activity.HomePageActivity"

@@ -28,6 +28,8 @@ import com.fptu.android.project.activity.OrderActivity;
 import com.fptu.android.project.activity.PaymentRazorActivity;
 import com.fptu.android.project.activity.fragment.CartFragment;
 import com.fptu.android.project.model.Order;
+import com.fptu.android.project.model.Product;
+import com.fptu.android.project.service.MyForegroundService;
 import com.fptu.android.project.service.NotificationService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -71,14 +73,9 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MyCartAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-
         holder.name.setText(cartList.get(position).getProductName());
-
-
-        holder.quantity.setText(cartList.get(position).getTotalQuantity());
+        holder.txtquantity.setText(cartList.get(position).getTotalQuantity());
         holder.totalPrice.setText(String.valueOf(cartList.get(position).getTotalPrice()));
-
-
         holder.deleteItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -144,8 +141,11 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
                                     cartList.remove(cartList.get(position));
                                     notifyItemChanged(position);
                                     notifyDataSetChanged();
+                                    Intent i = new Intent(context, MyForegroundService.class);
+                                    i.putExtra("data","Item Deleted");
+                                    ContextCompat.startForegroundService(context,i);
 
-                                    Toast.makeText(context, "Item deleted", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(context, "Item deleted", Toast.LENGTH_SHORT).show();
 
                                 } else {
                                     Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
@@ -178,14 +178,14 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView name, quantity, currentT, currentD, totalPrice,cartCheckout;
+        TextView name, txtquantity, totalPrice;
         ImageView deleteItem;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.cart_product_name);
             totalPrice = itemView.findViewById(R.id.cart_totalPrice);
-            quantity = itemView.findViewById(R.id.cart_totalQuantity);
+            txtquantity = itemView.findViewById(R.id.cart_totalQuantity);
             deleteItem = itemView.findViewById(R.id.imgDeleteItem);
 
 

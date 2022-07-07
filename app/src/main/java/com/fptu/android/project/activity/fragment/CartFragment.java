@@ -76,10 +76,10 @@ public class CartFragment extends Fragment {
 
             }
         });
-
+        getAllListProductCart();
         recyclerView.setAdapter(cartAdapter);
         // cart
-        getAllListProductCart();
+
 
         return view;
     }

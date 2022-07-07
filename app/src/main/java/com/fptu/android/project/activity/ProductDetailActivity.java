@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.SyncStateContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,15 +15,18 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fptu.android.project.R;
+import com.fptu.android.project.activity.fragment.CartFragment;
 import com.fptu.android.project.activity.user.LoginActivity;
 import com.fptu.android.project.adapter.FeedbackAdapter;
 import com.fptu.android.project.model.Feedback;
 import com.fptu.android.project.model.Order;
 import com.fptu.android.project.model.Product;
+import com.fptu.android.project.service.MyForegroundService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,6 +35,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.perf.util.Constants;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -162,6 +167,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         tvProductAddress.setText(product.getProduct_address());
         img.setImageResource(product.getProduct_image());
         tvPrice.setText(String.valueOf(product.getPrice()));
+//        tvQuantity.setText((String.valueOf(product.getQuantity())));
     }
 
     private void loadListFeedback() {
@@ -207,6 +213,10 @@ public class ProductDetailActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<DocumentReference> task) {
                             Toast.makeText(ProductDetailActivity.this, "Added to cart", Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(ProductDetailActivity.this, MyForegroundService.class);
+                            i.putExtra("data","Item added to cart");
+                            ContextCompat.startForegroundService(ProductDetailActivity.this,i);
+                            Log.d("t", "db rating getString() is: " + task.getResult());
                             finish();
                         }
                     });
@@ -225,4 +235,5 @@ public class ProductDetailActivity extends AppCompatActivity {
         }
 
     }
+
 }
