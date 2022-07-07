@@ -349,9 +349,9 @@
                 android:layout_below="@+id/productdetail_rating"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
-                android:text="Feedback :"
+                android:text="Feedback Here "
                 android:textColor="@color/black"
-                android:textSize="15dp" />
+                android:textSize="20dp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcvFeedback"

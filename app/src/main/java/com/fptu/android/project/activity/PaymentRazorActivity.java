@@ -4,35 +4,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
 
-import android.app.Activity;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fptu.android.project.R;
 import com.fptu.android.project.adapter.MyCartAdapter;
 import com.fptu.android.project.model.Order;
-import com.fptu.android.project.model.Product;
 import com.fptu.android.project.service.CartService;
-import com.fptu.android.project.service.NotificationService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
 
@@ -53,7 +41,7 @@ public class PaymentRazorActivity extends AppCompatActivity implements PaymentRe
     FirebaseFirestore firestore;
     FirebaseAuth auth;
     CartService cartService;
-
+    List<Order> list;
 
     private void bidingView() {
         payBtn = findViewById(R.id.pay_btn);
@@ -65,11 +53,16 @@ public class PaymentRazorActivity extends AppCompatActivity implements PaymentRe
     }
 
     void bidingAction() {
+
         payBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String sAmount = "222";
-                int amount = Math.round(Float.parseFloat(sAmount) * 100);
+                int amount=0;
+               list = (ArrayList<Order>) getIntent().getSerializableExtra("itemListA");
+                for (int i=0;i<list.size();i++){
+                    amount+=list.get(i).getTotalPrice();
+                }
+
                 //razor check
                 Checkout checkout = new Checkout();
                 //set key id
@@ -83,7 +76,7 @@ public class PaymentRazorActivity extends AppCompatActivity implements PaymentRe
                     object.put("description", "Payment");
                     object.put("theme.color", "#0093DD");
                     object.put("currency", "INR");
-                    object.put("amount", amount);
+                    object.put("amount", amount*100);
                     object.put("prefill.contact", "9876543210");
                     object.put("prefill.email", "nguyenvanduc14012000@gmail.com");
 
@@ -109,10 +102,17 @@ public class PaymentRazorActivity extends AppCompatActivity implements PaymentRe
         setContentView(R.layout.activity_payment);
 
         bidingView();
+        int amount=0;
+        list = (ArrayList<Order>) getIntent().getSerializableExtra("itemListA");
+        for (int i=0;i<list.size();i++){
+            amount+=list.get(i).getTotalPrice();
+        }
+        totalPrice.setText(String.valueOf(amount));
         bidingAction();
 
 
     }
+
 
 
     @Override
@@ -126,7 +126,7 @@ public class PaymentRazorActivity extends AppCompatActivity implements PaymentRe
         //notification
 
 
-        List<Order> list = (ArrayList<Order>) getIntent().getSerializableExtra("itemListA");
+       list = (ArrayList<Order>) getIntent().getSerializableExtra("itemListA");
         if (list != null) {
             HashMap<String, Object> cartMap = new HashMap<>();
             String uId = auth.getCurrentUser().getUid();

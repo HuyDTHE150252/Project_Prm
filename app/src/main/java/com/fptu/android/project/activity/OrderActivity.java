@@ -77,7 +77,6 @@ public class OrderActivity extends AppCompatActivity {
               Intent intent = new Intent(OrderActivity.this, PaymentRazorActivity.class);
               intent.putExtra("itemListA", (Serializable) list);
               intent.putExtra("addressShipping", final_address);
-
               startActivity(intent);
 
           }else{
@@ -112,8 +111,7 @@ public class OrderActivity extends AppCompatActivity {
 
 
     private void backScreen(View view) {
-        Intent intent = new Intent(OrderActivity.this, HomePageActivity.class);
-        startActivity(intent);
+        onBackPressed();
 
     }
 

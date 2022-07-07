@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,12 +21,16 @@ import com.fptu.android.project.R;
 import com.fptu.android.project.activity.user.LoginActivity;
 import com.fptu.android.project.adapter.FeedbackAdapter;
 import com.fptu.android.project.model.Feedback;
+import com.fptu.android.project.model.Order;
 import com.fptu.android.project.model.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -45,6 +50,8 @@ public class ProductDetailActivity extends AppCompatActivity {
     FirebaseAuth auth;
     int cost = 0;
     Product product = null;
+    List<Feedback> feedbackList;
+    Feedback f;
 
 
     void bidingView() {
@@ -71,27 +78,13 @@ public class ProductDetailActivity extends AppCompatActivity {
     }
 
     private void feedbackProduct(View view) {
-        showRatingDialog();
+        product = (Product) getIntent().getSerializableExtra("detailed");
+          Intent intent= new Intent(ProductDetailActivity.this,RateProductActivity.class);
+          intent.putExtra("ratingProduct",product);
+          startActivity(intent);
     }
 
-    private void showRatingDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(ProductDetailActivity.this);
-        builder.setTitle("Rating food")
-                .setMessage("Nice")
-        ;
-        View itemView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.activity_rate_product_dialog, null);
-        builder.setView(itemView);
-        builder.setNegativeButton("Cancael", (dialogInterface, i) ->
-        {
-            dialogInterface.dismiss();
-        });
-        builder.setPositiveButton("Ok", (dialogInterface, i) -> {
 
-
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
 
     private void plusQuantity(View view) {
 
@@ -151,13 +144,17 @@ public class ProductDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
+        bidingView();
+        bidingAction();
         bindingView();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         rcvFeedback.setLayoutManager(linearLayoutManager);
+        feedbackList= new ArrayList<>();
+        //feedbackadapter= new FeedbackAdapter(this,feedbackList);
         feedbackadapter.setData(getListFeedback());
         rcvFeedback.setAdapter(feedbackadapter);
-        bidingView();
-        bidingAction();
+        loadListFeedback();
+
         firestore = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
         Product product = (Product) getIntent().getSerializableExtra("detailed");
@@ -165,18 +162,29 @@ public class ProductDetailActivity extends AppCompatActivity {
         tvProductAddress.setText(product.getProduct_address());
         img.setImageResource(product.getProduct_image());
         tvPrice.setText(String.valueOf(product.getPrice()));
+    }
 
-
-//        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-//            @Override
-//            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-//                feedback.setText("Rate: "+ratingBar);
-//            }
-//        });
-
-
-//        tvQuantity.setText(String.valueOf(product.getQuantity()));
-
+    private void loadListFeedback() {
+//        firestore.collection("Feedback")
+//               .orderBy("currentDateOrder", Query.Direction.ASCENDING)
+//                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {
+//                                String docId = documentSnapshot.getId();
+//                               f= documentSnapshot.toObject(Feedback.class);
+//                                f.setFeedback_id(String.valueOf(docId));
+//                                feedbackList.add(f);
+//                                feedbackadapter.notifyDataSetChanged();
+//                                rcvFeedback.setVisibility(View.VISIBLE);
+//                            }
+//
+//                        } else {
+//                            Log.w("err", "Error getting documents.", task.getException());
+//                        }
+//                    }
+//                });
 
     }
 

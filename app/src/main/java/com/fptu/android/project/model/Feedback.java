@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class Feedback implements Serializable {
 
-    private int feedback_id;
+    private String feedback_id;
     private String user_name;
     private int product_id;
     private String description;
@@ -19,26 +19,11 @@ public class Feedback implements Serializable {
         this.feedback_date = feedback_date;
     }
 
-    public Feedback(int feedback_id, String user_name, int product_id, String description, float rate, String feedback_date) {
-        this.feedback_id = feedback_id;
-        this.user_name = user_name;
-        this.product_id = product_id;
-        this.description = description;
-        this.rate = rate;
-        this.feedback_date = feedback_date;
-    }
-
-    public Feedback(String description, float rate, String feedback_date){
-        this.description = description;
-        this.rate = rate;
-        this.feedback_date = feedback_date;
-    }
-
-    public int getFeedback_id() {
+    public String getFeedback_id() {
         return feedback_id;
     }
 
-    public void setFeedback_id(int feedback_id) {
+    public void setFeedback_id(String feedback_id) {
         this.feedback_id = feedback_id;
     }
 
@@ -46,8 +31,8 @@ public class Feedback implements Serializable {
         return user_name;
     }
 
-    public void setUser_name(String user_id) {
-        this.user_name = user_id;
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
     }
 
     public int getProduct_id() {

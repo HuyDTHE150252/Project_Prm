@@ -48,9 +48,13 @@ public class OrderHistoryActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(orderHistoryAdapter);
         loadListMyOrder();
+
         //loadAllOrder();
 
     }
+
+
+
     private void loadListMyOrder(){
 
         db.collection("CurrentUserOrder").document(auth.getCurrentUser().getUid())
