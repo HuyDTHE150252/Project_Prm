@@ -90,10 +90,11 @@ public class CartFragment extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {
-
+                                String quantity=documentSnapshot.getString("quantity");
                                 String docId = documentSnapshot.getId();
                                 cartViewModel = documentSnapshot.toObject(Order.class);
                                 cartViewModel.setDocumentId(docId);
+                                cartViewModel.setTotalQuantity(quantity);
                                 cartList.add(cartViewModel);
                                 cartAdapter.notifyDataSetChanged();
                                 recyclerView.setVisibility(View.VISIBLE);

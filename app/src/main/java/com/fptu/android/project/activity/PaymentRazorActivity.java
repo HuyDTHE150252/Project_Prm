@@ -29,6 +29,7 @@ import com.razorpay.PaymentResultListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -166,7 +167,8 @@ public class PaymentRazorActivity extends AppCompatActivity implements PaymentRe
                                                 Intent i = new Intent(PaymentRazorActivity.this, MyForegroundService.class);
                                                 i.putExtra("data","OrderId "+orderId);
                                                 ContextCompat.startForegroundService(PaymentRazorActivity.this,i);
-                                                startActivity(new Intent(PaymentRazorActivity.this,HomePageActivity.class));
+                                                Intent intent = new Intent( PaymentRazorActivity.this,HomePageActivity.class);
+                                                startActivity(intent);
                                                 finish();
                                                 //clean cart
                                                 MyCartAdapter m = new MyCartAdapter(getApplicationContext(), list);

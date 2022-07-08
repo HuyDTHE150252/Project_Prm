@@ -16,6 +16,13 @@ public class Order implements Serializable {
     public Order() {
     }
 
+    public Order(String currentTime, String currentDate, String documentId, String address) {
+        this.currentTime = currentTime;
+        this.currentDate = currentDate;
+        this.documentId = documentId;
+        this.address = address;
+    }
+
     public Order(String productName, String totalQuantity, int totalPrice) {
         this.productName = productName;
         this.totalQuantity = totalQuantity;

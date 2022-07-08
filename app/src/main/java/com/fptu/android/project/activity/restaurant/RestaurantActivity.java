@@ -20,7 +20,7 @@ import java.util.List;
 
 public class RestaurantActivity extends AppCompatActivity {
     TextView restaurant_view;
-    private ViewFlipper viewFlipper;
+     ViewFlipper viewFlipper;
     private RecyclerView restaurant;
 
     private RestaurantAdapter restaurant_adapter;

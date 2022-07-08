@@ -1,6 +1,8 @@
 package com.fptu.android.project.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -8,10 +10,10 @@ import com.fptu.android.project.R;
 import com.fptu.android.project.model.Order;
 
 public class OrderDetailActivity extends AppCompatActivity {
-    TextView tvOrderId,orderDate,orderAddress;
+    TextView tvOrderId,tvorderDate,orderAddress;
     void bidingView(){
         tvOrderId=findViewById(R.id.textViewOrderID);
-        orderDate=findViewById(R.id.textViewOrderDate);
+        tvorderDate=findViewById(R.id.textViewOrderDate);
         orderAddress=findViewById(R.id.textViewAddress);
     }
     void bidingAction(){}
@@ -22,9 +24,19 @@ public class OrderDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order_detail);
         bidingView();
         bidingAction();
-        Order order=(Order)getIntent().getSerializableExtra("detailedOrder");
-        tvOrderId.setText(order.getDocumentId());
-        orderDate.setText(order.getCurrentTime()+" "+order.getCurrentDate());
-        orderAddress.setText(order.getAddress());
+        Intent intent=getIntent();
+        Bundle b= intent.getExtras();
+        if(b!=null){
+            String orderId=b.getString("orderId");
+            String orderDate=b.getString("orderDate");
+            String address=b.getString("orderAddress");
+            tvOrderId.setText(orderId);
+            tvorderDate.setText(orderDate);
+            orderAddress.setText(address);
+        }else{
+
+        }
+
+
     }
 }

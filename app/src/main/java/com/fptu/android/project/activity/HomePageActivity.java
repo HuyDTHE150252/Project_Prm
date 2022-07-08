@@ -17,8 +17,10 @@ import com.fptu.android.project.R;
 import com.fptu.android.project.activity.fragment.CartFragment;
 import com.fptu.android.project.activity.fragment.HomeFragment;
 import com.fptu.android.project.activity.fragment.ProfileFragment;
+import com.fptu.android.project.activity.ggmap.GoogmapActivity;
 import com.fptu.android.project.activity.restaurant.RestaurantActivity;
 import com.fptu.android.project.activity.user.LoginActivity;
+import com.fptu.android.project.adapter.OrderHistoryAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -74,6 +76,9 @@ public class HomePageActivity extends AppCompatActivity {
                         Intent i = new Intent(HomePageActivity.this, RestaurantActivity.class);
                         Toast.makeText(HomePageActivity.this, "List Restaurant", Toast.LENGTH_SHORT).show();
                         startActivity(i);
+                        break;
+                    case R.id.locationUser:
+                        startActivity(new Intent(HomePageActivity.this, GoogmapActivity.class));
                         break;
                 }
 
