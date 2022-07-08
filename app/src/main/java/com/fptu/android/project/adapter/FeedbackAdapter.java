@@ -25,8 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.List;
 
 public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.FeedbackViewHolder> {
-    FirebaseFirestore firestore;
-    FirebaseAuth auth;
+
     private Context context;
     private List<Feedback> listFeedback;
 
@@ -37,8 +36,7 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.Feedba
     public FeedbackAdapter(Context context, List<Feedback> listFeedback) {
         this.context = context;
         this.listFeedback = listFeedback;
-        firestore = FirebaseFirestore.getInstance();
-        auth = FirebaseAuth.getInstance();
+
     }
 
     public void setData(List<Feedback> list) {
@@ -72,6 +70,7 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.Feedba
     }
 
     private void deleteFeedback(int position) {
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();;
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
         alert.setTitle("Delete");
         alert.setMessage("Are you sure you want to delete?");

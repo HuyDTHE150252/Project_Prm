@@ -33,7 +33,7 @@ import java.util.List;
 
 public class ShipperActivity extends AppCompatActivity {
     RecyclerView recyclerView;
-    OrderHistoryAdapter orderHistoryAdapter;
+   ShipperApdapter orderHistoryAdapter;
     List<Order> orderList;
     FirebaseAuth auth;
     FirebaseFirestore db;
@@ -43,22 +43,21 @@ public class ShipperActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_history_shipper);
-        db=FirebaseFirestore.getInstance();
-        auth=FirebaseAuth.getInstance();
-        recyclerView=findViewById(R.id.orderHisRecyclerView);
-        orderList= new ArrayList<>();
-        orderHistoryAdapter= new OrderHistoryAdapter(getApplicationContext(),orderList);
-//        orderHistoryAdapter.setData(getListOrder());
-        LinearLayoutManager linearLayoutManager= new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(orderHistoryAdapter);
-        loadListMyOrder();
+//        db=FirebaseFirestore.getInstance();
+//        auth=FirebaseAuth.getInstance();
+//        recyclerView=findViewById(R.id.orderShipperRecyclerView);
+//        orderList= new ArrayList<>();
+//        orderHistoryAdapter= new ShipperApdapter(getApplicationContext(),orderList);
+//        //orderHistoryAdapter.setData(getListOrder());
+//        LinearLayoutManager linearLayoutManager= new LinearLayoutManager(getApplicationContext());
+//        recyclerView.setLayoutManager(linearLayoutManager);
+//        recyclerView.setAdapter(orderHistoryAdapter);
+//        loadListMyOrder();
 
     }
     private void loadListMyOrder(){
 
-        db.collection("users").document(auth.getCurrentUser().getUid())
-                .collection("Order").orderBy("currentDateOrder", Query.Direction.ASCENDING)
+        db.collection("CurrentUser")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -78,26 +77,5 @@ public class ShipperActivity extends AppCompatActivity {
                     }
                 });
     }
-    private void loadAllOrder() {
-        db.collection("").whereEqualTo("userId",auth.getCurrentUser().getUid())
-                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {
-                                String docId = documentSnapshot.getId();
-                                orderViewModel = documentSnapshot.toObject(Order.class);
-                                orderViewModel.setDocumentId(docId);
-                                orderList.add(orderViewModel);
-                                orderHistoryAdapter.notifyDataSetChanged();
-                                recyclerView.setVisibility(View.VISIBLE);
-                            }
 
-                        } else {
-                            Log.w("err", "Error getting documents.", task.getException());
-                        }
-                    }
-                });
-
-    }
     }

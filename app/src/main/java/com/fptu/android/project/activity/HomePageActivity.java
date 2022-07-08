@@ -19,6 +19,7 @@ import com.fptu.android.project.activity.fragment.HomeFragment;
 import com.fptu.android.project.activity.fragment.ProfileFragment;
 import com.fptu.android.project.activity.ggmap.GoogmapActivity;
 import com.fptu.android.project.activity.restaurant.RestaurantActivity;
+import com.fptu.android.project.activity.shipper.ShipperActivity;
 import com.fptu.android.project.activity.user.LoginActivity;
 import com.fptu.android.project.adapter.OrderHistoryAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -79,6 +80,9 @@ public class HomePageActivity extends AppCompatActivity {
                         break;
                     case R.id.locationUser:
                         startActivity(new Intent(HomePageActivity.this, GoogmapActivity.class));
+                        break;
+                    case R.id.allOrder:
+                        startActivity(new Intent(HomePageActivity.this, ShipperActivity.class));
                         break;
                 }
 

@@ -171,8 +171,8 @@ public class PaymentRazorActivity extends AppCompatActivity implements PaymentRe
                                                 startActivity(intent);
                                                 finish();
                                                 //clean cart
-                                                MyCartAdapter m = new MyCartAdapter(getApplicationContext(), list);
-                                                m.cleanCart();
+                                                cartService= new CartService(getApplicationContext());
+                                                cartService.cleanCart();
                                             }
                                         });
                             }

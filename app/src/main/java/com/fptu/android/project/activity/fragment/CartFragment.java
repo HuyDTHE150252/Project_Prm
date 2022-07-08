@@ -98,9 +98,6 @@ public class CartFragment extends Fragment {
                                 cartList.add(cartViewModel);
                                 cartAdapter.notifyDataSetChanged();
                                 recyclerView.setVisibility(View.VISIBLE);
-
-
-
                                 Log.d("Write1", documentSnapshot.getId() + " => " + documentSnapshot.getData());
                             }
                             calculateTotalAmount(cartList);
