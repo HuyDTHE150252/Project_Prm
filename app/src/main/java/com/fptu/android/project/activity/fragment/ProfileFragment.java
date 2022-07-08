@@ -1,5 +1,6 @@
 package com.fptu.android.project.activity.fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,12 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.fptu.android.project.R;
@@ -38,12 +41,12 @@ import java.util.concurrent.Executor;
 
 //import com.squareup.picasso.Picasso;
 public class ProfileFragment extends Fragment {
-    TextView fullName, email, phone, editProfile, verifyMsg;
+    TextView fullName, email, phone, editProfile, verifyMsg, resetPass, tvlogout;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userId;
     Button resendCode;
-    Button resetPassLocal, changeProfileImage;
+    Button  changeProfileImage;
     FirebaseUser user;
     ImageView logout,iveditProfile, profileImage;
     StorageReference storageReference;
@@ -61,14 +64,17 @@ public class ProfileFragment extends Fragment {
         phone = view.findViewById(R.id.profilePhone);
         fullName = view.findViewById(R.id.profileName);
         email = view.findViewById(R.id.profileEmail);
-        //resetPassLocal = view.findViewById(R.id.resetPasswordLocal);
+        resetPass = view.findViewById(R.id.resetPassword);
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
-        logout = view.findViewById(R.id.logout);
-        logout.setOnClickListener(this::logout);
+//        logout = view.findViewById(R.id.logout);
+//        logout.setOnClickListener(this::logout);
         editProfile = view.findViewById(R.id.tveditProfile);
         editProfile.setOnClickListener(this::editProfile);
+        resetPass.setOnClickListener(this::resetPassword);
+        tvlogout= view.findViewById(R.id.tvLogout);
+        tvlogout.setOnClickListener(this::logout);
         StorageReference profileRef = storageReference.child("users/" + fAuth.getCurrentUser().getUid() + "/profile.jpg");
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -100,6 +106,8 @@ public class ProfileFragment extends Fragment {
             }
         });
     }
+
+
 
     //    if(!user.isEmailVerified()){
 //        verifyMsg.setVisibility(View.VISIBLE);
@@ -136,5 +144,85 @@ public class ProfileFragment extends Fragment {
         startActivity(new Intent(getActivity(), LoginActivity.class));
 
     }
+    private void resetPassword(View view) {
+        final EditText resetPassword = new EditText(view.getContext());
+
+        final AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(view.getContext());
+        passwordResetDialog.setTitle("Reset Password ?");
+        passwordResetDialog.setMessage("Enter New Password > 6 Characters long.");
+        passwordResetDialog.setView(resetPassword);
+
+        passwordResetDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // extract the email and send reset link
+                String newPassword = resetPassword.getText().toString();
+                user.updatePassword(newPassword).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getActivity(), "Password Reset Successfully.", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getActivity(), "Password Reset Failed.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
+        passwordResetDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // close
+            }
+        });
+
+        passwordResetDialog.create().show();
+
+    }
+
+
+//    resetPass.setOnClickListener(new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//
+//            final EditText resetPassword = new EditText(v.getContext());
+//
+//            final AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(v.getContext());
+//            passwordResetDialog.setTitle("Reset Password ?");
+//            passwordResetDialog.setMessage("Enter New Password > 6 Characters long.");
+//            passwordResetDialog.setView(resetPassword);
+//
+//            passwordResetDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialog, int which) {
+//                    // extract the email and send reset link
+//                    String newPassword = resetPassword.getText().toString();
+//                    user.updatePassword(newPassword).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                        @Override
+//                        public void onSuccess(Void aVoid) {
+//                            Toast.makeText(ProfileFragment.this, "Password Reset Successfully.", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }).addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//                            Toast.makeText(MainActivity.this, "Password Reset Failed.", Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
+//                }
+//            });
+//
+//            passwordResetDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialog, int which) {
+//                    // close
+//                }
+//            });
+//
+//            passwordResetDialog.create().show();
+//
+//        }
+//    });
 
 }
