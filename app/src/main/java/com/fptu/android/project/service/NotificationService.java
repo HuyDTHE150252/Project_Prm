@@ -12,10 +12,17 @@ import androidx.core.app.NotificationCompat;
 import com.fptu.android.project.R;
 import com.fptu.android.project.activity.HomePageActivity;
 import com.fptu.android.project.activity.notification.MyApplication;
+import com.fptu.android.project.common.Config;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.google.firebase.perf.util.Constants;
+
+import org.json.JSONObject;
 
 public class NotificationService extends FirebaseMessagingService {
+    FirebaseAuth auth=FirebaseAuth.getInstance();
+
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage message) {

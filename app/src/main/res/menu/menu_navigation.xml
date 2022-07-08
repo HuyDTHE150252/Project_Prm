@@ -39,7 +39,15 @@
     <item
         android:id="@+id/orderUser"
         android:icon="@drawable/ic_invoice"
-        android:title="Order" />
+        android:title="MyOrder" />
+    <item
+        android:id="@+id/allOrder"
+        android:icon="@drawable/ic_invoice"
+        android:title="AllOrder" />
+    <item
+        android:id="@+id/restaurant"
+        android:icon="@drawable/admin_dashboard_icon_png_16"
+        android:title="Restaurant" />
     <item
         android:id="@+id/logoutUser"
         android:icon="@drawable/ic_lock"

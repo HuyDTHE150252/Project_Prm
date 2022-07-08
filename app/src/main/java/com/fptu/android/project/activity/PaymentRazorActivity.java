@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import com.fptu.android.project.R;
 import com.fptu.android.project.adapter.MyCartAdapter;
 import com.fptu.android.project.model.Order;
 import com.fptu.android.project.service.CartService;
+import com.fptu.android.project.service.MyForegroundService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +29,7 @@ import com.razorpay.PaymentResultListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -161,11 +164,15 @@ public class PaymentRazorActivity extends AppCompatActivity implements PaymentRe
                                             @Override
                                             public void onComplete(@NonNull Task<DocumentReference> task) {
                                                 Toast.makeText(PaymentRazorActivity.this, "Payment successfull", Toast.LENGTH_SHORT).show();
-                                                Intent intent = new Intent(PaymentRazorActivity.this, HomePageActivity.class);
+                                                Intent i = new Intent(PaymentRazorActivity.this, MyForegroundService.class);
+                                                i.putExtra("data","OrderId "+orderId);
+                                                ContextCompat.startForegroundService(PaymentRazorActivity.this,i);
+                                                Intent intent = new Intent( PaymentRazorActivity.this,HomePageActivity.class);
                                                 startActivity(intent);
+                                                finish();
                                                 //clean cart
-                                                MyCartAdapter m = new MyCartAdapter(getApplicationContext(), list);
-                                                m.cleanCart();
+                                                cartService= new CartService(getApplicationContext());
+                                                cartService.cleanCart();
                                             }
                                         });
                             }

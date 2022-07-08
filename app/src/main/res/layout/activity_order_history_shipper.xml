@@ -7,7 +7,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="3dp"
-    app:cardCornerRadius="5dp">
+    app:cardCornerRadius="5dp"
+    tools:context=".activity.shipper.ShipperActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -49,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="Address : "
+            android:text="RestaurentID : "
             app:layout_constraintStart_toStartOf="@+id/is_order_date"
             app:layout_constraintTop_toBottomOf="@+id/is_order_date" />
 
@@ -78,14 +79,25 @@
             app:layout_constraintTop_toTopOf="@+id/order_address" />
 
         <Button
-            android:id="@+id/btndetailORDER"
+            android:id="@+id/completed_btn"
             android:layout_width="127dp"
             android:layout_height="53dp"
-            android:layout_marginStart="152dp"
-            android:layout_marginTop="24dp"
-            android:text="Detail"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Completed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/order_address" />
+
+        <ImageButton
+            android:id="@+id/tickIMG"
+            android:layout_width="148dp"
+            android:layout_height="135dp"
+            android:layout_marginStart="104dp"
+            android:layout_marginTop="8dp"
+
+            app:layout_constraintStart_toEndOf="@+id/completed_btn"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/order_successfully" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

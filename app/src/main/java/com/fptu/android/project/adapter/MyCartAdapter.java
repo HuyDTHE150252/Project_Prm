@@ -28,6 +28,9 @@ import com.fptu.android.project.activity.OrderActivity;
 import com.fptu.android.project.activity.PaymentRazorActivity;
 import com.fptu.android.project.activity.fragment.CartFragment;
 import com.fptu.android.project.model.Order;
+import com.fptu.android.project.model.Product;
+import com.fptu.android.project.service.CartService;
+import com.fptu.android.project.service.MyForegroundService;
 import com.fptu.android.project.service.NotificationService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -46,15 +49,16 @@ import java.util.List;
 public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder> {
     Context context;
     List<Order> cartList;
+    CartService c;
+    public MyCartAdapter() {
 
-    FirebaseFirestore firestore;
-    FirebaseAuth auth;
+    }
 
     public MyCartAdapter(Context context, List<Order> cartList) {
         this.context = context;
         this.cartList = cartList;
-        firestore = FirebaseFirestore.getInstance();
-        auth = FirebaseAuth.getInstance();
+
+
     }
 
     public void setData(List<Order> cartList) {
@@ -71,61 +75,21 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MyCartAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-
         holder.name.setText(cartList.get(position).getProductName());
-
-
-        holder.quantity.setText(cartList.get(position).getTotalQuantity());
+        holder.txtquantity.setText(cartList.get(position).getTotalQuantity());
         holder.totalPrice.setText(String.valueOf(cartList.get(position).getTotalPrice()));
-
-
         holder.deleteItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                deleteItemCart(position);
+               deleteItemCart(position);
 
             }
         });
-
-
-
-
-
     }
-    public void cleanCart(){
-        firestore.collection("AddToCart").document(auth.getCurrentUser().getUid()).collection("CurrentUser").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (final QueryDocumentSnapshot document : task.getResult()) {
-                        if (document.exists()) {
-                            firestore.collection("AddToCart").document(auth.getCurrentUser().getUid()).collection("CurrentUser").document(document.getId()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
 
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(context, "J: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                                }
-                            });
-                        } else {
-                            Toast.makeText(context, "No data in J", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                } else {
-                    Toast.makeText(context, "Jtask: " + task.getException(), Toast.LENGTH_LONG).show();
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(context, "Error getting all the documents: " + e.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-    }
     public void deleteItemCart(int position){
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();;
+        FirebaseAuth  auth = FirebaseAuth.getInstance();
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
         alert.setTitle("Delete");
         alert.setMessage("Are you sure you want to delete?");
@@ -144,7 +108,9 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
                                     cartList.remove(cartList.get(position));
                                     notifyItemChanged(position);
                                     notifyDataSetChanged();
-
+                                    Intent i = new Intent(context, MyForegroundService.class);
+                                    i.putExtra("data","Item Deleted");
+                                    ContextCompat.startForegroundService(context,i);
                                     Toast.makeText(context, "Item deleted", Toast.LENGTH_SHORT).show();
 
                                 } else {
@@ -178,14 +144,14 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView name, quantity, currentT, currentD, totalPrice,cartCheckout;
+        TextView name, txtquantity, totalPrice;
         ImageView deleteItem;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.cart_product_name);
             totalPrice = itemView.findViewById(R.id.cart_totalPrice);
-            quantity = itemView.findViewById(R.id.cart_totalQuantity);
+            txtquantity = itemView.findViewById(R.id.cart_totalQuantity);
             deleteItem = itemView.findViewById(R.id.imgDeleteItem);
 
 

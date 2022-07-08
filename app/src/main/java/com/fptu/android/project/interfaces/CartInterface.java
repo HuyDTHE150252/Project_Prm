@@ -1,7 +1,7 @@
 package com.fptu.android.project.interfaces;
 
 public interface CartInterface {
-    public void addToCart();
+    void addToCart(String uid,String name,String quantity,int total);
     void cleanCart();
-    public void deleteItemCart();
+
 }
