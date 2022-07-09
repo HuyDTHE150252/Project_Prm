@@ -27,7 +27,6 @@ public class HomePageActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private NavigationView nav_menu;
-    private BottomNavigationView bottomnav;
     ProgressBar progressBar;
     FirebaseAuth auth;
 

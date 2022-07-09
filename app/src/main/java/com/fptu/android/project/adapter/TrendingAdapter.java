@@ -12,12 +12,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.fptu.android.project.R;
 import com.fptu.android.project.activity.ProductDetailActivity;
-import com.fptu.android.project.model.Category;
 import com.fptu.android.project.model.Product;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -48,16 +46,15 @@ public class TrendingAdapter extends RecyclerView.Adapter<TrendingAdapter.Trendi
         if(trending == null){
             return;
         }
-        holder.product_img.setImageResource(trending.getProduct_image());
-        holder.product_name.setText(trending.getProduct_name());
-        holder.product_address.setText(trending.getProduct_address());
-        holder.rate.setText(trending.getRate());
-        holder.status.setText(trending.getStatus());
+        Glide.with(context).load(listTrending.get(position).getProduct_url()).into(holder.trending_img);
+        holder.trending_name.setText(trending.getProduct_name());
+        holder.trend_description.setText(trending.getDescription());
+        holder.rate.setText(Float.toString(trending.getRate()));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ProductDetailActivity.class);
-                intent.putExtra("detailed",listTrending.get(position));
+                intent.putExtra("detailed", listTrending.get(position));
                 context.startActivity(intent);
             }
         });
@@ -70,19 +67,17 @@ public class TrendingAdapter extends RecyclerView.Adapter<TrendingAdapter.Trendi
 
     public class TrendingViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView product_img;
-        private TextView product_name;
-        private TextView product_address;
+        private ImageView trending_img;
+        private TextView trending_name;
+        private TextView trend_description;
         private TextView rate;
-        private TextView status;
 
         public TrendingViewHolder(@NonNull View itemView) {
             super(itemView);
-            product_img = itemView.findViewById(R.id.trend_image);
-            product_name = itemView.findViewById(R.id.trend_name);
-            product_address = itemView.findViewById(R.id.trend_address);
+            trending_img = itemView.findViewById(R.id.trend_image);
+            trending_name = itemView.findViewById(R.id.trend_name);
+            trend_description = itemView.findViewById(R.id.trend_description);
             rate = itemView.findViewById(R.id.trend_rate);
-            status = itemView.findViewById(R.id.trend_status);
         }
     }
 }

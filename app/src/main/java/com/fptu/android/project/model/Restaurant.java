@@ -10,7 +10,8 @@ public class Restaurant implements Serializable {
     private String restaurant_address;
     private String restaurant_rate;
     private String restaurant_status;
-    private String   des;
+    private String des;
+    private int status;
 
     public Restaurant(int restaurant_image, int restaurant_id, int uid, String restaurant_name, String restaurant_address, String restaurant_rate, String restaurant_status, String des) {
         this.restaurant_image = restaurant_image;
@@ -77,6 +78,14 @@ public class Restaurant implements Serializable {
 
     public void setRestaurant_status(String restaurant_status) {
         this.restaurant_status = restaurant_status;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public String getDes() {

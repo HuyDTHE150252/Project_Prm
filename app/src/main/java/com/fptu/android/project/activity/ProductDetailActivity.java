@@ -95,17 +95,17 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         product = (Product) getIntent().getSerializableExtra("detailed");
 
-        int currentQuantity = product.getQuantity();
-        if (quantity < currentQuantity) {
-            quantity++;
-            tvQuantity.setText(String.valueOf(quantity));
-            totalPrice = Integer.parseInt(tvQuantity.getText().toString()) * (product.getPrice());
-            tvPrice.setText(String.valueOf(totalPrice));
-            Toast.makeText(ProductDetailActivity.this, "Nice", Toast.LENGTH_SHORT).show();
-
-        } else {
-            Toast.makeText(ProductDetailActivity.this, "Max ", Toast.LENGTH_SHORT).show();
-        }
+//       int currentQuantity = product.getQuantity();
+//        if (quantity < currentQuantity) {
+//            quantity++;
+//            tvQuantity.setText(String.valueOf(quantity));
+//          totalPrice = Integer.parseInt(tvQuantity.getText().toString()) * (product.getPrice());
+//            tvPrice.setText(String.valueOf(totalPrice));
+//            Toast.makeText(ProductDetailActivity.this, "Nice", Toast.LENGTH_SHORT).show();
+//
+//        } else {
+//            Toast.makeText(ProductDetailActivity.this, "Max ", Toast.LENGTH_SHORT).show();
+//        }
 
 
 
@@ -118,7 +118,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
             quantity--;
             tvQuantity.setText(String.valueOf(quantity));
-            totalPrice = Integer.parseInt(tvQuantity.getText().toString()) * (product.getPrice());
+//            totalPrice = Integer.parseInt(tvQuantity.getText().toString()) * (product.getPrice());
             tvPrice.setText(String.valueOf(totalPrice));
 
         }
@@ -164,9 +164,9 @@ public class ProductDetailActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         Product product = (Product) getIntent().getSerializableExtra("detailed");
         tvProductName.setText(product.getProduct_name());
-        tvProductAddress.setText(product.getProduct_address());
-        img.setImageResource(product.getProduct_image());
-        tvPrice.setText(String.valueOf(product.getPrice()));
+//        tvProductAddress.setText(product.getProduct_address());
+//        img.setImageResource(product.getProduct_image());
+//        tvPrice.setText(String.valueOf(product.getPrice()));
 //        tvQuantity.setText((String.valueOf(product.getQuantity())));
     }
 
@@ -196,7 +196,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     public void addToCart() {
         product = (Product) getIntent().getSerializableExtra("detailed");
-        totalPrice = Integer.parseInt(tvQuantity.getText().toString()) * (product.getPrice());
+//        totalPrice = Integer.parseInt(tvQuantity.getText().toString()) * (product.getPrice());
 
         HashMap<String, Object> cartMap = new HashMap<>();
         String uId = auth.getCurrentUser().getUid();

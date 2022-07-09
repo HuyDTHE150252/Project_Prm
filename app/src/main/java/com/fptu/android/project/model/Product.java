@@ -1,59 +1,35 @@
 package com.fptu.android.project.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Product implements Serializable {
+
     private int product_id;
-    private int product_image;
+    private String product_url;
     private String product_name;
-    private String product_address;
-    private String rate;
-    private String status;
-    private ArrayList<Category> categories;
-    private int quantity,price;
-    private int restaurentId;
+    private String description;
+    private String res_name;
+    private String res_address;
+    private int product_price;
+    private String type;
+    private float rate;
+    private int status;
 
-    public int getRestaurentId() {
-        return restaurentId;
+    public Product() {
+
     }
 
-
-
-    public void setRestaurentId(int restaurentId) {
-        this.restaurentId = restaurentId;
-    }
-
-    public Product(int product_id, int product_image, String product_name, String product_address, String rate, String status, ArrayList<Category> categories, int quantity, int price) {
+    public Product(int product_id, String product_url, String product_name, String description, String res_name, String res_address, int product_price, String type, float rate, int status) {
         this.product_id = product_id;
-        this.product_image = product_image;
+        this.product_url = product_url;
         this.product_name = product_name;
-        this.product_address = product_address;
+        this.description = description;
+        this.res_name = res_name;
+        this.res_address = res_address;
+        this.product_price = product_price;
+        this.type = type;
         this.rate = rate;
         this.status = status;
-        this.categories = categories;
-        this.quantity = quantity;
-        this.price = price;
-    }
-
-    public Product(int product_image, String product_name, String product_address, String rate, String status, ArrayList<Category> categories) {
-        this.product_image = product_image;
-        this.product_name = product_name;
-        this.product_address = product_address;
-        this.rate = rate;
-        this.status = status;
-        this.categories = categories;
-    }
-
-    public Product(int product_image, String product_name, String product_address, String rate, String status, int quantity, int price,int restaurentId) {
-        this.product_image = product_image;
-        this.product_name = product_name;
-        this.product_address = product_address;
-        this.rate = rate;
-        this.status = status;
-        this.quantity = quantity;
-        this.price = price;
-        this.restaurentId=restaurentId;
     }
 
     public int getProduct_id() {
@@ -64,12 +40,12 @@ public class Product implements Serializable {
         this.product_id = product_id;
     }
 
-    public int getProduct_image() {
-        return product_image;
+    public String getProduct_url() {
+        return product_url;
     }
 
-    public void setProduct_image(int product_image) {
-        this.product_image = product_image;
+    public void setProduct_url(String product_url) {
+        this.product_url = product_url;
     }
 
     public String getProduct_name() {
@@ -80,62 +56,59 @@ public class Product implements Serializable {
         this.product_name = product_name;
     }
 
-    public String getProduct_address() {
-        return product_address;
+    public String getDescription() {
+        return description;
     }
 
-    public void setProduct_address(String product_address) {
-        this.product_address = product_address;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getRate() {
+    public String getRes_name() {
+        return res_name;
+    }
+
+    public void setRes_name(String res_name) {
+        this.res_name = res_name;
+    }
+
+    public String getRes_address() {
+        return res_address;
+    }
+
+    public void setRes_address(String res_address) {
+        this.res_address = res_address;
+    }
+
+    public int getProduct_price() {
+        return product_price;
+    }
+
+    public void setProduct_price(int product_price) {
+        this.product_price = product_price;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public float getRate() {
         return rate;
     }
 
-    public void setRate(String rate) {
+    public void setRate(float rate) {
         this.rate = rate;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
-    }
-
-    public ArrayList<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(ArrayList<Category> categories) {
-        this.categories = categories;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "product_image=" + product_image +
-                ", product_name='" + product_name + '\'' +
-                ", product_address='" + product_address + '\'' +
-                ", rate='" + rate + '\'' +
-                ", status='" + status + '\'' +
-                '}';
     }
 }
