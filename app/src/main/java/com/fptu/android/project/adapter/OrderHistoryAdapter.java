@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -18,10 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.fptu.android.project.R;
 import com.fptu.android.project.activity.OrderDetailActivity;
 import com.fptu.android.project.model.Order;
-import com.fptu.android.project.service.MyForegroundService;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapter.ViewHolder> {
@@ -57,10 +54,21 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
         if(order==null){
             return;
         }
+        String orderStatus=order.getOrderStatus();
         holder.name.setText(orderList.get(position).getProductName());
         holder.currentD.setText(orderList.get(position).getCurrentDate());
         holder.addressOrder.setText(orderList.get(position).getAddress());
         holder.orderID.setText(orderList.get(position).getDocumentId());
+        holder.status.setText(orderList.get(position).getOrderStatus());
+        if(orderStatus.equals("In Progress")){
+            holder.status.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+        }else if(orderStatus.equals("Completed")){
+            holder.status.setTextColor(context.getResources().getColor(R.color.md_light_green_500));
+        }else if(orderStatus.equals("Cancel")){
+            holder.status.setTextColor(context.getResources().getColor(R.color.md_red_A100));
+        }
+
+
 //        holder.btnDetailOrder.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -77,9 +85,13 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
                 String orderId=order.getDocumentId();
                 String orderDate=order.getCurrentDate();
                 String orderAddress=order.getAddress();
+                String orderStatus=order.getOrderStatus();
                 b.putString("orderId",orderId);
                 b.putString("orderDate",orderDate);
                 b.putString("orderAddress",orderAddress);
+                b.putString("orderStatus",orderStatus);
+
+
                 i.putExtras(b);
                 ContextCompat.startActivity(context,i,b);
             }
@@ -93,7 +105,7 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView name, currentD,addressOrder,orderID;
+        TextView name, currentD,addressOrder,orderID,status;
         Button btnDetailOrder;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -102,6 +114,7 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
             currentD = itemView.findViewById(R.id.order_history_item_order_date);
             addressOrder=itemView.findViewById(R.id.order_history_item_address);
             btnDetailOrder=itemView.findViewById(R.id.btndetailORDER);
+            status=itemView.findViewById(R.id.tvStatusShipping);
         }
     }
 }

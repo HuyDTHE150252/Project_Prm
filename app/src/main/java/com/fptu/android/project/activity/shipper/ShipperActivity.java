@@ -33,7 +33,7 @@ import java.util.List;
 
 public class ShipperActivity extends AppCompatActivity {
     RecyclerView recyclerView;
-   ShipperApdapter orderHistoryAdapter;
+    ShipperApdapter orderHistoryAdapter;
     List<Order> orderList;
     FirebaseAuth auth;
     FirebaseFirestore db;
@@ -42,33 +42,41 @@ public class ShipperActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_history_shipper);
-//        db=FirebaseFirestore.getInstance();
-//        auth=FirebaseAuth.getInstance();
-//        recyclerView=findViewById(R.id.orderShipperRecyclerView);
-//        orderList= new ArrayList<>();
-//        orderHistoryAdapter= new ShipperApdapter(getApplicationContext(),orderList);
-//        //orderHistoryAdapter.setData(getListOrder());
-//        LinearLayoutManager linearLayoutManager= new LinearLayoutManager(getApplicationContext());
-//        recyclerView.setLayoutManager(linearLayoutManager);
-//        recyclerView.setAdapter(orderHistoryAdapter);
-//        loadListMyOrder();
+        setContentView(R.layout.activity_shipper);
+        db = FirebaseFirestore.getInstance();
+        auth = FirebaseAuth.getInstance();
+        recyclerView = findViewById(R.id.recycleListShipper);
+        orderList = new ArrayList<>();
+        orderHistoryAdapter = new ShipperApdapter(getApplicationContext(), orderList);
+//        orderHistoryAdapter.setData(getListOrder());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(orderHistoryAdapter);
+        loadAllOrder();
 
     }
-    private void loadListMyOrder(){
 
-        db.collection("CurrentUser")
+//    private List<Order> getListOrder() {
+//        orderList.add(new Order("1"));
+//        orderList.add(new Order("2"));
+//        return orderList;
+//    }
+
+    private void loadAllOrder() {
+        db.collection("CurrentUserOrder")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {
                                 String docId = documentSnapshot.getId();
+//                               String currentTime=documentSnapshot.getString("currentDateOrder");
                                 orderViewModel = documentSnapshot.toObject(Order.class);
                                 orderViewModel.setDocumentId(docId);
                                 orderList.add(orderViewModel);
                                 orderHistoryAdapter.notifyDataSetChanged();
                                 recyclerView.setVisibility(View.VISIBLE);
+                                Log.d("data", "DocumentSnapshot data: " + documentSnapshot.getId());
                             }
 
                         } else {
@@ -76,6 +84,8 @@ public class ShipperActivity extends AppCompatActivity {
                         }
                     }
                 });
-    }
+
+//    }
 
     }
+}

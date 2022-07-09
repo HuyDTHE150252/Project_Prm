@@ -134,7 +134,6 @@ public class PaymentRazorActivity extends AppCompatActivity implements PaymentRe
             HashMap<String, Object> cartMap = new HashMap<>();
             String uId = auth.getCurrentUser().getUid();
             String orderId = UUID.randomUUID().toString();
-
             Calendar calForDate = Calendar.getInstance();
             SimpleDateFormat currentDate = new SimpleDateFormat("MM dd,yyyy");
             String saveCurrentDate = currentDate.format(calForDate.getTime());
@@ -145,6 +144,7 @@ public class PaymentRazorActivity extends AppCompatActivity implements PaymentRe
             cartMap.put("currentDateOrder", saveCurrentDate);
             String final_address = (String) getIntent().getSerializableExtra("addressShipping");
             cartMap.put("addressShipping", final_address);
+            cartMap.put("orderStatus","In Progress");
             cartMap.put("status", "Payment Successfully");
             firestore.collection("CurrentUserOrder").document(auth.getCurrentUser().getUid())
                     .collection("Order").document(orderId)

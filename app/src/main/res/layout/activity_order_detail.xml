@@ -253,7 +253,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Successful delivery"
-            android:textColor="#208F25"
+            android:textColor="@color/blue"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/textViewTotalPrice"
             app:layout_constraintTop_toTopOf="@+id/textView30" />
