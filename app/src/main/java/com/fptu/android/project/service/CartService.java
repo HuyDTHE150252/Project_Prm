@@ -2,15 +2,20 @@ package com.fptu.android.project.service;
 
 import android.app.Service;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 
 import com.fptu.android.project.activity.ProductDetailActivity;
+import com.fptu.android.project.adapter.MyCartAdapter;
 import com.fptu.android.project.interfaces.CartInterface;
 import com.fptu.android.project.model.Order;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,6 +30,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.WriteBatch;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class CartService implements CartInterface {
@@ -34,11 +41,34 @@ public class CartService implements CartInterface {
     Context context;
 
     public CartService(Context context) {
+        auth=FirebaseAuth.getInstance();
+        firestore=FirebaseFirestore.getInstance();
         this.context=context;
     }
 
+
     @Override
-    public void addToCart() {
+    public void addToCart(String uid, String name, String quantity, int total) {
+        HashMap<String, Object> cartMap = new HashMap<>();
+
+        cartMap.put("userId", uid);
+        cartMap.put("productName", name);
+        cartMap.put("quantity", quantity);
+        cartMap.put("totalPrice",total);
+
+
+            firestore.collection("AddToCart").document(auth.getCurrentUser().getUid()).collection("CurrentUser")
+                    .add(cartMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentReference> task) {
+                            Intent i = new Intent(context, MyForegroundService.class);
+                            i.putExtra("data","Item added to cart");
+                            ContextCompat.startForegroundService(context,i);
+                            Log.d("t", "db rating getString() is: " + task.getResult());
+
+
+                        }
+                    });
 
     }
 
@@ -77,10 +107,57 @@ public class CartService implements CartInterface {
         });
     }
 
-    @Override
-    public void deleteItemCart() {
+//    @Override
+//    public void deleteItemCart(int position) {
+//
+//        AlertDialog.Builder alert = new AlertDialog.Builder(context);
+//        alert.setTitle("Delete");
+//        alert.setMessage("Are you sure you want to delete?");
+//        alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                firestore.collection("AddToCart").document(auth.getCurrentUser().getUid())
+//                        .collection("CurrentUser")
+//                        .document(cartList.get(position).getDocumentId())
+//                        .delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<Void> task) {
+//                                if (task.isSuccessful()) {
+//
+//                                    cartList.remove(cartList.get(position));
+//                                    MyCartAdapter m= new MyCartAdapter();
+//                                    m.notifyItemChanged(position);
+//                                    m.notifyDataSetChanged();
+//                                    Intent i = new Intent(context, MyForegroundService.class);
+//                                    i.putExtra("data","Item Deleted");
+//                                    ContextCompat.startForegroundService(context,i);
+//                                    Toast.makeText(context, "Item deleted", Toast.LENGTH_SHORT).show();
+//
+//                                } else {
+//                                    Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
+//                                }
+//                            }
+//                        });
+//
+//
+//
+//                dialog.dismiss();
+//            }
+//        });
+//
+//        alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+//
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                dialog.dismiss();
+//            }
+//        });
+//
+//        alert.show();
+//    }
 
-    }
+
 }
 
 

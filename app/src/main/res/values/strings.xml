@@ -42,4 +42,5 @@
     <string name="navigation_drawer_open">Open navigaion drawer</string>
     <string name="navigation_drawer_close">Close navigaion drawer</string>
     <string name="title_activity_edit_profile">EditProfile</string>
+    <string name="map_key" translatable="false">AIzaSyBrqPvBQjlb_B0EbC3dQC66LZ-XKuvbALw</string>
 </resources>

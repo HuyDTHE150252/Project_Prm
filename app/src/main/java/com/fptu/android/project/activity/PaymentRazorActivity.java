@@ -29,6 +29,7 @@ import com.razorpay.PaymentResultListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -133,7 +134,6 @@ public class PaymentRazorActivity extends AppCompatActivity implements PaymentRe
             HashMap<String, Object> cartMap = new HashMap<>();
             String uId = auth.getCurrentUser().getUid();
             String orderId = UUID.randomUUID().toString();
-
             Calendar calForDate = Calendar.getInstance();
             SimpleDateFormat currentDate = new SimpleDateFormat("MM dd,yyyy");
             String saveCurrentDate = currentDate.format(calForDate.getTime());
@@ -144,8 +144,9 @@ public class PaymentRazorActivity extends AppCompatActivity implements PaymentRe
             cartMap.put("currentDateOrder", saveCurrentDate);
             String final_address = (String) getIntent().getSerializableExtra("addressShipping");
             cartMap.put("addressShipping", final_address);
+            cartMap.put("orderStatus","In Progress");
             cartMap.put("status", "Payment Successfully");
-            firestore.collection("CurrentUserOrder").document(auth.getCurrentUser().getUid())
+            firestore
                     .collection("Order").document(orderId)
                     .set(cartMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
@@ -158,7 +159,7 @@ public class PaymentRazorActivity extends AppCompatActivity implements PaymentRe
                                 cap.put("productName", name);
                                 cap.put("quantity", quantity);
                                 cap.put("totalP", totalP);
-                                firestore.collection("CurrentUserOrder").document(auth.getCurrentUser().getUid())
+                                firestore
                                         .collection("Order").document(orderId).collection("Items").add(cap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                                             @Override
                                             public void onComplete(@NonNull Task<DocumentReference> task) {
@@ -166,11 +167,12 @@ public class PaymentRazorActivity extends AppCompatActivity implements PaymentRe
                                                 Intent i = new Intent(PaymentRazorActivity.this, MyForegroundService.class);
                                                 i.putExtra("data","OrderId "+orderId);
                                                 ContextCompat.startForegroundService(PaymentRazorActivity.this,i);
-                                                startActivity(new Intent(PaymentRazorActivity.this,HomePageActivity.class));
+                                                Intent intent = new Intent( PaymentRazorActivity.this,HomePageActivity.class);
+                                                startActivity(intent);
                                                 finish();
                                                 //clean cart
-                                                MyCartAdapter m = new MyCartAdapter(getApplicationContext(), list);
-                                                m.cleanCart();
+                                                cartService= new CartService(getApplicationContext());
+                                                cartService.cleanCart();
                                             }
                                         });
                             }

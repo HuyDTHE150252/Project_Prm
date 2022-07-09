@@ -25,6 +25,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,6 +92,11 @@ public class HomeFragment extends Fragment {
 
 
         }
+    }
+    private void getList(){
+        FirebaseStorage firebaseStorage=FirebaseStorage.getInstance();
+        FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
+
     }
 
     private List<Product> getListProduct() {

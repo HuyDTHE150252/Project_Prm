@@ -89,7 +89,8 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-
+        Log.d("t", "DocumentSnapshot data: " + acct.getEmail());
+        Log.d("t", "DocumentSnapshot data: " + acct.getAccount());
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         fAuth.signInWithCredential(credential)
@@ -99,9 +100,10 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = fAuth.getCurrentUser();
+
                             Intent intent = new Intent(getApplicationContext(),HomePageActivity.class);
                             startActivity(intent);
-                            Toast.makeText(LoginActivity.this, "Ok.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Login "+user.getEmail(), Toast.LENGTH_SHORT).show();
 
                         } else {
                             Toast.makeText(LoginActivity.this, "Sorry auth failed.", Toast.LENGTH_SHORT).show();
@@ -226,47 +228,7 @@ public class LoginActivity extends AppCompatActivity {
 
         }
 
-//    forgotTextLink.setOnClickListener(new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//
-//            final EditText resetMail = new EditText(v.getContext());
-//            final AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(v.getContext());
-//            passwordResetDialog.setTitle("Reset Password ?");
-//            passwordResetDialog.setMessage("Enter Your Email To Received Reset Link.");
-//            passwordResetDialog.setView(resetMail);
-//
-//            passwordResetDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialog, int which) {
-//                    // extract the email and send reset link
-//                    String mail = resetMail.getText().toString();
-//                    fAuth.sendPasswordResetEmail(mail).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                        @Override
-//                        public void onSuccess(Void aVoid) {
-//                            Toast.makeText(Login.this, "Reset Link Sent To Your Email.", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }).addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                            Toast.makeText(Login.this, "Error ! Reset Link is Not Sent" + e.getMessage(), Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
-//
-//                }
-//            });
-//
-//            passwordResetDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialog, int which) {
-//                    // close the dialog
-//                }
-//            });
-//
-//            passwordResetDialog.create().show();
-//
-//        }
-//    });
+
     private void signup(View view) {
         Intent i =new Intent(LoginActivity.this,SignupActivity.class);
         startActivity(i);
@@ -276,11 +238,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
 
 
-//        FirebaseUser user = fAuth.getCurrentUser();
-//        if(user!=null){
-//            Intent intent = new Intent(getApplicationContext(),HomePageActivity.class);
-//            startActivity(intent);
-//        }
+        FirebaseUser user = fAuth.getCurrentUser();
+        if(user!=null){
+            Intent intent = new Intent(getApplicationContext(),HomePageActivity.class);
+            startActivity(intent);
+        }
 
 
     }

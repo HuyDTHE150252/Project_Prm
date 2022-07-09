@@ -36,8 +36,7 @@ public class OrderActivity extends AppCompatActivity {
     EditText fullname, phone, shippingAddress;
     Button btnConfirmAddress, btnBack;
 
-    FirebaseAuth auth;
-    FirebaseFirestore firestore;
+
 
 
 
@@ -48,8 +47,7 @@ public class OrderActivity extends AppCompatActivity {
         shippingAddress = findViewById(R.id.edtShipAddress);
         btnConfirmAddress = findViewById(R.id.btnConfirmAddress);
         btnBack = findViewById(R.id.btnBack);
-        firestore = FirebaseFirestore.getInstance();
-        auth = FirebaseAuth.getInstance();
+
 
 
 
