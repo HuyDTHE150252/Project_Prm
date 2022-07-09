@@ -22,6 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -56,20 +57,27 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
 
     private void loadListMyOrder(){
-
-        db.collection("CurrentUserOrder").document(auth.getCurrentUser().getUid())
-                .collection("Order").orderBy("currentDateOrder", Query.Direction.ASCENDING)
+        String uid=auth.getCurrentUser().getUid();
+        db.collection("Order").whereEqualTo("userId",uid)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {
-                                String docId = documentSnapshot.getId();
+                               String docId = documentSnapshot.getId();
+                               String address=documentSnapshot.getString("addressShipping");
+                               String currentDate=documentSnapshot.getString("currentDateOrder");
+                               String status=documentSnapshot.getString("orderStatus");
+//                               String currentTime=documentSnapshot.getString("currentDateOrder");
                                 orderViewModel = documentSnapshot.toObject(Order.class);
                                 orderViewModel.setDocumentId(docId);
+                                orderViewModel.setAddress(address);
+                                orderViewModel.setCurrentDate(currentDate);
+                                orderViewModel.setOrderStatus(status);
                                 orderList.add(orderViewModel);
                                 orderHistoryAdapter.notifyDataSetChanged();
-                                recyclerView.setVisibility(View.VISIBLE);
+//                                recyclerView.setVisibility(View.VISIBLE);
+                                Log.d("t", "DocumentSnapshot data: " + documentSnapshot.getData());
                             }
 
                         } else {
@@ -78,26 +86,5 @@ public class OrderHistoryActivity extends AppCompatActivity {
                     }
                 });
     }
-    private void loadAllOrder() {
-        db.collection("CurrentUserOrder")
-                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {
-                                String docId = documentSnapshot.getId();
-                                orderViewModel = documentSnapshot.toObject(Order.class);
-                                orderViewModel.setDocumentId(docId);
-                                orderList.add(orderViewModel);
-                                orderHistoryAdapter.notifyDataSetChanged();
-                                recyclerView.setVisibility(View.VISIBLE);
-                            }
 
-                        } else {
-                            Log.w("err", "Error getting documents.", task.getException());
-                        }
-                    }
-                });
-
-    }
 }

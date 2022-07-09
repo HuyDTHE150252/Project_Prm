@@ -9,7 +9,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="240dp"
-        android:background="#F4511E" />
+        android:background="#F4511E" >
+
+
+    </LinearLayout>
 
     <!--Top Header Layout-->
     <LinearLayout
@@ -37,21 +40,37 @@
         <Space
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.6" />
+            android:layout_weight="1" />
 
-        <RelativeLayout
-            android:layout_width="50dp"
-            android:layout_height="50dp">
+<!--        <RelativeLayout-->
+<!--            android:layout_width="60dp"-->
+<!--            android:layout_height="70dp">-->
 
-            <ImageView
-                android:id="@+id/logout"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_centerInParent="true"
-                android:padding="6dp"
-                android:src="@drawable/ic_back" />
+<!--            <ImageView-->
+<!--                android:id="@+id/logout"-->
+<!--                android:layout_width="50dp"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:layout_alignParentTop="true"-->
+<!--                android:layout_alignParentEnd="true"-->
+<!--                android:layout_marginTop="0dp"-->
+<!--                android:layout_marginEnd="5dp"-->
+<!--                android:padding="0dp"-->
+<!--                android:src="@drawable/ic_logout" />-->
 
-        </RelativeLayout>
+<!--            <TextView-->
+<!--                android:id="@+id/textView6"-->
+<!--                android:layout_width="50dp"-->
+<!--                android:layout_height="20dp"-->
+<!--                android:layout_alignParentEnd="true"-->
+<!--                android:layout_alignParentBottom="true"-->
+<!--                android:layout_marginEnd="5dp"-->
+<!--                android:layout_marginBottom="0dp"-->
+<!--                android:text="Logout"-->
+<!--                android:textAlignment="center"-->
+<!--                android:textAllCaps="false"-->
+<!--                android:textColor="#F6F3F3"-->
+<!--                android:textStyle="bold" />-->
+<!--        </RelativeLayout>-->
 
     </LinearLayout>
 
@@ -142,7 +161,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="97%"
+                                android:text="100%"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
@@ -178,7 +197,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="4.8/5"
+                                android:text="5/5"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
@@ -271,7 +290,7 @@
                             android:layout_height="match_parent"
                             android:layout_marginEnd="10dp"
                             android:text="Edit"
-                            android:textColor="#FFCF66"
+                            android:textColor="@color/md_red_A700"
                             android:textSize="14sp" />
                     </LinearLayout>
 
@@ -356,54 +375,126 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-            <!--About Me Card-->
-            <!--            <LinearLayout-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:background="@drawable/circularbordersolid"-->
-            <!--                android:orientation="vertical"-->
-            <!--                android:padding="16dp">-->
-
-            <!--                <LinearLayout-->
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:orientation="vertical">-->
-
-            <!--                    <LinearLayout-->
-            <!--                        android:layout_width="match_parent"-->
-            <!--                        android:layout_height="wrap_content">-->
-
-            <!--                        <TextView-->
-            <!--                            android:layout_width="wrap_content"-->
+            <!--            &lt;!&ndash;About Me Card&ndash;&gt;-->
+            <!--                        <LinearLayout-->
+            <!--                            android:layout_width="match_parent"-->
             <!--                            android:layout_height="wrap_content"-->
-            <!--                            android:fontFamily="@font/proximanovaregular"-->
-            <!--                            android:text="@string/about_me"-->
-            <!--                            android:textSize="17sp"-->
-            <!--                            android:textStyle="bold" />-->
+            <!--                            android:background="@drawable/circularbordersolid"-->
+            <!--                            android:orientation="vertical"-->
+            <!--                            android:padding="16dp">-->
 
-            <!--                        <Space-->
-            <!--                            android:layout_width="wrap_content"-->
-            <!--                            android:layout_height="wrap_content"-->
-            <!--                            android:layout_weight="1" />-->
+            <!--                            <LinearLayout-->
+            <!--                                android:layout_width="match_parent"-->
+            <!--                                android:layout_height="wrap_content"-->
+            <!--                                android:orientation="vertical">-->
 
-            <!--                        <TextView-->
-            <!--                            android:layout_width="wrap_content"-->
-            <!--                            android:layout_height="wrap_content"-->
-            <!--                            android:layout_marginEnd="10dp"-->
-            <!--                            android:fontFamily="@font/proximanovaregular"-->
-            <!--                            android:text="Edit"-->
-            <!--                            android:textColor="#FFCF66"-->
-            <!--                            android:textSize="14sp" />-->
-            <!--                    </LinearLayout>-->
+            <!--                                <LinearLayout-->
+            <!--                                    android:layout_width="match_parent"-->
+            <!--                                    android:layout_height="wrap_content">-->
 
-            <!--                    <TextView-->
-            <!--                        android:layout_width="wrap_content"-->
-            <!--                        android:layout_height="wrap_content"-->
-            <!--                        android:layout_marginTop="10dp"-->
-            <!--                        android:text="@string/my_desc" />-->
-            <!--                </LinearLayout>-->
+            <!--&lt;!&ndash;                                    <TextView&ndash;&gt;-->
+            <!--&lt;!&ndash;                                        android:layout_width="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;                                        android:layout_height="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;                                        android:fontFamily="@font/proximanovaregular"&ndash;&gt;-->
+            <!--&lt;!&ndash;                                        android:text="@string/about_me"&ndash;&gt;-->
+            <!--&lt;!&ndash;                                        android:textSize="17sp"&ndash;&gt;-->
+            <!--&lt;!&ndash;                                        android:textStyle="bold" />&ndash;&gt;-->
 
-            <!--            </LinearLayout>-->
+            <!--&lt;!&ndash;                                    <Space&ndash;&gt;-->
+            <!--&lt;!&ndash;                                        android:layout_width="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;                                        android:layout_height="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;                                        android:layout_weight="1" />&ndash;&gt;-->
+
+            <!--                                    <TextView-->
+            <!--                                        android:layout_width="wrap_content"-->
+            <!--                                        android:layout_height="wrap_content"-->
+            <!--                                        android:layout_marginEnd="10dp"-->
+            <!--                                        android:fontFamily="@font/proximanovaregular"-->
+            <!--                                        android:text="Edit"-->
+            <!--                                        android:textColor="#FFCF66"-->
+            <!--                                        android:textSize="14sp" />-->
+            <!--                                </LinearLayout>-->
+
+            <!--                                <TextView-->
+            <!--                                    android:layout_width="wrap_content"-->
+            <!--                                    android:layout_height="wrap_content"-->
+            <!--                                    android:layout_marginTop="10dp"-->
+            <!--                                    android:text="@string/my_desc" />-->
+            <!--                            </LinearLayout>-->
+
+            <!--                        </LinearLayout>-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/circularbordersolid"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/resetPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/proximanovaregular"
+                    android:gravity="center"
+                    android:padding="13dp"
+                    android:text="Reset Password"
+                    android:textAllCaps="true"
+                    android:textColor="@color/blue"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/lightgrey" />
+
+
+                <LinearLayout
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/lightgrey" />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/circularbordersolid"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvLogout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/proximanovaregular"
+                    android:gravity="center"
+                    android:padding="13dp"
+                    android:text="Log out"
+                    android:textAllCaps="true"
+                    android:textColor="@color/blue"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/lightgrey" />
+
+
+                <LinearLayout
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/lightgrey" />
+
+
+            </LinearLayout>
         </LinearLayout>
 
     </ScrollView>

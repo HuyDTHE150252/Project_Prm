@@ -12,27 +12,26 @@ public class Restaurant implements Serializable {
     private String restaurant_status;
     private String   des;
 
-    public Restaurant(String restaurant_image, int restaurant_id, int uid, String restaurant_name, String restaurant_address, String restaurant_rate, String restaurant_status, String des) {
+
+
+
+
+
+    public Restaurant(String restaurant_image, String restaurant_name, String restaurant_address, String restaurant_rate, String restaurant_status) {
+
         this.restaurant_image = restaurant_image;
-        this.restaurant_id = restaurant_id;
-        this.uid = uid;
         this.restaurant_name = restaurant_name;
         this.restaurant_address = restaurant_address;
         this.restaurant_rate = restaurant_rate;
         this.restaurant_status = restaurant_status;
-        this.des = des;
     }
+
 
     public Restaurant() {
     }
 
-    public Restaurant(String restaurant_image, String restaurant_name, String restaurant_address, String restaurant_rate, String restaurant_status) {
-        this.restaurant_image = restaurant_image;
-        this.restaurant_name = restaurant_name;
-        this.restaurant_address = restaurant_address;
-        this.restaurant_rate = restaurant_rate;
-        this.restaurant_status = restaurant_status;
-    }
+
+
 
     public String getRestaurant_image() {
         return restaurant_image;

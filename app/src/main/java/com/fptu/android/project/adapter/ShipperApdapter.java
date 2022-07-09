@@ -26,9 +26,6 @@ public class ShipperApdapter extends RecyclerView.Adapter<ShipperApdapter.ViewHo
     Context context;
     List<Order> orderList;
 
-    FirebaseFirestore firestore;
-
-    FirebaseAuth auth;
 
     public ShipperApdapter(Context context, List<Order> orderList) {
         this.context = context;
@@ -48,16 +45,17 @@ public class ShipperApdapter extends RecyclerView.Adapter<ShipperApdapter.ViewHo
     @NonNull
     @Override
     public ShipperApdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.order_history_item, parent, false
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_order_history_shipper, parent, false
         ));
     }
 
     @Override
     public void onBindViewHolder(@NonNull ShipperApdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
-        holder.name.setText(orderList.get(position).getProductName());
-        holder.currentD.setText(orderList.get(position).getCurrentDate());
-        holder.addressOrder.setText("1");
+//        holder.name.setText(orderList.get(position).getProductName());
+//        holder.currentD.setText(orderList.get(position).getCurrentDate());
+        //holder.addressOrder.setText("1");
+
         holder.orderID.setText(orderList.get(position).getDocumentId());
         holder.completed_btn.setVisibility(View.VISIBLE);
         holder.completed_btn.setOnClickListener(new View.OnClickListener() {
@@ -88,9 +86,9 @@ public class ShipperApdapter extends RecyclerView.Adapter<ShipperApdapter.ViewHo
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             orderID=itemView.findViewById(R.id.order_history_item_id);
-            name = itemView.findViewById(R.id.order_history_item_name);
-            currentD = itemView.findViewById(R.id.order_history_item_order_date);
-            addressOrder=itemView.findViewById(R.id.order_history_item_address);
+//            name = itemView.findViewById(R.id.order_history_item_name);
+//            currentD = itemView.findViewById(R.id.order_history_item_order_date);
+//            addressOrder=itemView.findViewById(R.id.order_history_item_address);
             completed_btn = itemView.findViewById(R.id.completed_btn);
             stick = itemView.findViewById(R.id.tickIMG);
 

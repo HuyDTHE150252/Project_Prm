@@ -26,6 +26,7 @@ import com.fptu.android.project.adapter.FeedbackAdapter;
 import com.fptu.android.project.model.Feedback;
 import com.fptu.android.project.model.Order;
 import com.fptu.android.project.model.Product;
+import com.fptu.android.project.service.CartService;
 import com.fptu.android.project.service.MyForegroundService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -57,6 +58,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     Product product = null;
     List<Feedback> feedbackList;
     Feedback f;
+    CartService c;
 
 
     void bidingView() {
@@ -171,63 +173,20 @@ public class ProductDetailActivity extends AppCompatActivity {
     }
 
     private void loadListFeedback() {
-//        firestore.collection("Feedback")
-//               .orderBy("currentDateOrder", Query.Direction.ASCENDING)
-//                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {
-//                                String docId = documentSnapshot.getId();
-//                               f= documentSnapshot.toObject(Feedback.class);
-//                                f.setFeedback_id(String.valueOf(docId));
-//                                feedbackList.add(f);
-//                                feedbackadapter.notifyDataSetChanged();
-//                                rcvFeedback.setVisibility(View.VISIBLE);
-//                            }
-//
-//                        } else {
-//                            Log.w("err", "Error getting documents.", task.getException());
-//                        }
-//                    }
-//                });
-
     }
 
-    public void addToCart() {
-        product = (Product) getIntent().getSerializableExtra("detailed");
-        totalPrice = Integer.parseInt(tvQuantity.getText().toString()) * (product.getPrice());
 
-        HashMap<String, Object> cartMap = new HashMap<>();
-        String uId = auth.getCurrentUser().getUid();
-        cartMap.put("userId", uId);
-        cartMap.put("productName", tvProductName.getText().toString());
-        cartMap.put("quantity", tvQuantity.getText().toString());
-        cartMap.put("totalPrice", totalPrice);
-        if (quantity == 0) {
-            Toast.makeText(ProductDetailActivity.this, "Nothing add  to cart", Toast.LENGTH_SHORT).show();
-            finish();
-        } else {
-            firestore.collection("AddToCart").document(auth.getCurrentUser().getUid()).collection("CurrentUser")
-                    .add(cartMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentReference> task) {
-                            Toast.makeText(ProductDetailActivity.this, "Added to cart", Toast.LENGTH_SHORT).show();
-                            Intent i = new Intent(ProductDetailActivity.this, MyForegroundService.class);
-                            i.putExtra("data","Item added to cart");
-                            ContextCompat.startForegroundService(ProductDetailActivity.this,i);
-                            Log.d("t", "db rating getString() is: " + task.getResult());
-                            finish();
-                        }
-                    });
-        }
-
-
-    }
 
     private void onClick(View view) {
         if (auth.getCurrentUser() != null) {
-            addToCart();
+            product = (Product) getIntent().getSerializableExtra("detailed");
+            totalPrice = Integer.parseInt(tvQuantity.getText().toString()) * (product.getPrice());
+            String uId = auth.getCurrentUser().getUid();
+            c= new CartService(getApplicationContext());
+            c.addToCart(uId,tvProductName.getText().toString(),tvQuantity.getText().toString(),totalPrice);
+            Intent intent = new Intent(ProductDetailActivity.this, HomePageActivity.class);
+            Toast.makeText(ProductDetailActivity.this, "Added", Toast.LENGTH_SHORT).show();
+            startActivity(intent);
         } else {
             Intent intent = new Intent(ProductDetailActivity.this, LoginActivity.class);
             Toast.makeText(ProductDetailActivity.this, "Login first then Add to cart", Toast.LENGTH_SHORT).show();

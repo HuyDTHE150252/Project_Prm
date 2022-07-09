@@ -12,8 +12,28 @@ public class Order implements Serializable {
     int totalPrice;
     String address;
     String paymentState;
+    String orderStatus;
+
+    public String getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
+    }
 
     public Order() {
+    }
+    public Order(String documentId) {
+        this.documentId=documentId;
+    }
+
+    public Order(String currentTime, String currentDate, String documentId, String address,String orderStatus) {
+        this.currentTime = currentTime;
+        this.currentDate = currentDate;
+        this.documentId = documentId;
+        this.address = address;
+        this.orderStatus=orderStatus;
     }
 
     public Order(String productName, String totalQuantity, int totalPrice) {

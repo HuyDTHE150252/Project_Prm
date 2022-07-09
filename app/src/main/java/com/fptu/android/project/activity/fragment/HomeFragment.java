@@ -20,12 +20,14 @@ import com.fptu.android.project.adapter.ProductAdapter;
 import com.fptu.android.project.adapter.TrendingAdapter;
 import com.fptu.android.project.model.Category;
 import com.fptu.android.project.model.Product;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,6 +87,11 @@ public class HomeFragment extends Fragment {
 
 
         }
+    }
+    private void getList(){
+        FirebaseStorage firebaseStorage=FirebaseStorage.getInstance();
+        FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
+
     }
 
     private List<Product> getListProduct() {
