@@ -25,9 +25,13 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
     private Context context;
     private List<Restaurant> listRestaurants;
 
-    public RestaurantAdapter(Context context) {
+    public RestaurantAdapter(Context context, List<Restaurant>  listRestaurants) {
         this.context = context;
+        this.listRestaurants = listRestaurants;
     }
+
+//    public RestaurantAdapter(RestaurantActivity context, void allListRestaurant) {
+//    }
 
     public void setData(List<Restaurant> list) {
         this.listRestaurants = list;
@@ -56,13 +60,17 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
                 context.startActivity(intent);
             }
         });
-        holder.restaurant_image.setImageResource(restaurant.getRestaurant_image());
+        //holder.restaurant_image.setImageResource(restaurant.getRestaurant_image());
 //        holder.restaurant_id.setText(restaurant.getRestaurant_id());
 //        holder.uid.setText(restaurant.getUid());
         holder.restaurant_name.setText(restaurant.getRestaurant_name());
         holder.restaurant_address.setText(restaurant.getRestaurant_address());
         holder.restaurant_rate.setText(restaurant.getRestaurant_rate());
-        holder.restaurant_status.setText(restaurant.getRestaurant_status());
+        //holder.restaurant_status.setText(restaurant.getRestaurant_status());
+       if(restaurant.getRestaurant_status() == "1"){
+           holder.restaurant_status.setText("Open");
+       }
+
     }
 
     @Override

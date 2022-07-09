@@ -120,15 +120,7 @@
 
     </ScrollView>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/menu_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:background="#fc8403"
-        app:itemIconTint="@drawable/selector_menu"
-        app:itemTextColor="@drawable/selector_menu"
-        app:menu="@menu/menu_navigation"></com.google.android.material.bottomnavigation.BottomNavigationView>
+
 
 </RelativeLayout>
 

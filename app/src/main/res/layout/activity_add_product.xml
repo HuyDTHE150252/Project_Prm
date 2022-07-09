@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="RestaurantId"
+        android:text="Name Product"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/addNewProduct"
         app:layout_constraintTop_toBottomOf="@+id/addNewProduct" />
@@ -32,18 +32,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
-        android:text="Price"
+        android:text="Price Product"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/edtImg"
-        app:layout_constraintTop_toBottomOf="@+id/edtImg" />
+        app:layout_constraintStart_toStartOf="@+id/edtName"
+        app:layout_constraintTop_toBottomOf="@+id/edtName" />
 
     <EditText
-        android:id="@+id/edtImg"
+        android:id="@+id/edtName"
         android:layout_width="375dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:ems="10"
-        android:hint="Restaurant Id"
+        android:hint="Name Product"
         android:inputType="textPersonName"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/textImg"
@@ -58,17 +58,33 @@
         android:hint="Enter Price"
         android:inputType="textPersonName"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/edtImg"
+        app:layout_constraintEnd_toEndOf="@+id/edtName"
         app:layout_constraintStart_toStartOf="@+id/textPrice"
         app:layout_constraintTop_toBottomOf="@+id/textPrice" />
 
     <EditText
-        android:id="@+id/edtAddress"
+        android:id="@+id/edtCategory"
+        android:layout_width="375dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="88dp"
+        android:ems="10"
+        android:hint="Enter Category"
+        android:inputType="textPersonName"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/edtPrice"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textPrice"
+        app:layout_constraintTop_toBottomOf="@+id/textAdress" />
+
+
+
+    <EditText
+        android:id="@+id/edtQuantity"
         android:layout_width="375dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:ems="10"
-        android:hint="Enter Name's Product"
+        android:hint="Enter quanity"
         android:inputType="textPersonName"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/edtPrice"
@@ -79,8 +95,8 @@
         android:id="@+id/textAdress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:text="Name Product"
+        android:layout_marginTop="28dp"
+        android:text="Quantity Product"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/edtPrice"
         app:layout_constraintTop_toBottomOf="@+id/edtPrice" />
@@ -95,23 +111,23 @@
         android:onClick="onConfirmAddressClick"
         android:text="Add New Product"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/edtAddress"
-        app:layout_constraintStart_toStartOf="@+id/edtAddress" />
+        app:layout_constraintEnd_toEndOf="@+id/edtQuantity"
+        app:layout_constraintStart_toStartOf="@+id/edtQuantity" />
 
     <Button
         android:id="@+id/btnShow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="148dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="12dp"
         android:text="Show"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewAdd" />
 
     <ImageView
         android:id="@+id/imageViewAdd"
-        android:layout_width="211dp"
-        android:layout_height="149dp"
+        android:layout_width="206dp"
+        android:layout_height="124dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -123,28 +139,38 @@
         android:layout_width="111dp"
         android:layout_height="37dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="92dp"
         android:text="Add Image"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtAddress" />
+        app:layout_constraintTop_toBottomOf="@+id/edtQuantity" />
 
     <Button
         android:id="@+id/upload_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="59dp"
-        android:layout_marginTop="114dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="164dp"
         android:text="Up Load"
         app:layout_constraintStart_toEndOf="@+id/imageViewAdd"
-        app:layout_constraintTop_toBottomOf="@+id/edtAddress" />
+        app:layout_constraintTop_toBottomOf="@+id/edtQuantity" />
 
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="85dp"
-        android:layout_marginTop="29dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="44dp"
         app:layout_constraintStart_toEndOf="@+id/imageViewAdd"
         app:layout_constraintTop_toBottomOf="@+id/upload_btn" />
+
+    <TextView
+        android:id="@+id/textCategory"
+        android:layout_width="126dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="16dp"
+        android:text="Category"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/edtCategory"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

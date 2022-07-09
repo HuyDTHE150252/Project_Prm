@@ -14,6 +14,7 @@ import com.fptu.android.project.R;
 import com.fptu.android.project.adapter.MyAdapter;
 import com.fptu.android.project.model.Model;
 import com.fptu.android.project.model.Product;
+import com.fptu.android.project.model.Products;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -28,7 +29,7 @@ public class ShowActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private FirebaseFirestore db;
     private MyAdapter adapter;
-    private List<Model> list;
+    private List<Products> list;
 
 
     @Override
@@ -61,8 +62,8 @@ public class ShowActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         list.clear();
                         for (DocumentSnapshot snapshot: task.getResult()){
-                            Model model = new Model(snapshot.getString("id"), snapshot.getString("image"), snapshot.getString("name"), snapshot.getString("price"));
-                                   list.add(model);
+                            Products products = new Products(snapshot.getString("id"), snapshot.getString("name"), snapshot.getString("quantity"), snapshot.getString("price"));
+                                   list.add(products);
                         }
                         adapter.notifyDataSetChanged();
                     }

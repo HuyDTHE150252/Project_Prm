@@ -138,4 +138,5 @@ public class Product implements Serializable {
                 ", status='" + status + '\'' +
                 '}';
     }
+
 }

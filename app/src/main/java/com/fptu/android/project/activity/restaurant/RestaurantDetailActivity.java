@@ -47,7 +47,7 @@ public class RestaurantDetailActivity extends AppCompatActivity {
 
         restaurant = (Restaurant) getIntent().getSerializableExtra("restaurant");
         bindingView();
-        imgRestaurant.setImageResource(restaurant.getRestaurant_image());
+        //imgRestaurant.setImageResource(restaurant.getRestaurant_image());
         name.setText(restaurant.getRestaurant_name());
         address.setText(restaurant.getRestaurant_address());
         des.setText(restaurant.getDes());
