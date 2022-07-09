@@ -46,9 +46,9 @@ public class ProfileFragment extends Fragment {
     FirebaseFirestore fStore;
     String userId;
     Button resendCode;
-    Button  changeProfileImage;
+    Button changeProfileImage;
     FirebaseUser user;
-    ImageView logout,iveditProfile, profileImage;
+    ImageView logout, iveditProfile, profileImage;
     StorageReference storageReference;
 
     @Nullable
@@ -73,7 +73,7 @@ public class ProfileFragment extends Fragment {
         editProfile = view.findViewById(R.id.tveditProfile);
         editProfile.setOnClickListener(this::editProfile);
         resetPass.setOnClickListener(this::resetPassword);
-        tvlogout= view.findViewById(R.id.tvLogout);
+        tvlogout = view.findViewById(R.id.tvLogout);
         tvlogout.setOnClickListener(this::logout);
         StorageReference profileRef = storageReference.child("users/" + fAuth.getCurrentUser().getUid() + "/profile.jpg");
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -108,29 +108,6 @@ public class ProfileFragment extends Fragment {
     }
 
 
-
-    //    if(!user.isEmailVerified()){
-//        verifyMsg.setVisibility(View.VISIBLE);
-//        resendCode.setVisibility(View.VISIBLE);
-//
-//        resendCode.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(final View v) {
-//
-//                user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void aVoid) {
-//                        Toast.makeText(v.getContext(), "Verification Email Has been Sent.", Toast.LENGTH_SHORT).show();
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Log.d("tag", "onFailure: Email not sent " + e.getMessage());
-//                    }
-//                });
-//            }
-//        });
-//    }
     private void editProfile(View view) {
         Intent i = new Intent(view.getContext(), EditProflieActivity.class);
         i.putExtra("fullName", fullName.getText().toString());
@@ -144,6 +121,7 @@ public class ProfileFragment extends Fragment {
         startActivity(new Intent(getActivity(), LoginActivity.class));
 
     }
+
     private void resetPassword(View view) {
         final EditText resetPassword = new EditText(view.getContext());
 
@@ -181,48 +159,7 @@ public class ProfileFragment extends Fragment {
         passwordResetDialog.create().show();
 
     }
-
-
-//    resetPass.setOnClickListener(new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//
-//            final EditText resetPassword = new EditText(v.getContext());
-//
-//            final AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(v.getContext());
-//            passwordResetDialog.setTitle("Reset Password ?");
-//            passwordResetDialog.setMessage("Enter New Password > 6 Characters long.");
-//            passwordResetDialog.setView(resetPassword);
-//
-//            passwordResetDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialog, int which) {
-//                    // extract the email and send reset link
-//                    String newPassword = resetPassword.getText().toString();
-//                    user.updatePassword(newPassword).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                        @Override
-//                        public void onSuccess(Void aVoid) {
-//                            Toast.makeText(ProfileFragment.this, "Password Reset Successfully.", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }).addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                            Toast.makeText(MainActivity.this, "Password Reset Failed.", Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
-//                }
-//            });
-//
-//            passwordResetDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialog, int which) {
-//                    // close
-//                }
-//            });
-//
-//            passwordResetDialog.create().show();
-//
-//        }
-//    });
-
 }
+
+
+
