@@ -39,8 +39,6 @@ public class NotificationService extends FirebaseMessagingService {
     }
 
 
-
-
     public void getFireBaseMessage(String title, String msg){
         Intent intent= new Intent(this, HomePageActivity.class);
         PendingIntent pendingIntent=PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_CANCEL_CURRENT);

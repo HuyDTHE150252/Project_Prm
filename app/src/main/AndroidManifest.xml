@@ -100,9 +100,6 @@
             android:value="true" />
 
         <activity
-            android:name=".activity.ProductActivity"
-            android:exported="false" />
-        <activity
             android:name=".activity.shipper.ShipperActivity"
             android:exported="true" />
         <activity

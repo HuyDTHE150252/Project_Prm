@@ -43,33 +43,23 @@
                 android:textSize="20dp" />
 
             <TextView
-                android:id="@+id/trend_address"
+                android:id="@+id/trend_description"
                 android:layout_width="wrap_content"
                 android:layout_height="80dp"
                 android:layout_below="@id/trend_name"
                 android:padding="10dp"
-                android:text="10A Thôn 2, Thạch Hòa, Thạch Thất, Hòa Lạc"
+                android:text="Ngon vcl"
                 android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/trend_rate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/trend_address"
+                android:layout_below="@id/trend_description"
                 android:drawableStart="@drawable/ic_rate_star"
                 android:padding="5dp"
                 android:text=" 5.0"
                 android:textSize="15dp" />
-
-            <TextView
-                android:id="@+id/trend_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/trend_rate"
-                android:padding="10dp"
-                android:text="ĐÓNG CỬA"
-                android:textColor="#eb3434"
-                android:textStyle="bold" />
 
         </RelativeLayout>
 

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.fptu.android.project.R;
 import com.fptu.android.project.activity.ProductDetailActivity;
 import com.fptu.android.project.model.Product;
@@ -49,11 +50,11 @@ public class    ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Produ
         if(product == null){
             return;
         }
-        holder.product_img.setImageResource(product.getProduct_image());
+        Glide.with(context).load(listProduct.get(position).getProduct_url()).into(holder.product_img);
         holder.product_name.setText(product.getProduct_name());
-        holder.product_address.setText(product.getProduct_address());
-        holder.rate.setText(product.getRate());
-        holder.status.setText(product.getStatus());
+        holder.product_description.setText(product.getDescription());
+        holder.rate.setText(Float.toString(product.getRate()));
+        holder.product_price.setText(String.valueOf(product.getProduct_price()));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,17 +74,17 @@ public class    ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Produ
 
         private ImageView product_img;
         private TextView product_name;
-        private TextView product_address;
+        private TextView product_description;
         private TextView rate;
-        private TextView status;
+        private TextView product_price;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
             product_img = itemView.findViewById(R.id.product_image);
             product_name = itemView.findViewById(R.id.product_name);
-            product_address = itemView.findViewById(R.id.product_address);
+            product_description = itemView.findViewById(R.id.product_description);
             rate = itemView.findViewById(R.id.product_rate);
-            status = itemView.findViewById(R.id.product_status);
+            product_price = itemView.findViewById(R.id.product_price);
         }
     }
 }

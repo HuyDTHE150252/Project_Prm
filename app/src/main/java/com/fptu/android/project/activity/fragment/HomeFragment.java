@@ -20,6 +20,11 @@ import com.fptu.android.project.adapter.ProductAdapter;
 import com.fptu.android.project.adapter.TrendingAdapter;
 import com.fptu.android.project.model.Category;
 import com.fptu.android.project.model.Product;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,7 +45,7 @@ public class HomeFragment extends Fragment {
     private CategoryAdapter cate_adapter;
     private TrendingAdapter trend_adapter;
     private ProductAdapter product_adapter;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    FirebaseFirestore database = FirebaseFirestore.getInstance();
 
 
     @Nullable
@@ -96,51 +101,58 @@ public class HomeFragment extends Fragment {
 
     private List<Product> getListProduct() {
         List<Product> list = new ArrayList<>();
-        list.add(new Product(R.drawable.ca_phe, "Cà phê", "19 Thôn 3, xã Thạch Hòa, huyện Thạch Thất, Hòa Lạc", "5.0", "ĐÓNG CỬA", 11, 111, 1));
-        list.add(new Product(R.drawable.tra_sua_nuong, "Trà Sữa Nướng", "10A Thôn 2, xã Thạch Hòa, huyện Thạch Thất, Hòa Lạc", "4.5", "ĐÓNG CỬA", 11, 111, 1));
-        list.add(new Product(R.drawable.tra_dao, "Trà Đào", "45 Thôn 9, xã Thạch Hòa, huyện Thạch Thất, Hòa Lạc", "4.5", "ĐÓNG CỬA", 11, 111, 2));
-        list.add(new Product(R.drawable.tra_dao, "Đồ ăn Hàn", "12 Thôn 9, xã Tân Xã, huyện Thạch Thất, Hòa Lạc", "4.5", "ĐÓNG CỬA", 11, 111, 2));
-        list.add(new Product(R.drawable.bun_dau_mam_tom, "Bún Đậu", "55 Thôn 3, thị trấn Liên Quan, huyện Thạch Thất, Hòa Lạc", "4.5", "ĐÓNG CỬA", 11, 111, 1));
-        list.add(new Product(R.drawable.com_rang, "Cơm Rang", "1B Thôn 4, xã Thạch Hòa, huyện Thạch Thất, Hòa Lạc", "4.0", "ĐÓNG CỬA", 11, 111, 1));
-        list.add(new Product(R.drawable.ga_u_muoi, "Gà Ủ Muối", "23 Thôn 8, xã Thạch Hòa, huyện Thạch Thất, Hòa Lạc", "4.0", "ĐÓNG CỬA", 11, 111, 1));
+        database.collection("product")
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for (DocumentSnapshot doc : task.getResult().getDocuments()) {
+                            Product p = new Product();
+                            p.setProduct_id(Integer.valueOf(doc.get("id").toString()));
+                            p.setProduct_name(doc.get("name").toString());
+                            p.setDescription(doc.get("description").toString());
+                            p.setProduct_price(Integer.valueOf(doc.get("price").toString()));
+                            p.setRate(Float.valueOf(doc.get("rate").toString()));
+                            p.setProduct_url(doc.get("url").toString());
+                            list.add(p);
+                        }
+                    }
+                });
 
         return list;
     }
 
     private List<Product> getListTrending() {
         List<Product> list = new ArrayList<>();
-        list.add(new Product(R.drawable.ca_phe, "Cà phê", "19 Thôn 3, xã Thạch Hòa, huyện Thạch Thất, Hòa Lạc", "5.0", "ĐÓNG CỬA", 11, 111, 1));
-        list.add(new Product(R.drawable.tra_sua_nuong, "Trà Sữa Nướng", "10A Thôn 2, xã Thạch Hòa, huyện Thạch Thất, Hòa Lạc", "4.5", "ĐÓNG CỬA", 11, 111, 1));
-        list.add(new Product(R.drawable.tra_dao, "Trà Đào", "45 Thôn 9, xã Thạch Hòa, huyện Thạch Thất, Hòa Lạc", "4.5", "ĐÓNG CỬA", 11, 111, 2));
-        list.add(new Product(R.drawable.tra_dao, "Đồ ăn Hàn", "12 Thôn 9, xã Tân Xã, huyện Thạch Thất, Hòa Lạc", "4.5", "ĐÓNG CỬA", 11, 111, 2));
-        list.add(new Product(R.drawable.bun_dau_mam_tom, "Bún Đậu", "55 Thôn 3, thị trấn Liên Quan, huyện Thạch Thất, Hòa Lạc", "4.5", "ĐÓNG CỬA", 11, 111, 1));
-        list.add(new Product(R.drawable.com_rang, "Cơm Rang", "1B Thôn 4, xã Thạch Hòa, huyện Thạch Thất, Hòa Lạc", "4.0", "ĐÓNG CỬA", 11, 111, 1));
-        list.add(new Product(R.drawable.ga_u_muoi, "Gà Ủ Muối", "23 Thôn 8, xã Thạch Hòa, huyện Thạch Thất, Hòa Lạc", "4.0", "ĐÓNG CỬA", 11, 111, 1));
+        database.collection("product")
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for (DocumentSnapshot doc : task.getResult().getDocuments()) {
+                            Product p = new Product();
+                            p.setProduct_id(Integer.valueOf(doc.get("id").toString()));
+                            p.setProduct_name(doc.get("name").toString());
+                            p.setDescription(doc.get("description").toString());
+                            p.setProduct_price(Integer.valueOf(doc.get("price").toString()));
+                            p.setRate(Float.valueOf(doc.get("rate").toString()));
+                            p.setProduct_url(doc.get("url").toString());
+                            list.add(p);
+                        }
+                    }
+                });
 
         return list;
     }
 
     private List<Category> getListCategory() {
         List<Category> list = new ArrayList<>();
-        DatabaseReference myRef = database.getInstance().getReference();
-        Query query = myRef.child("category");
-       query.addListenerForSingleValueEvent(new ValueEventListener() {
-           @Override
-           public void onDataChange(@NonNull DataSnapshot snapshot) {
-               for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                   Category category = new Category();
-                   category.setCate_id(Integer.valueOf(dataSnapshot.child("id").getValue().toString()));
-                   category.setCate_name(dataSnapshot.child("name").getValue().toString());
-                   category.setUrl(dataSnapshot.child("url").getValue().toString());
-                   list.add(category);
-               }
-           }
-
-           @Override
-           public void onCancelled(@NonNull DatabaseError error) {
-
-           }
-       });
+        list.add(new Category(1, "Food", "https://firebasestorage.googleapis.com/v0/b/projectprm-392.appspot.com/o/picture%2Ffood_icon.png?alt=media&token=dc332de1-5004-47a6-b8c2-473d73c1fe7ba"));
+        list.add(new Category(2, "Drink", "https://firebasestorage.googleapis.com/v0/b/projectprm-392.appspot.com/o/picture%2Fdrink_icon.png?alt=media&token=da5a1021-9dab-47a6-ba0d-8a62f6853623"));
+        list.add(new Category(3, "FastFood", "https://firebasestorage.googleapis.com/v0/b/projectprm-392.appspot.com/o/picture%2Ffast_food_icon.png?alt=media&token=b02e8786-89d8-45c0-8cc9-741406937d2c"));
+        list.add(new Category(4, "RawFood", "https://firebasestorage.googleapis.com/v0/b/projectprm-392.appspot.com/o/picture%2Fraw_food_icon.png?alt=media&token=2f4cb48f-2fc1-40fa-85b2-02544505d00c"));
+        list.add(new Category(5, "Fruit", "https://firebasestorage.googleapis.com/v0/b/projectprm-392.appspot.com/o/picture%2Ffruit_icon.png?alt=media&token=2d2cc5b1-30a4-4c98-8698-cc646841329a"));
+        list.add(new Category(6, "IceCream", "https://firebasestorage.googleapis.com/v0/b/projectprm-392.appspot.com/o/picture%2Ficecream_icon.png?alt=media&token=eae11848-1ce0-466f-9b2b-c95f4d29219d"));
+        list.add(new Category(7, "Cake", "https://firebasestorage.googleapis.com/v0/b/projectprm-392.appspot.com/o/picture%2Fbirthday_cake_icon.png?alt=media&token=3cb41ca1-2815-40b1-8bbc-834e30d2e859"));
+        list.add(new Category(8, "Beer", "https://firebasestorage.googleapis.com/v0/b/projectprm-392.appspot.com/o/picture%2Fbeer_icon.png?alt=media&token=49538c20-b8aa-437e-ba47-929b7955edd2"));
 
         return list;
     }
