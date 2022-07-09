@@ -146,7 +146,7 @@ public class PaymentRazorActivity extends AppCompatActivity implements PaymentRe
             cartMap.put("addressShipping", final_address);
             cartMap.put("orderStatus","In Progress");
             cartMap.put("status", "Payment Successfully");
-            firestore.collection("CurrentUserOrder").document(auth.getCurrentUser().getUid())
+            firestore
                     .collection("Order").document(orderId)
                     .set(cartMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
@@ -159,7 +159,7 @@ public class PaymentRazorActivity extends AppCompatActivity implements PaymentRe
                                 cap.put("productName", name);
                                 cap.put("quantity", quantity);
                                 cap.put("totalP", totalP);
-                                firestore.collection("CurrentUserOrder").document(auth.getCurrentUser().getUid())
+                                firestore
                                         .collection("Order").document(orderId).collection("Items").add(cap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                                             @Override
                                             public void onComplete(@NonNull Task<DocumentReference> task) {

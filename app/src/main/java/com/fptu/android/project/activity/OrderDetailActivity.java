@@ -80,8 +80,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         Intent intent=getIntent();
         Bundle b= intent.getExtras();
         String orderId=b.getString("orderId");
-
-        firestore.collection("CurrentUserOrder").document(auth.getCurrentUser().getUid())
+        firestore
                 .collection("Order").document(orderId).collection("Items")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

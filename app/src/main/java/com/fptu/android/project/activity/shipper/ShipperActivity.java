@@ -63,7 +63,7 @@ public class ShipperActivity extends AppCompatActivity {
 //    }
 
     private void loadAllOrder() {
-        db.collection("CurrentUserOrder")
+        db.collection("Order").orderBy("currentDateOrder", Query.Direction.DESCENDING)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {

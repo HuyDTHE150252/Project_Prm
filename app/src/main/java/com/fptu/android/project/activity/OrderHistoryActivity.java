@@ -22,6 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -56,9 +57,8 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
 
     private void loadListMyOrder(){
-
-        db.collection("CurrentUserOrder").document(auth.getCurrentUser().getUid())
-                .collection("Order").orderBy("currentDateOrder", Query.Direction.DESCENDING)
+        String uid=auth.getCurrentUser().getUid();
+        db.collection("Order").whereEqualTo("userId",uid)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -68,7 +68,6 @@ public class OrderHistoryActivity extends AppCompatActivity {
                                String address=documentSnapshot.getString("addressShipping");
                                String currentDate=documentSnapshot.getString("currentDateOrder");
                                String status=documentSnapshot.getString("orderStatus");
-
 //                               String currentTime=documentSnapshot.getString("currentDateOrder");
                                 orderViewModel = documentSnapshot.toObject(Order.class);
                                 orderViewModel.setDocumentId(docId);
