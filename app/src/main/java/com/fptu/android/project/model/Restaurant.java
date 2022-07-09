@@ -15,8 +15,8 @@ public class Restaurant implements Serializable {
     public Restaurant() {
     }
 
-    public Restaurant(String restaurant_image, String restaurant_name, String restaurant_address, String restaurant_rate, String restaurant_status) {
-        this.restaurant_image = restaurant_image;
+    public Restaurant( String restaurant_name, String restaurant_address, String restaurant_rate, String restaurant_status) {
+
         this.restaurant_name = restaurant_name;
         this.restaurant_address = restaurant_address;
         this.restaurant_rate = restaurant_rate;

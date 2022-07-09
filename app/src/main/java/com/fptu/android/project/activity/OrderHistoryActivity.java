@@ -68,7 +68,6 @@ public class OrderHistoryActivity extends AppCompatActivity {
                                String address=documentSnapshot.getString("addressShipping");
                                String currentDate=documentSnapshot.getString("currentDateOrder");
                                String status=documentSnapshot.getString("orderStatus");
-//                               String currentTime=documentSnapshot.getString("currentDateOrder");
                                 orderViewModel = documentSnapshot.toObject(Order.class);
                                 orderViewModel.setDocumentId(docId);
                                 orderViewModel.setAddress(address);
@@ -76,7 +75,6 @@ public class OrderHistoryActivity extends AppCompatActivity {
                                 orderViewModel.setOrderStatus(status);
                                 orderList.add(orderViewModel);
                                 orderHistoryAdapter.notifyDataSetChanged();
-//                                recyclerView.setVisibility(View.VISIBLE);
                                 Log.d("t", "DocumentSnapshot data: " + documentSnapshot.getData());
                             }
 

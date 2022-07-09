@@ -1,6 +1,7 @@
 package com.fptu.android.project.activity.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,8 @@ import com.fptu.android.project.adapter.ProductAdapter;
 import com.fptu.android.project.adapter.TrendingAdapter;
 import com.fptu.android.project.model.Category;
 import com.fptu.android.project.model.Product;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,6 +30,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
@@ -88,11 +94,7 @@ public class HomeFragment extends Fragment {
 
         }
     }
-    private void getList(){
-        FirebaseStorage firebaseStorage=FirebaseStorage.getInstance();
-        FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
 
-    }
 
     private List<Product> getListProduct() {
         List<Product> list = new ArrayList<>();
@@ -122,25 +124,45 @@ public class HomeFragment extends Fragment {
 
     private List<Category> getListCategory() {
         List<Category> list = new ArrayList<>();
-        DatabaseReference myRef = database.getInstance().getReference();
-        Query query = myRef.child("category");
-       query.addListenerForSingleValueEvent(new ValueEventListener() {
-           @Override
-           public void onDataChange(@NonNull DataSnapshot snapshot) {
-               for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                   Category category = new Category();
-                   category.setCate_id(Integer.valueOf(dataSnapshot.child("id").getValue().toString()));
-                   category.setCate_name(dataSnapshot.child("name").getValue().toString());
-                   category.setUrl(dataSnapshot.child("url").getValue().toString());
-                   list.add(category);
-               }
-           }
+        FirebaseFirestore firestore=FirebaseFirestore.getInstance();
+        firestore.collection("category").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for (DocumentSnapshot doc :task.getResult().getDocuments()){
+                        //String catId=doc.getString("id");
+                        String name=doc.getString("name");
+                        String url=doc.getString("url");
+                        Category category= new Category();
+//                        category.setCate_id(Integer.parseInt(catId));
+                        category.setCate_name(name);
+                        category.setUrl(url);
+                        list.add(category);
+                        Log.d("data", "DocumentSnapshot data: " + doc.getData());
 
-           @Override
-           public void onCancelled(@NonNull DatabaseError error) {
-
-           }
-       });
+                    }
+                }
+            }
+        });
+//        DatabaseReference myRef = database.getInstance().getReference();
+//        Query query = myRef.child("category");
+//        query.addListenerForSingleValueEvent(new ValueEventListener() {
+//           @Override
+//           public void onDataChange(@NonNull DataSnapshot snapshot) {
+//               for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+//                   Category category = new Category();
+//                   category.setCate_id(Integer.valueOf(dataSnapshot.child("id").getValue().toString()));
+//                   category.setCate_name(dataSnapshot.child("name").getValue().toString());
+//                   category.setUrl(dataSnapshot.child("url").getValue().toString());
+//                   list.add(category);
+//               }
+//           }
+//
+//           @Override
+//           public void onCancelled(@NonNull DatabaseError error) {
+//
+//           }
+//       });
 
         return list;
     }
