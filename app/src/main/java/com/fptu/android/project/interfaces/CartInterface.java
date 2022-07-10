@@ -1,8 +1,7 @@
 package com.fptu.android.project.interfaces;
 
-import com.fptu.android.project.model.MyCart;
-
 public interface CartInterface {
-    public void addToCart();
-    public void getCartView();
+    void addToCart(String uid,String name,String quantity,int total);
+    void cleanCart();
+
 }

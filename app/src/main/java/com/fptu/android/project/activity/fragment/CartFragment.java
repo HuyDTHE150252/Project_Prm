@@ -9,39 +9,43 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fptu.android.project.R;
+import com.fptu.android.project.activity.EmptyCartActivity;
+import com.fptu.android.project.activity.OrderActivity;
+import com.fptu.android.project.activity.PaymentRazorActivity;
 import com.fptu.android.project.adapter.MyCartAdapter;
-import com.fptu.android.project.model.MyCart;
+import com.fptu.android.project.model.Order;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CartFragment extends Fragment {
     RecyclerView recyclerView;
     MyCartAdapter cartAdapter;
-    List<MyCart> cartList;
+    List<Order> cartList;
     FirebaseAuth auth;
     FirebaseFirestore db;
-    MyCart cartViewModel;
+    Order cartViewModel;
     TextView overTotalAmount;
+    TextView tvCheckout;
+
 
     @Nullable
     @Override
@@ -50,43 +54,70 @@ public class CartFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
         recyclerView = view.findViewById(R.id.cart_recycle_view);
+        tvCheckout = view.findViewById(R.id.cart_checkout);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         cartList = new ArrayList<>();
         cartAdapter = new MyCartAdapter(getActivity(), cartList);
         overTotalAmount = view.findViewById(R.id.totalTxt);
 
-        LocalBroadcastManager.getInstance(getActivity())
-                .registerReceiver(mMessageReceiver, new IntentFilter("MyTotalAmount"));
+        tvCheckout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (cartList.size() > 0) {
+                    Intent intent = new Intent(getContext(), OrderActivity.class);
+                    intent.putExtra("itemList", (Serializable) cartList);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getContext(), "Your cart is empty", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getContext(), EmptyCartActivity.class);
+                    startActivity(intent);
+                }
+
+
+            }
+        });
+        getAllListProductCart();
         recyclerView.setAdapter(cartAdapter);
-        //addto cart
-        db.collection("AddToCart").document(auth.getCurrentUser().getUid())
-                .collection("CurrentUser").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        // cart
+
+
+        return view;
+    }
+
+    private void getAllListProductCart() {
+        db.collection("AddToCart").document(auth.getCurrentUser().getUid()).collection("CurrentUser").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {
-
-                                String docId=documentSnapshot.getId();
-                                cartViewModel = documentSnapshot.toObject(MyCart.class);
+                                String quantity=documentSnapshot.getString("quantity");
+                                String docId = documentSnapshot.getId();
+                                cartViewModel = documentSnapshot.toObject(Order.class);
                                 cartViewModel.setDocumentId(docId);
+                                cartViewModel.setTotalQuantity(quantity);
                                 cartList.add(cartViewModel);
                                 cartAdapter.notifyDataSetChanged();
+                                recyclerView.setVisibility(View.VISIBLE);
                                 Log.d("Write1", documentSnapshot.getId() + " => " + documentSnapshot.getData());
                             }
+                            calculateTotalAmount(cartList);
+
                         } else {
                             Log.w("Write1", "Error getting documents.", task.getException());
                         }
                     }
                 });
-        return view;
     }
 
-    public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            int totalBill = intent.getIntExtra("totalAmount", 0);
-            overTotalAmount.setText(totalBill + "$");
+    public void calculateTotalAmount(List<Order> cartList) {
+
+        double totalAmount = 0.0;
+        for (Order o : cartList) {
+            totalAmount += o.getTotalPrice();
+            overTotalAmount.setText("" + totalAmount);
         }
-    };
+
+    }
+
 
 }

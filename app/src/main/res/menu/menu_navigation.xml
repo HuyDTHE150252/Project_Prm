@@ -1,15 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn = "navigation_view">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/homepage"
+            android:icon="@drawable/ic_home_menu"
+            android:title="Home" />
+        <item
+            android:id="@+id/cart"
+            android:icon="@drawable/ic_cart_menu"
+            android:title="Cart" />
+        <item
+            android:id="@+id/proflie"
+            android:icon="@drawable/ic_login_menu"
+            android:title="Profile" />
+
+
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/message"
+                android:icon="@drawable/ic_chat_menu"
+                android:title="Message" />
+            <item
+                android:id="@+id/share"
+                android:icon="@drawable/ic_share_menu"
+                android:title="Share" />
+        </menu>
+    </item>
     <item
-        android:id="@+id/homepage"
-        android:title="Home"
-        android:icon="@drawable/ic_home_menu"/>
+        android:id="@+id/locationUser"
+        android:icon="@drawable/ic_location_24dp"
+        android:title="Location" />
+
     <item
-        android:id="@+id/cart"
-        android:title="Cart"
-        android:icon="@drawable/ic_cart_menu"/>
+        android:id="@+id/orderUser"
+        android:icon="@drawable/ic_invoice"
+        android:title="MyOrder" />
     <item
-        android:id="@+id/proflie"
-        android:title="Profile"
-        android:icon="@drawable/ic_login_menu"/>
+        android:id="@+id/allOrder"
+        android:icon="@drawable/ic_invoice"
+        android:title="AllOrder" />
+    <item
+        android:id="@+id/restaurant"
+        android:icon="@drawable/admin_dashboard_icon_png_16"
+        android:title="Restaurant" />
+    <item
+        android:id="@+id/logoutUser"
+        android:icon="@drawable/ic_lock"
+        android:title="Logout" />
+
 </menu>

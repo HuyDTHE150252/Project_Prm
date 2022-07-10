@@ -10,7 +10,7 @@
         android:backgroundTint="#e6e6e6">
 
         <ImageView
-            android:id="@+id/feedback_user"
+            android:id="@+id/feedback_userimg"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_margin="5dp"
@@ -18,16 +18,17 @@
             app:srcCompat="@drawable/default_user" />
 
         <TextView
+            android:id="@+id/feedback_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="70dp"
             android:layout_marginTop="5dp"
             android:text="user_name"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black" />
 
         <ScrollView
-            android:layout_width="320dp"
-            android:layout_height="70dp"
+            android:layout_width="214dp"
+            android:layout_height="64dp"
             android:layout_marginLeft="70dp"
             android:layout_marginTop="30dp">
 
@@ -39,23 +40,40 @@
         </ScrollView>
 
         <RatingBar
-        android:id="@+id/feedback_rating"
-        style="?android:attr/ratingBarStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/productdetail_type"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="110dp"
-        android:layout_marginEnd="20dp"
-        android:clickable="false"
-        android:isIndicator="true"
-        android:numStars="5"
-        android:stepSize="0.5" />
+            android:id="@+id/feedback_rating"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/productdetail_type"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="110dp"
+            android:layout_marginEnd="20dp"
+            android:clickable="false"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:stepSize="0.5" />
+
+        <TextView
+            android:id="@+id/feedback_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="250dp"
+            android:layout_marginTop="110dp"
+            android:text="28/06/2022" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="149dp"
-            android:background="@color/black"/>
+            android:background="@color/black" />
+
+        <Button
+            android:id="@+id/btnDeleteFeedback"
+            android:layout_marginLeft="300dp"
+            android:layout_marginTop="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete" />
+
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

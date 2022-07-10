@@ -72,7 +72,7 @@ public class smartQuiz extends Fragment {
                         currentQuizRight++;
                         if (currentQuizRight < 10) {
                             renderQuestion();
-                        } 
+                        }
                     } else {
                         currentQuizRight--;
                     }

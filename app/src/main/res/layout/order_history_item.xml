@@ -45,11 +45,11 @@
             app:layout_constraintTop_toBottomOf="@+id/textView40" />
 
         <TextView
-            android:id="@+id/textView18"
+            android:id="@+id/order_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="Status : "
+            android:text="Address : "
             app:layout_constraintStart_toStartOf="@+id/is_order_date"
             app:layout_constraintTop_toBottomOf="@+id/is_order_date" />
 
@@ -70,21 +70,39 @@
             app:layout_constraintTop_toTopOf="@+id/is_order_date" />
 
         <TextView
-            android:id="@+id/order_history_item_status"
+            android:id="@+id/order_history_item_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="STATUS"
-            app:layout_constraintStart_toEndOf="@+id/textView18"
-            app:layout_constraintTop_toTopOf="@+id/textView18" />
+            android:text="Address"
+            app:layout_constraintStart_toEndOf="@+id/order_address"
+            app:layout_constraintTop_toTopOf="@+id/order_address" />
+
+        <TextView
+            android:id="@+id/tvStatusShipping"
+            android:layout_width="171dp"
+            android:layout_height="43dp"
+            android:layout_marginEnd="130dp"
+            android:layout_marginBottom="74dp"
+            android:text="Status"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/order_address"
+            app:layout_constraintVertical_bias="0.814"
+            tools:ignore="MissingConstraints" />
 
         <Button
-            android:id="@+id/viewDetailButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="View detail"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/btndetailORDER"
+            android:layout_width="127dp"
+            android:layout_height="53dp"
+            android:layout_marginStart="124dp"
+            android:layout_marginTop="80dp"
+            android:text="Detail"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/order_history_item_status" />
+            app:layout_constraintTop_toBottomOf="@+id/order_address" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

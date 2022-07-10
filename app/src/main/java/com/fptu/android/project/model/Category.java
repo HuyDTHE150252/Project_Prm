@@ -4,20 +4,24 @@ import java.io.Serializable;
 
 public class Category implements Serializable {
 
-    private int resourceImage;
+    private int cate_id;
     private String cate_name;
+    private String url;
 
-    public Category(int resourceImage, String cate_name) {
-        this.resourceImage = resourceImage;
+    public Category(){}
+
+    public Category(int cate_id, String cate_name, String url) {
+        this.cate_id = cate_id;
         this.cate_name = cate_name;
+        this.url = url;
     }
 
-    public int getResourceImage() {
-        return resourceImage;
+    public int getCate_id() {
+        return cate_id;
     }
 
-    public void setResourceImage(int resourceImage) {
-        this.resourceImage = resourceImage;
+    public void setCate_id(int cate_id) {
+        this.cate_id = cate_id;
     }
 
     public String getCate_name() {
@@ -28,11 +32,13 @@ public class Category implements Serializable {
         this.cate_name = cate_name;
     }
 
-    @Override
-    public String toString() {
-        return "Category{" +
-                "resourceImage=" + resourceImage +
-                ", cate_name='" + cate_name + '\'' +
-                '}';
+    public String getUrl() {
+        return url;
     }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+
 }

@@ -5,11 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.ProductDetailActivity">
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/productdetaill_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#fc8403" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        >
+        android:layout_below="@+id/productdetaill_toolbar"
+        android:layout_marginTop="10dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -136,22 +143,12 @@
                 android:textSize="17dp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txtview3_productdetail"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="41dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="Chọn size : "
-                android:textColor="@color/black"
-                android:textSize="15dp" />
+
 
             <TextView
+                android:id="@+id/txtPriceTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/txtPriceTitle"
                 android:layout_below="@+id/txtview3_productdetail"
                 android:layout_marginStart="20dp"
 
@@ -159,8 +156,7 @@
                 android:layout_marginBottom="10dp"
                 android:text="Price: "
                 android:textColor="@color/black"
-                android:textSize="15dp"
-                />
+                android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/txtPriceNumber"
@@ -172,51 +168,25 @@
                 android:layout_marginEnd="11dp"
                 android:layout_marginBottom="11dp"
                 android:layout_toRightOf="@id/txtPriceTitle"
-                android:text="100$ "
+                android:text="100 "
                 android:textColor="@color/black"
                 android:textSize="17dp" />
 
-            <!--            <ImageView-->
-            <!--                android:id="@+id/minusCardBtn"-->
-            <!--                android:layout_width="30dp"-->
-            <!--                android:layout_height="30dp"-->
-            <!--                android:layout_below="@+id/txtview3_productdetail"-->
-            <!--                android:layout_toRightOf="@id/txtPriceNumber"-->
-            <!--                android:background="@color/yellow"-->
-            <!--                android:layout_marginStart="80dp"-->
-            <!--                android:layout_marginTop="3dp"-->
-            <!--                android:layout_marginEnd="30dp"-->
-            <!--                android:layout_marginBottom="30dp"-->
-            <!--                app:srcCompat="@drawable/minus" />-->
 
-            <TextView
-                android:id="@+id/productdetail_type"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
-                android:layout_below="@+id/txtview3_productdetail"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="69dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="30dp"
-                android:background="#d9d9d9"
-                android:drawableEnd="@drawable/ic_dropdown"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text=" - - - Chọn Size - - -  " />
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="230dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="8dp"
-                android:background="@drawable/grey_bar"/>
+                android:background="@drawable/grey_bar" />
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout3"
                 android:layout_width="150dp"
                 android:layout_height="50dp"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="462dp"
-                android:layout_marginLeft="230dp"
                 android:background="@drawable/yellow_bar"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -285,72 +255,66 @@
                         app:layout_constraintVertical_bias="0.476" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <TextView
                 android:id="@+id/productdetail_addtocart"
                 android:layout_width="140dp"
                 android:layout_height="40dp"
                 android:layout_below="@+id/txtview3_productdetail"
                 android:layout_marginLeft="25dp"
-                android:layout_marginTop="127dp"
-                android:layout_toRightOf="@+id/productdetail_type"
+                android:layout_marginTop="72dp"
+                android:layout_toRightOf="@+id/constraintLayout3"
                 android:background="@color/md_red_700"
-                android:text="Add to cart"
-                android:gravity="center"
-                android:padding="5dp"
                 android:drawableStart="@drawable/ic_cart_menu"
-
-                android:textColor="@color/white" />
-
-            <TextView
-                android:id="@+id/productdetail_checkout"
-                android:layout_width="140dp"
-                android:layout_height="45dp"
-                android:layout_below="@+id/txtview3_productdetail"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="170dp"
-                android:layout_toRightOf="@+id/productdetail_type"
-                android:background="@color/md_red_700"
-
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="Check out"
+                android:text="Add to cart"
                 android:textColor="@color/white" />
-
-
 
             <RatingBar
                 android:id="@+id/productdetail_rating"
                 style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/productdetail_type"
+                android:layout_below="@+id/constraintLayout3"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="20dp"
                 android:clickable="false"
                 android:isIndicator="true"
                 android:numStars="5"
+                android:rating="4.5"
                 android:stepSize="0.5" />
 
+            <TextView
+                android:id="@+id/productdetail_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/constraintLayout3"
+                android:layout_marginLeft="130dp"
+                android:layout_marginTop="30dp"
+                android:layout_toRightOf="@+id/productdetail_rating"
+                android:text="MỞ CỬA"
+                android:textColor="@color/md_red_700"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/productdetail_feedback"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/productdetail_rating"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="20dp"
-                android:text="Feedback :"
-                android:textSize="15dp"
-                android:textColor="@color/black"/>
+                android:layout_marginTop="10dp"
+                android:text="Feedback Here "
+                android:textColor="@color/black"
+                android:textSize="20dp" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvFeedback"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/productdetail_feedback"
-                />
-
+                android:layout_below="@+id/productdetail_feedback" />
 
         </RelativeLayout>
     </ScrollView>

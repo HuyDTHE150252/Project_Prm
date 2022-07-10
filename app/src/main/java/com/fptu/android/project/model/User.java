@@ -1,6 +1,8 @@
 package com.fptu.android.project.model;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String id;
     private String username;
     private String password;
@@ -8,6 +10,10 @@ public class User {
     private String fname;
     private String lname;
     private String phone;
+
+    public User(){
+
+    }
 
     public User(String id, String username, String password, String dob, String fname, String lname, String phone) {
         this.id = id;

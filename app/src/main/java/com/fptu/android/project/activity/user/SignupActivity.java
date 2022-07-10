@@ -50,10 +50,10 @@ public class SignupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
-        if(fAuth.getCurrentUser() != null){
-            startActivity(new Intent(SignupActivity.this, HomePageActivity.class));
-            finish();
-        }
+//        if(fAuth.getCurrentUser() != null){
+//            startActivity(new Intent(SignupActivity.this, HomePageActivity.class));
+//            finish();
+//        }
         bindingView();
         bindingAction();
 
@@ -111,47 +111,6 @@ public class SignupActivity extends AppCompatActivity {
             Toast.makeText(this, "Vui lòng xác nhận đúng mật khẩu", Toast.LENGTH_SHORT).show();
             return;
         }
-//        mAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//            @Override
-//            public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
-//                if (task.isSuccessful()) {
-//                    Toast.makeText(getApplicationContext(), "Tạo tài khoản thành công", Toast.LENGTH_SHORT).show();
-//                    Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
-//                    startActivity(intent);
-//                } else {
-//                    Toast.makeText(getApplicationContext(), "Tạo tài khoản không thành công", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
-//        databaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//
-//                // check if phone is not registered before
-//                if(snapshot.hasChild(phone)){
-//                    Toast.makeText(SignupActivity.this, "Phone is already registered", Toast.LENGTH_SHORT).show();
-//                }
-//                else{
-//
-//                    // sending data to firebase Realtime Database.
-//                    // we are using phone number as unique identity of every user.
-//                    // so all the other details of user comes under phone number
-//                    databaseReference.child("users").child(phone).child("fullname").setValue(username);
-//                    databaseReference.child("users").child(phone).child("email").setValue(email);
-//                    databaseReference.child("users").child(phone).child("password").setValue(pass);
-//
-//                    // show a success message then finish the activity
-//                    Toast.makeText(SignupActivity.this, "User registered successfully.", Toast.LENGTH_SHORT).show();
-////                    Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
-////                    startActivity(intent);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
         fAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -176,6 +135,7 @@ public class SignupActivity extends AppCompatActivity {
                     userID = fAuth.getCurrentUser().getUid();
                     DocumentReference documentReference = fStore.collection("users").document(userID);
                     Map<String,Object> user = new HashMap<>();
+                    user.put("uId",userID);
                     user.put("fName",username);
                     user.put("email",email);
                     user.put("phone",phone);
