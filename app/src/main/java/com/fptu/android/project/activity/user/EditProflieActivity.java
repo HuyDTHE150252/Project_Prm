@@ -34,7 +34,7 @@ public class EditProflieActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
     EditText profileFullName,profileEmail,profilePhone;
     ImageView profileImageView;
-    Button saveBtn;
+    Button saveBtn, changeAvatar;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     FirebaseUser user;
@@ -59,6 +59,7 @@ public class EditProflieActivity extends AppCompatActivity {
         profileEmail = findViewById(R.id.profileEmailAddress);
         profilePhone = findViewById(R.id.profilePhoneNo);
         profileImageView = findViewById(R.id.profileImageView);
+        changeAvatar = findViewById(R.id.changeAvatar);
         saveBtn = findViewById(R.id.saveProfileInfo);
 
         StorageReference profileRef = storageReference.child("users/"+fAuth.getCurrentUser().getUid()+"/profile.jpg");
@@ -76,7 +77,13 @@ public class EditProflieActivity extends AppCompatActivity {
                 startActivityForResult(openGalleryIntent,1000);
             }
         });
-
+        changeAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(openGalleryIntent,1000);
+            }
+        });
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
