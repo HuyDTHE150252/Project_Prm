@@ -10,6 +10,8 @@ import com.fptu.android.project.R;
 import com.fptu.android.project.activity.fragment.CartFragment;
 import com.fptu.android.project.activity.fragment.HomeFragment;
 import com.fptu.android.project.activity.fragment.ProfileFragment;
+import com.fptu.android.project.games.smartquiz.smartQuiz;
+import com.fptu.android.project.games.sudoku.sudoku_game;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
@@ -22,7 +24,7 @@ public class HomePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         HomeFragment homeFragment = new HomeFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,homeFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new smartQuiz()).commit();
 //        ProfileFragment profileFragment = new ProfileFragment();
 //        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,profileFragment).commit();
         bottomnav = findViewById(R.id.menu_bottom);
