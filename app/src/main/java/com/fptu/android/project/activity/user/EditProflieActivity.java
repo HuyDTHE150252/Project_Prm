@@ -102,7 +102,7 @@ public class EditProflieActivity extends AppCompatActivity {
                                 finish();
                             }
                         });
-                        Toast.makeText(EditProflieActivity.this, "Email is changed.", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(EditProflieActivity.this, "Email is changed.", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -110,8 +110,6 @@ public class EditProflieActivity extends AppCompatActivity {
                         Toast.makeText(EditProflieActivity.this,   e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-
-
             }
         });
 
