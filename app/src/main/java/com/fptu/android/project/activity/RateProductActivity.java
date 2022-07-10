@@ -104,7 +104,7 @@ public class RateProductActivity extends AppCompatActivity {
         bidingAction();
         Product product = (Product) getIntent().getSerializableExtra("ratingProduct");
         tv.setText(product.getProduct_name());
-        imgRate.setImageResource(product.getProduct_image());
+//        imgRate.setImageResource(product.getProduct_image());
         loadMyReview();
 
     }

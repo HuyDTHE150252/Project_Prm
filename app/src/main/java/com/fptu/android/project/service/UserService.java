@@ -40,9 +40,9 @@ public class UserService implements IUserDao {
 //        }
 
         ArrayList<Product> listProducts1 = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            listProducts1.add(new Product(i, "Product name " + i, "Product address " + i, "" + i, "Active", categories));
-        }
+//        for (int i = 0; i < 100; i++) {
+//            listProducts1.add(new Product(i, "Product name " + i, "Product address " + i, "" + i, "Active", categories));
+//        }
         products.put("products", listProducts1);
 
         Map<String, Object> user = new HashMap<>();
