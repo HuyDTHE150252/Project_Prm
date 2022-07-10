@@ -1,6 +1,8 @@
 package com.fptu.android.project.activity;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
@@ -12,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
 import com.fptu.android.project.R;
 import com.fptu.android.project.activity.fragment.CartFragment;
@@ -49,11 +52,16 @@ public class HomePageActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.homepage:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment())
+                                .commit();
+                        refreshFragmentUI(homeFragment);
+
                         break;
                     case R.id.cart:
                         if (auth.getCurrentUser() != null) {
                             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CartFragment()).commit();
+
                         } else {
                             Intent intent = new Intent(HomePageActivity.this, LoginActivity.class);
                             Toast.makeText(HomePageActivity.this, "Login first then Add to cart", Toast.LENGTH_SHORT).show();
@@ -92,6 +100,13 @@ public class HomePageActivity extends AppCompatActivity {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+    }
+    public void refreshFragmentUI(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .detach(fragment)
+                .attach(fragment)
+                .commit();
     }
 
     @Override

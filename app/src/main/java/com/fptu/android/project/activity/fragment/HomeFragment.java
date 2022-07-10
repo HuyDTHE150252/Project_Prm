@@ -117,9 +117,11 @@ public class HomeFragment extends Fragment {
                             p.setProduct_url(doc.get("url").toString());
                             p.setQuantity(Integer.valueOf(doc.get("quantity").toString()));
                             list.add(p);
+                            product_adapter.notifyDataSetChanged();
                         }
                     }
                 });
+
 
         return list;
     }
@@ -138,6 +140,7 @@ public class HomeFragment extends Fragment {
                             p.setProduct_price(Integer.valueOf(doc.get("price").toString()));
                             p.setRate(Float.valueOf(doc.get("rate").toString()));
                             p.setProduct_url(doc.get("url").toString());
+                            trend_adapter.notifyDataSetChanged();
                             list.add(p);
                         }
                     }
