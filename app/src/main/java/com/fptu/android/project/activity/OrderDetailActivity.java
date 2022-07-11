@@ -33,7 +33,7 @@ public class OrderDetailActivity extends AppCompatActivity {
     OrderDetailAdapter orderDetailAdapter;
     List<Order> orderList;
     Order orderViewModel;
-    TextView tvOrderId,tvorderDate,orderAddress,tvStatus,totalPrice;
+    TextView tvOrderId,tvorderDate,orderAddress,tvStatus,totalPrice,tvMethod;
     void bidingView(){
         tvOrderId=findViewById(R.id.textViewOrderID);
         tvorderDate=findViewById(R.id.textViewOrderDate);
@@ -42,6 +42,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         totalPrice=findViewById(R.id.textViewTotalPrice);
         firestore = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
+        tvMethod=findViewById(R.id.textViewPaymentMethod);
     }
     void bidingAction(){}
 
@@ -58,10 +59,13 @@ public class OrderDetailActivity extends AppCompatActivity {
             String orderDate=b.getString("orderDate");
             String address=b.getString("orderAddress");
             String status=b.getString("orderStatus");
+            String paymentMethod=b.getString("status");
             tvOrderId.setText(orderId);
             tvorderDate.setText(orderDate);
             orderAddress.setText(address);
             tvStatus.setText(status);
+            tvMethod.setText(paymentMethod);
+
         }
         recyclerView=findViewById(R.id.order_detail_recycler_view);
         orderList= new ArrayList<>();
@@ -91,6 +95,7 @@ public class OrderDetailActivity extends AppCompatActivity {
                                 String name=documentSnapshot.getString("productName");
                                 String quantity=documentSnapshot.getString("quantity");
                                 String totalP=documentSnapshot.getString("totalP");
+                                String paymentMethod=documentSnapshot.getString("status");
 
 //                               String currentTime=documentSnapshot.getString("currentDateOrder");
                                orderViewModel = documentSnapshot.toObject(Order.class);
@@ -98,6 +103,7 @@ public class OrderDetailActivity extends AppCompatActivity {
                                orderViewModel.setProductName(name);
                                orderViewModel.setTotalPrice(Integer.parseInt(totalP));
                                orderViewModel.setOrderStatus(status);
+                               orderViewModel.setPaymentState(paymentMethod);
 
                                 orderList.add(orderViewModel);
                                 orderDetailAdapter.notifyDataSetChanged();
