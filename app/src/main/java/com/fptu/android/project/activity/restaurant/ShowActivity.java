@@ -60,7 +60,6 @@ public class ShowActivity extends AppCompatActivity {
                             p.setProduct_name(doc.get("name").toString());
                             p.setDescription(doc.get("description").toString());
                             p.setProduct_price(Integer.valueOf(doc.get("price").toString()));
-                            p.setRate(Float.valueOf(doc.get("rate").toString()));
                             p.setProduct_url(doc.get("url").toString());
                             list.add(p);
                         }
