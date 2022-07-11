@@ -1,12 +1,9 @@
 package com.fptu.android.project.adapter;
 
 import android.annotation.SuppressLint;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,45 +13,29 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fptu.android.project.R;
-import com.fptu.android.project.activity.EmptyCartActivity;
-import com.fptu.android.project.activity.HomePageActivity;
-import com.fptu.android.project.activity.OrderActivity;
-import com.fptu.android.project.activity.PaymentRazorActivity;
-import com.fptu.android.project.activity.fragment.CartFragment;
 import com.fptu.android.project.model.Order;
-import com.fptu.android.project.model.Product;
 import com.fptu.android.project.service.CartService;
 import com.fptu.android.project.service.MyForegroundService;
-import com.fptu.android.project.service.NotificationService;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.WriteBatch;
 
-import java.io.Serializable;
 import java.util.List;
 
-public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder> {
+public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     Context context;
     List<Order> cartList;
     CartService c;
-    public MyCartAdapter() {
+    public CartAdapter() {
 
     }
 
-    public MyCartAdapter(Context context, List<Order> cartList) {
+    public CartAdapter(Context context, List<Order> cartList) {
         this.context = context;
         this.cartList = cartList;
 
@@ -68,13 +49,13 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
 
     @NonNull
     @Override
-    public MyCartAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CartAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.my_cart_item, parent, false
         ));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyCartAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull CartAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.name.setText(cartList.get(position).getProductName());
         holder.txtquantity.setText(cartList.get(position).getTotalQuantity());
         holder.totalPrice.setText(String.valueOf(cartList.get(position).getTotalPrice()));

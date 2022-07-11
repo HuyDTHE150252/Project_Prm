@@ -44,10 +44,7 @@
         android:id="@+id/allOrder"
         android:icon="@drawable/ic_invoice"
         android:title="AllOrder" />
-    <item
-        android:id="@+id/restaurant"
-        android:icon="@drawable/admin_dashboard_icon_png_16"
-        android:title="Restaurant" />
+
     <item
         android:id="@+id/restaurant_product"
         android:icon="@drawable/admin_dashboard_icon_png_16"

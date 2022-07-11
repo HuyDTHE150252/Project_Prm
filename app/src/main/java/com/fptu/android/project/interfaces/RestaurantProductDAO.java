@@ -9,6 +9,6 @@ import java.util.HashMap;
 public interface RestaurantProductDAO {
     public Task<Void> add(Product pro);
     public Task<Void> update(String key, HashMap<String ,Object> hashMap);
-    public Task<Void> delete(String key);
+
 
 }

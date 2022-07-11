@@ -14,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fptu.android.project.R;
-import com.fptu.android.project.adapter.MyCartAdapter;
 import com.fptu.android.project.model.Order;
 import com.fptu.android.project.service.CartService;
 import com.fptu.android.project.service.MyForegroundService;
@@ -29,7 +28,6 @@ import com.razorpay.PaymentResultListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
