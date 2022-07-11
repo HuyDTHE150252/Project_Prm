@@ -20,9 +20,12 @@ import com.fptu.android.project.activity.fragment.HomeFragment;
 import com.fptu.android.project.activity.fragment.ProfileFragment;
 import com.fptu.android.project.activity.ggmap.GoogmapActivity;
 import com.fptu.android.project.activity.restaurant.RestaurantActivity;
+import com.fptu.android.project.activity.restaurant.RestaurantCrudActivity;
 import com.fptu.android.project.activity.shipper.ShipperActivity;
 import com.fptu.android.project.activity.user.LoginActivity;
+
 import com.fptu.android.project.games.smartquiz.SmartQuiz;
+
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -59,7 +62,6 @@ public class HomePageActivity extends AppCompatActivity {
                     case R.id.cart:
                         if (auth.getCurrentUser() != null) {
                             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CartFragment()).commit();
-
                         } else {
                             Intent intent = new Intent(HomePageActivity.this, LoginActivity.class);
                             Toast.makeText(HomePageActivity.this, "Login first then Add to cart", Toast.LENGTH_SHORT).show();
@@ -67,8 +69,15 @@ public class HomePageActivity extends AppCompatActivity {
                         }
                         break;
                     case R.id.proflie:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
+                        if (auth.getCurrentUser() != null) {
+                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
+                        } else {
+                            Intent intent = new Intent(HomePageActivity.this, LoginActivity.class);
+                            Toast.makeText(HomePageActivity.this, "Login first then Add to cart", Toast.LENGTH_SHORT).show();
+                            startActivity(intent);
+                        }
                         break;
+
                     case R.id.logoutUser:
                         auth.signOut();//logout
                         startActivity(new Intent(HomePageActivity.this, LoginActivity.class));
@@ -88,6 +97,9 @@ public class HomePageActivity extends AppCompatActivity {
                         break;
                     case R.id.allOrder:
                         startActivity(new Intent(HomePageActivity.this, ShipperActivity.class));
+                        break;
+                    case R.id.restaurant_product:
+                        startActivity(new Intent(HomePageActivity.this, RestaurantCrudActivity.class));
                         break;
                 }
 
@@ -123,6 +135,4 @@ public class HomePageActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, homeFragment).commit();
         }
     }
-
-
 }

@@ -102,8 +102,12 @@ public class HomeFragment extends Fragment {
                             p.setRate(Float.valueOf(doc.get("rate").toString()));
                             p.setProduct_url(doc.get("url").toString());
                             p.setQuantity(Integer.valueOf(doc.get("quantity").toString()));
+
+                            if (doc.get("resid") != null) {
+                                p.setRes_id(Integer.valueOf(doc.get("resid").toString()));
+                            }
                             list.add(p);
-                            product_adapter.notifyDataSetChanged();
+
                         }
                     }
                 });

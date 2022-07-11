@@ -120,7 +120,7 @@ public class Sudoku extends Fragment {
     }
 
     class SudokuBoard extends AsyncTask<String, Integer, ArrayList<Integer>> {
-        public static final int GRID_SIZE = 3;
+        public static final int GRID_SIZE = 9;
         private ArrayList<Integer> originBoard = null;
         private ArrayList<Integer> solvedBoard = null;
         private static final String BASE_URL = "https://sugoku.herokuapp.com/";

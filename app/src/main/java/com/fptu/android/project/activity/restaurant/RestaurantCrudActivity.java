@@ -37,15 +37,16 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.UUID;
 
 public class RestaurantCrudActivity extends AppCompatActivity {
     FirebaseDatabase fire;
-    private EditText edit_img, edit_price, edit_address;
+    private EditText edit_name, edit_price, edit_description, edit_category, edit_quantity, edit_rate, edit_url;
     private Button btnAdd;
     private FirebaseFirestore db;
     private Button btnShow, uploadBtn;
-    private String pid, pimg, pprice, pname;
+    private String id, name, price, description,category,quantity, rate, url;
     private ImageView imageView;
     private Uri imageUri;
    private ProgressBar progressBar;
@@ -58,13 +59,17 @@ public class RestaurantCrudActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
-         edit_img = findViewById(R.id.edtImg);
+         edit_name = findViewById(R.id.edtName);
          edit_price = findViewById(R.id.edtPrice);
-         edit_address = findViewById(R.id.edtAddress);
+        edit_description = findViewById(R.id.edtDescription);
+         edit_category = findViewById(R.id.edtCategory);
+         edit_quantity = findViewById(R.id.edtQuantity);
+         //edit_rate = findViewById(R.id.edtRate);
+         edit_url = findViewById(R.id.edtImg);
          btnAdd = findViewById(R.id.btnConfirmAddProduct);
          btnShow = findViewById(R.id.btnShow);
-        progressBar = findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.INVISIBLE);
+        //progressBar = findViewById(R.id.progressBar);
+       // progressBar.setVisibility(View.INVISIBLE);
         uploadBtn = findViewById(R.id.upload_btn);
         imageView = findViewById(R.id.imageViewAdd);
 
@@ -73,13 +78,23 @@ public class RestaurantCrudActivity extends AppCompatActivity {
          Bundle bundle = getIntent().getExtras();
          if (bundle !=null){
              btnAdd.setText("update");
-             pimg = bundle.getString("pimg");
-             pid = bundle.getString("pid");
-             pprice = bundle.getString("pprice");
-             pname = bundle.getString("pname");
-             edit_img.setText(pimg);
-             edit_price.setText(pprice);
-             edit_address.setText(pname);
+
+             id = bundle.getString("id");
+             name = bundle.getString("name");
+             price = bundle.getString("price");
+             description = bundle.getString("description");
+             quantity = bundle.getString("quantity");
+             category = bundle.getString("category");
+             rate = bundle.getString("rate");
+             url = bundle.getString("url");
+
+             edit_name.setText(name);
+             edit_price.setText(price);
+             edit_description.setText(description);
+             edit_quantity.setText(quantity);
+             edit_category.setText(category);
+             edit_rate.setText(rate);
+             edit_url.setText(url);
 
 
          }else {
@@ -144,26 +159,31 @@ public class RestaurantCrudActivity extends AppCompatActivity {
 //                }else{
 //                    Toast.makeText(RestaurantCrudActivity.this, "Please Select Image", Toast.LENGTH_SHORT).show();
 //                }
-                 String img = edit_img.getText().toString();
-                 String name = edit_address.getText().toString();
+                 String name = edit_name.getText().toString();
                  String price = edit_price.getText().toString();
+                 String description = edit_description.getText().toString();
+                 String quantity = edit_quantity.getText().toString();
+                 String category = edit_category.getText().toString();
+                 Float rate = 1.0f;
+                 String url = edit_url.getText().toString();
 
                  Bundle bundle1 = getIntent().getExtras();
                  if(bundle!= null){
-                     String id = pid;
-                     updateToFireStore(id,img, name, price);
+                     String Id = id;
+
+                     updateToFireStore(Id,name, price, description,quantity,category,rate,url,9);
 
 
                  }else {
                  String id = UUID.randomUUID().toString();
 
-                 saveToFireStore(id,img, name, price);}
+                 saveToFireStore(id,name, price, description,quantity,category,rate,url,9);}
              }
 
 
          });}
-    private void updateToFireStore(String id, String img, String name, String price) {
-        db.collection("restautantProduct").document(id).update("img",img,"name",name,"price",price)
+    private void updateToFireStore(String id, String name, String price, String description,String quantity,String category, float rate, String url,int resid) {
+        db.collection("product").document(id).update("name",name,"price",price,"description",description,"quantity",quantity,"category",category,"rate",rate,"url",url)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -181,15 +201,77 @@ public class RestaurantCrudActivity extends AppCompatActivity {
                 });
     }
     
-    private void saveToFireStore(String id, String img, String name, String price){
+    private void saveToFireStore(String id, String name, String price, String description,String quantity,String category,float rate, String url,int resid){
         if(  !name.isEmpty() && !price.isEmpty()){
                 HashMap<String, Object> map = new HashMap<>();
                 map.put("id", id);
-                map.put("img", img);
                 map.put("name", name);
                 map.put("price", price);
+                map.put("description", description);
+                map.put("quantity",quantity);
+                map.put("rate",rate);
+                map.put("url",url);
+                map.put("resid", resid);
+                String ctg = category.toLowerCase(Locale.ROOT);
+            switch (ctg) {
+                // Case 1
+                case "food":
+                    map.put("category", "cate_1");
+                    break;
+                // Case 2
+                case "drink":
+                    map.put("category", "cate_2");
+                    break;
+                // Case 3
+                case "fastFood":
+                    map.put("category", "cate_3");
+                    break;
+                case "rawFood":
+                    map.put("category", "cate_4");
+                    break;
+                case "fruit":
+                    map.put("category", "cate_5");
+                    break;
+                case "iceCream":
+                    map.put("category", "cate_6");
+                    break;
+                case "cake":
+                    map.put("category", "cate_7");
+                    break;
+                case "beer":
+                    map.put("category", "cate_8");
+                    break;
+                default:
+                    map.put("category", "cate_1");
+            }
 
-                db.collection("restautantProduct").document(id).set(map)
+
+
+//                if(category == "Food"){
+//                map.put("category", "1");}
+//            if(category == "FastFood"){
+//                map.put("category", "3");}
+//            eles if(category == "Drink"){
+//                map.put("category", "2");}
+//            if(category == "RawFood"){
+//                map.put("category", "4");}
+//            if(category == "Fruit"){
+//                map.put("category", "5");}
+//            if(category == "IceCream"){
+//                map.put("category", "6");}
+//            if(category.toUpperCase(Locale.ROOT).contains("CAKE")){
+//                map.put("category", "7");}
+//            if(category == "Beer"){
+//                map.put("category", "8");}
+//            else{
+//                map.put("category", "10");
+//            }
+
+
+
+
+
+                db.collection("product").document(id).set(map)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {

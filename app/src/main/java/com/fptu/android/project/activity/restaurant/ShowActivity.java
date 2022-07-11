@@ -6,16 +6,12 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.ClipData;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.fptu.android.project.R;
 import com.fptu.android.project.adapter.MyAdapter;
-import com.fptu.android.project.model.Model;
 import com.fptu.android.project.model.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -28,7 +24,7 @@ public class ShowActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private FirebaseFirestore db;
     private MyAdapter adapter;
-    private List<Model> list;
+    private List<Product> list;
 
 
     @Override
@@ -48,30 +44,51 @@ public class ShowActivity extends AppCompatActivity {
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new TouchHelper(adapter));
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
-        showData();
-
-
+        getListProduct();
 
     }
 
-    public void showData() {
-        db.collection("restautantProduct").get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+    public void getListProduct() {
+
+        db.collection("product")
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        list.clear();
-                        for (DocumentSnapshot snapshot: task.getResult()){
-                            Model model = new Model(snapshot.getString("id"), snapshot.getString("image"), snapshot.getString("name"), snapshot.getString("price"));
-                                   list.add(model);
+                        for (DocumentSnapshot doc : task.getResult().getDocuments()) {
+                            Product p = new Product();
+                            p.setProduct_id(doc.get("id").toString());
+                            p.setProduct_name(doc.get("name").toString());
+                            p.setDescription(doc.get("description").toString());
+                            p.setProduct_price(Integer.valueOf(doc.get("price").toString()));
+                            p.setRate(Float.valueOf(doc.get("rate").toString()));
+                            p.setProduct_url(doc.get("url").toString());
+                            list.add(p);
                         }
                         adapter.notifyDataSetChanged();
                     }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(ShowActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
                 });
 
+
     }
+
+//    public void showData() {
+//        db.collection("product").get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        list.clear();
+//                        for (DocumentSnapshot snapshot: task.getResult()){
+//                            Product product = new Product(Integer.valueOf(snapshot.getString("id").toString()), snapshot.getString("name"), snapshot.getString("description"), Integer.valueOf(snapshot.getString("price").toString()));
+//                                   list.add(product);
+//                        }
+//                        adapter.notifyDataSetChanged();
+//                    }
+//                }).addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Toast.makeText(ShowActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//
+//    }
 }
