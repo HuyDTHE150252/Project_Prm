@@ -82,9 +82,6 @@ public class ProfileFragment extends Fragment {
         verifyMsg = view.findViewById(R.id.verifyMsg);
         verified = view.findViewById(R.id.verified);
 
-//    if(user.getEmail() =="adudu@gmail.com"){
-//
-//    }
 
         // Email Verification
         if (!user.isEmailVerified()) {
