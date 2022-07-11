@@ -1,9 +1,6 @@
 package com.fptu.android.project.activity.fragment;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,15 +12,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fptu.android.project.R;
 import com.fptu.android.project.activity.EmptyCartActivity;
 import com.fptu.android.project.activity.OrderActivity;
-import com.fptu.android.project.activity.PaymentRazorActivity;
-import com.fptu.android.project.adapter.MyCartAdapter;
+import com.fptu.android.project.adapter.CartAdapter;
 import com.fptu.android.project.model.Order;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -38,7 +33,7 @@ import java.util.List;
 
 public class CartFragment extends Fragment {
     RecyclerView recyclerView;
-    MyCartAdapter cartAdapter;
+    CartAdapter cartAdapter;
     List<Order> cartList;
     FirebaseAuth auth;
     FirebaseFirestore db;
@@ -57,7 +52,7 @@ public class CartFragment extends Fragment {
         tvCheckout = view.findViewById(R.id.cart_checkout);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         cartList = new ArrayList<>();
-        cartAdapter = new MyCartAdapter(getActivity(), cartList);
+        cartAdapter = new CartAdapter(getActivity(), cartList);
         overTotalAmount = view.findViewById(R.id.totalTxt);
 
         tvCheckout.setOnClickListener(new View.OnClickListener() {
@@ -78,7 +73,7 @@ public class CartFragment extends Fragment {
         });
         getAllListProductCart();
         recyclerView.setAdapter(cartAdapter);
-        // cart
+
 
 
         return view;

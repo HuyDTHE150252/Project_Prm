@@ -29,10 +29,7 @@ public class RestaurantProductService implements RestaurantProductDAO {
         return databaseReference.child(key).updateChildren(hashMap);
     }
 
-    @Override
-    public Task<Void> delete(String key) {
-        return  databaseReference.child(key).removeValue();
-    }
+
 
 
 }
