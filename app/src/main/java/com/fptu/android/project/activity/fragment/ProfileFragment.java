@@ -2,6 +2,7 @@ package com.fptu.android.project.activity.fragment;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,8 +23,16 @@ import androidx.fragment.app.Fragment;
 import com.fptu.android.project.R;
 import com.fptu.android.project.activity.user.EditProflieActivity;
 import com.fptu.android.project.activity.user.LoginActivity;
+import com.fptu.android.project.model.Order;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -31,9 +40,13 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ProfileFragment extends Fragment {
@@ -45,6 +58,7 @@ public class ProfileFragment extends Fragment {
     FirebaseUser user;
     StorageReference storageReference;
     ImageView imgUser;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -106,7 +120,7 @@ public class ProfileFragment extends Fragment {
             verified.setVisibility(View.VISIBLE);
         }
         // Get user's avatar
-        StorageReference profileRef = storageReference.child("users/"+fAuth.getCurrentUser().getUid()+"/profile.jpg");
+        StorageReference profileRef = storageReference.child("users/" + fAuth.getCurrentUser().getUid() + "/profile.jpg");
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -123,12 +137,61 @@ public class ProfileFragment extends Fragment {
                     phone.setText(documentSnapshot.getString("phone"));
                     fullName.setText(documentSnapshot.getString("fName"));
                     email.setText(documentSnapshot.getString("email"));
+                    fetchingStaticDataForUser(view);
 
                 } else {
                     Log.d("tag", "onEvent: Document do not exists");
                 }
             }
         });
+
+    }
+
+    private LineChart lineChart;
+
+    private void fetchingStaticDataForUser(View view) {
+        lineChart = view.findViewById(R.id.user_chart_activities);
+
+        String currentUserId = fAuth.getCurrentUser().getUid();
+
+        List<Entry> entries = new ArrayList<Entry>();
+
+        entries.add(new Entry(1, 2 + 10));
+        entries.add(new Entry(2, 2 + 50));
+        entries.add(new Entry(3, 2 + 104));
+        entries.add(new Entry(4, 2 + 130));
+        entries.add(new Entry(5, 2 + 110));
+        entries.add(new Entry(6, 2 + 110));
+        entries.add(new Entry(7, 2 + 110));
+        entries.add(new Entry(8, 2 + 110));
+        entries.add(new Entry(9, 2 + 110));
+        entries.add(new Entry(10, 2 + 110));
+        entries.add(new Entry(11, 2 + 110));
+        entries.add(new Entry(12, 2 + 110));
+
+        fStore.collection("Order").whereEqualTo("userId",currentUserId)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {
+                                String currentDate=documentSnapshot.getString("currentDateOrder");
+                                    
+                                System.out.println(currentDate);
+                            }
+
+                        } else {
+                            Log.w("err", "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+
+        LineDataSet dataSet = new LineDataSet(entries, "Orders"); // add entries to dataset
+        dataSet.setColor(ColorTemplate.COLORFUL_COLORS[0]);
+        LineData lineData = new LineData(dataSet);
+        lineChart.setData(lineData);
+        lineChart.setDescription(null);
+        lineChart.invalidate(); // refresh
 
     }
 
