@@ -60,7 +60,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         tvQuantity = findViewById(R.id.tvQuantity);
         tvPrice = findViewById(R.id.txtPriceNumber);
         btnAddToCart = findViewById(R.id.productdetail_addtocart);
-        ratingBar = (RatingBar) findViewById(R.id.productdetail_rating);
+//        ratingBar = (RatingBar) findViewById(R.id.productdetail_rating);
         description = findViewById(R.id.productdetail_description);
     }
 
@@ -156,27 +156,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     }
 
-//    private void fetchingShopInformation(Product product) {
-//
-//        firestore.collection("restaurant")
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            for (QueryDocumentSnapshot document : task.getResult()) {
-//                                Gson gson = new Gson();
-//                                JsonElement jsonElement = gson.toJsonTree(document.getData());
-//                                Restaurant currentRes = gson.fromJson(jsonElement, Restaurant.class);
-//                                if (currentRes.getRestaurant_id().equals("" + product.getRes_id())) {
-//                                    shopName.setText(currentRes.getRestaurant_name());
-//                                    tvProductAddress.setText(document.get("restaurant_address").toString());
-//                                }
-//                            }
-//                        }
-//                    }
-//                });
-//    }
+
 
     private void loadListFeedback() {
     }

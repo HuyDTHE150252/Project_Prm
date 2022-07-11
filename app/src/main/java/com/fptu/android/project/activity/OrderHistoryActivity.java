@@ -68,11 +68,14 @@ public class OrderHistoryActivity extends AppCompatActivity {
                                String address=documentSnapshot.getString("addressShipping");
                                String currentDate=documentSnapshot.getString("currentDateOrder");
                                String status=documentSnapshot.getString("orderStatus");
+                               String paymentMethod=documentSnapshot.getString("status");
+
                                 orderViewModel = documentSnapshot.toObject(Order.class);
                                 orderViewModel.setDocumentId(docId);
                                 orderViewModel.setAddress(address);
                                 orderViewModel.setCurrentDate(currentDate);
                                 orderViewModel.setOrderStatus(status);
+                                orderViewModel.setPaymentState(paymentMethod);
                                 orderList.add(orderViewModel);
                                 orderHistoryAdapter.notifyDataSetChanged();
                                 Log.d("t", "DocumentSnapshot data: " + documentSnapshot.getData());
