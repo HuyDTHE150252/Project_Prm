@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Restaurant implements Serializable {
     private String restaurant_image;
-    private int restaurant_id;
+    private String restaurant_id;
     private int uid;
     private String restaurant_name;
     private String restaurant_address;
@@ -14,25 +14,17 @@ public class Restaurant implements Serializable {
     private int status;
 
 
+    public Restaurant(String img, String name, String address, String rate, String status) {
+    }
 
-
-
-
-    public Restaurant(String restaurant_image, String restaurant_name, String restaurant_address, String restaurant_rate, String restaurant_status) {
-
+    public Restaurant(String restaurant_image, String restaurant_id, String restaurant_name, String restaurant_address, String restaurant_rate, String restaurant_status) {
         this.restaurant_image = restaurant_image;
+        this.restaurant_id = restaurant_id;
         this.restaurant_name = restaurant_name;
         this.restaurant_address = restaurant_address;
         this.restaurant_rate = restaurant_rate;
         this.restaurant_status = restaurant_status;
     }
-
-
-    public Restaurant() {
-    }
-
-
-
 
     public String getRestaurant_image() {
         return restaurant_image;
@@ -42,11 +34,11 @@ public class Restaurant implements Serializable {
         this.restaurant_image = restaurant_image;
     }
 
-    public int getRestaurant_id() {
+    public String getRestaurant_id() {
         return restaurant_id;
     }
 
-    public void setRestaurant_id(int restaurant_id) {
+    public void setRestaurant_id(String restaurant_id) {
         this.restaurant_id = restaurant_id;
     }
 

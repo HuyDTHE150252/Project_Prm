@@ -4,14 +4,19 @@ import java.io.Serializable;
 
 public class Product implements Serializable {
 
-    private int product_id;
-    private String product_url;
+    private String product_id;
     private String product_name;
+    private String categoryId;
     private String description;
+    private int product_price;
+    private String product_url;
+    private int quantity;
+
+
     private String res_name;
     private String res_address;
-    private int product_price;
-    private String type;
+
+
     private float rate;
     private int status;
 
@@ -19,24 +24,49 @@ public class Product implements Serializable {
 
     }
 
-    public Product(int product_id, String product_url, String product_name, String description, String res_name, String res_address, int product_price, String type, float rate, int status) {
+    public Product(String product_id, String product_name, String description, int product_price) {
         this.product_id = product_id;
-        this.product_url = product_url;
         this.product_name = product_name;
         this.description = description;
+        this.product_price = product_price;
+    }
+
+    public Product(String product_id, String product_name, String description, int product_price, String product_url) {
+        this.product_id = product_id;
+        this.product_name = product_name;
+        this.description = description;
+        this.product_price = product_price;
+        this.product_url = product_url;
+    }
+
+    public Product(String product_id, String product_name, String categoryId, String description, int product_price, String product_url) {
+        this.product_id = product_id;
+        this.product_name = product_name;
+        this.categoryId = categoryId;
+        this.description = description;
+        this.product_price = product_price;
+        this.product_url = product_url;
+    }
+
+    public Product(String product_id, String product_name, String categoryId, String description, int product_price, String product_url, int quantity, String res_name, String res_address, float rate, int status) {
+        this.product_id = product_id;
+        this.product_name = product_name;
+        this.categoryId = categoryId;
+        this.description = description;
+        this.product_price = product_price;
+        this.product_url = product_url;
+        this.quantity = quantity;
         this.res_name = res_name;
         this.res_address = res_address;
-        this.product_price = product_price;
-        this.type = type;
         this.rate = rate;
         this.status = status;
     }
 
-    public int getProduct_id() {
+    public String getProduct_id() {
         return product_id;
     }
 
-    public void setProduct_id(int product_id) {
+    public void setProduct_id(String product_id) {
         this.product_id = product_id;
     }
 
@@ -88,13 +118,6 @@ public class Product implements Serializable {
         this.product_price = product_price;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 
     public float getRate() {
         return rate;
@@ -112,4 +135,36 @@ public class Product implements Serializable {
         this.status = status;
     }
 
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "product_id=" + product_id +
+                ", product_name='" + product_name + '\'' +
+                ", categoryId='" + categoryId + '\'' +
+                ", description='" + description + '\'' +
+                ", product_price=" + product_price +
+                ", product_url='" + product_url + '\'' +
+                ", quantity=" + quantity +
+                ", res_name='" + res_name + '\'' +
+                ", res_address='" + res_address + '\'' +
+                ", rate=" + rate +
+                ", status=" + status +
+                '}';
+    }
 }

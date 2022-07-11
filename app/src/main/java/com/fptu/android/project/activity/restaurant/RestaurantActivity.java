@@ -58,12 +58,14 @@ public class RestaurantActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
-        res = new Restaurant();
+        //res = new Restaurant();
         resList = new ArrayList<>();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listrestaurant);
         bindingView();
         getAllListRestaurant();
+        System.out.println("-----------------------------------------------------");
+
         //bindingAction();
         //insertRestaurants();
 
@@ -75,13 +77,12 @@ public class RestaurantActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {
                         String img = documentSnapshot.getString("restaurant_img");
+                        String rid = documentSnapshot.getString("restaurant_id");
                         String  name = documentSnapshot.getString("restaurant_name");
                         String rate = documentSnapshot.getString("restaurant_rate");
                         String status = documentSnapshot.getString("restaurant_status");
                         String address = documentSnapshot.getString("restaurant_address");
-                        res = new Restaurant(img, name,address,rate,status);
-
-
+                        res = new Restaurant(img,name,address,rate,status);
                         resList.add(res);
                         restaurant_adapter.notifyDataSetChanged();
                         //recyclerView.setVisibility(View.VISIBLE);

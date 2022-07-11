@@ -107,7 +107,7 @@ public class HomeFragment extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         for (DocumentSnapshot doc : task.getResult().getDocuments()) {
                             Product p = new Product();
-                            p.setProduct_id(Integer.valueOf(doc.get("id").toString()));
+                            p.setProduct_id(doc.get("id").toString());
                             p.setProduct_name(doc.get("name").toString());
                             p.setDescription(doc.get("description").toString());
                             p.setProduct_price(Integer.valueOf(doc.get("price").toString()));
@@ -129,7 +129,7 @@ public class HomeFragment extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         for (DocumentSnapshot doc : task.getResult().getDocuments()) {
                             Product p = new Product();
-                            p.setProduct_id(Integer.valueOf(doc.get("id").toString()));
+                            p.setProduct_id(doc.get("id").toString());
                             p.setProduct_name(doc.get("name").toString());
                             p.setDescription(doc.get("description").toString());
                             p.setProduct_price(Integer.valueOf(doc.get("price").toString()));
