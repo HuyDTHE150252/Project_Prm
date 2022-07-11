@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.fptu.android.project.R;
+import com.fptu.android.project.activity.HomePageActivity;
+import com.fptu.android.project.activity.fragment.CartFragment;
 import com.fptu.android.project.activity.fragment.ProfileFragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -108,6 +110,7 @@ public class EditProflieActivity extends AppCompatActivity {
                                 startActivity(new Intent(getApplicationContext(), ProfileFragment.class));
                                 finish();
                             }
+
                         });
                         //Toast.makeText(EditProflieActivity.this, "Email is changed.", Toast.LENGTH_SHORT).show();
                     }

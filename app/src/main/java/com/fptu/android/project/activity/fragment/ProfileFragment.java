@@ -52,7 +52,6 @@ public class ProfileFragment extends Fragment {
 
     }
 
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -78,7 +77,6 @@ public class ProfileFragment extends Fragment {
         resendCode = view.findViewById(R.id.resendCode);
         verifyMsg = view.findViewById(R.id.verifyMsg);
         verified = view.findViewById(R.id.verified);
-
 
         // Email Verification
         if (!user.isEmailVerified()) {
@@ -144,7 +142,6 @@ public class ProfileFragment extends Fragment {
     public void logout(View view) {
         FirebaseAuth.getInstance().signOut();//logout
         startActivity(new Intent(getActivity(), LoginActivity.class));
-
     }
 
     private void resetPassword(View view) {
