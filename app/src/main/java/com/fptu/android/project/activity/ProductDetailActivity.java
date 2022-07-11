@@ -156,27 +156,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     }
 
-//    private void fetchingShopInformation(Product product) {
-//
-//        firestore.collection("restaurant")
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            for (QueryDocumentSnapshot document : task.getResult()) {
-//                                Gson gson = new Gson();
-//                                JsonElement jsonElement = gson.toJsonTree(document.getData());
-//                                Restaurant currentRes = gson.fromJson(jsonElement, Restaurant.class);
-//                                if (currentRes.getRestaurant_id().equals("" + product.getRes_id())) {
-//                                    shopName.setText(currentRes.getRestaurant_name());
-//                                    tvProductAddress.setText(document.get("restaurant_address").toString());
-//                                }
-//                            }
-//                        }
-//                    }
-//                });
-//    }
+
 
     private void loadListFeedback() {
     }

@@ -98,6 +98,7 @@ public class HomeFragment extends Fragment {
                                 p.setRes_id(Integer.valueOf(doc.get("resid").toString()));
                             }
                             list.add(p);
+                            product_adapter.notifyDataSetChanged();
 
                         }
                     }
