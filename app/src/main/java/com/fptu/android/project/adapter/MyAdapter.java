@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.fptu.android.project.R;
 import com.fptu.android.project.activity.restaurant.RestaurantCrudActivity;
 import com.fptu.android.project.activity.restaurant.ShowActivity;
@@ -82,6 +84,7 @@ private void notifyRemoved(int position){
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        Glide.with(activity).load(pList.get(position).getProduct_url()).into(holder.product_img);
         holder.name.setText(pList.get(position).getProduct_name());
         holder.description.setText(pList.get(position).getDescription());
         holder.price.setText(String.valueOf(pList.get(position).getProduct_price()));
@@ -99,9 +102,11 @@ private void notifyRemoved(int position){
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView  name, description, price,rate;
+        ImageView product_img;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            product_img = itemView.findViewById(R.id.product_image);
             name = itemView.findViewById(R.id.product_name);
             description = itemView.findViewById(R.id.product_description);
             price = itemView.findViewById(R.id.product_price);
