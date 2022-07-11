@@ -68,92 +68,13 @@
             </androidx.cardview.widget.CardView>
 
             <TextView
-                android:id="@+id/txtview1_productdetail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/productdetail_cardview"
-                android:layout_marginStart="70dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="Được cung cấp bởi" />
-
-            <TextView
-                android:id="@+id/productdetail_shopname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/productdetail_cardview"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="7dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_toRightOf="@id/txtview1_productdetail"
-                android:text="Quán Crush"
-                android:textSize="17dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/txtview2_productdetail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txtview1_productdetail"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="Địa chỉ : "
-                android:textColor="@color/black"
-                android:textSize="15dp" />
-
-            <TextView
-                android:id="@+id/productdetail_shopaddress"
-                android:layout_width="380dp"
-                android:layout_height="50dp"
-                android:layout_below="@+id/txtview2_productdetail"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="5dp"
-                android:background="#d9d9d9"
-                android:padding="5dp"
-                android:text="19 Thôn 3, xã Thạch Hòa, huyện Thạch Thất, Hòa Lạc"
-                android:textSize="15dp" />
-
-            <TextView
-                android:id="@+id/txtview3_productdetail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/productdetail_shopaddress"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="Loại : "
-                android:textColor="@color/black"
-                android:textSize="15dp" />
-
-            <TextView
-                android:id="@+id/productdetail_producttype"
-                android:layout_width="80dp"
-                android:layout_height="30dp"
-                android:layout_below="@+id/productdetail_shopaddress"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="3dp"
-                android:layout_toRightOf="@+id/txtview3_productdetail"
-                android:padding="5dp"
-                android:text="Drink"
-                android:textSize="17dp"
-                android:textStyle="bold" />
-
-
-
-            <TextView
                 android:id="@+id/txtPriceTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/txtview3_productdetail"
+                android:layout_below="@+id/productdetail_cardview"
                 android:layout_marginStart="20dp"
-
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
                 android:text="Price: "
                 android:textColor="@color/black"
                 android:textSize="15dp" />
@@ -162,11 +83,11 @@
                 android:id="@+id/txtPriceNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/txtview3_productdetail"
+                android:layout_below="@+id/productdetail_cardview"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="11dp"
-                android:layout_marginBottom="11dp"
                 android:layout_toRightOf="@id/txtPriceTitle"
                 android:text="100 "
                 android:textColor="@color/black"
@@ -186,13 +107,12 @@
                 android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="462dp"
+                android:layout_marginTop="300dp"
                 android:background="@drawable/yellow_bar"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-
                 tools:ignore="NotSibling">
 
                 <ImageView
@@ -260,9 +180,9 @@
                 android:id="@+id/productdetail_addtocart"
                 android:layout_width="140dp"
                 android:layout_height="40dp"
-                android:layout_below="@+id/txtview3_productdetail"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="72dp"
+                android:layout_below="@+id/productdetail_cardview"
+                android:layout_marginLeft="45dp"
+                android:layout_marginTop="82dp"
                 android:layout_toRightOf="@+id/constraintLayout3"
                 android:background="@color/md_red_700"
                 android:drawableStart="@drawable/ic_cart_menu"
@@ -286,18 +206,6 @@
                 android:numStars="5"
                 android:rating="4.5"
                 android:stepSize="0.5" />
-
-            <TextView
-                android:id="@+id/productdetail_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/constraintLayout3"
-                android:layout_marginLeft="130dp"
-                android:layout_marginTop="30dp"
-                android:layout_toRightOf="@+id/productdetail_rating"
-                android:text="MỞ CỬA"
-                android:textColor="@color/md_red_700"
-                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/productdetail_feedback"

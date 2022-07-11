@@ -1,6 +1,7 @@
 package com.fptu.android.project.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.fptu.android.project.R;
+import com.fptu.android.project.activity.ListProductsByCategoryActivity;
 import com.fptu.android.project.model.Category;
 
 import java.util.List;
@@ -45,6 +47,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         }
         Glide.with(context).load(listcategory.get(position).getUrl()).into(holder.resourceImage);
         holder.cate_name.setText(cate.getCate_name());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ListProductsByCategoryActivity.class);
+                intent.putExtra("listProductbyCate",cate);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
