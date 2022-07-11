@@ -39,7 +39,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     int quantity = 1;
     int totalPrice = 0;
     RatingBar ratingBar;
-    TextView tvProductName, tvQuantity, tvPrice, tvProductAddress, feedback, description, shopName;
+    TextView tvProductName, tvQuantity, tvPrice, feedback, description;
     FirebaseFirestore firestore;
     TextView btnAddToCart;
     FirebaseAuth auth;
@@ -59,16 +59,9 @@ public class ProductDetailActivity extends AppCompatActivity {
         tvProductName = findViewById(R.id.productdetail_name);
         tvQuantity = findViewById(R.id.tvQuantity);
         tvPrice = findViewById(R.id.txtPriceNumber);
-
         btnAddToCart = findViewById(R.id.productdetail_addtocart);
         ratingBar = (RatingBar) findViewById(R.id.productdetail_rating);
         description = findViewById(R.id.productdetail_description);
-
-
-        //shop information
-        tvProductAddress = findViewById(R.id.productdetail_shopaddress);
-        shopName = findViewById(R.id.productdetail_shopname);
-
     }
 
     void bidingAction() {
@@ -161,30 +154,29 @@ public class ProductDetailActivity extends AppCompatActivity {
         Glide.with(getApplicationContext()).load(product.getProduct_url())
                 .into(img);
 
-        fetchingShopInformation(product);
     }
 
-    private void fetchingShopInformation(Product product) {
-
-        firestore.collection("restaurant")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Gson gson = new Gson();
-                                JsonElement jsonElement = gson.toJsonTree(document.getData());
-                                Restaurant currentRes = gson.fromJson(jsonElement, Restaurant.class);
-                                if (currentRes.getRestaurant_id().equals("" + product.getRes_id())) {
-                                    shopName.setText(currentRes.getRestaurant_name());
-                                    tvProductAddress.setText(document.get("restaurant_address").toString());
-                                }
-                            }
-                        }
-                    }
-                });
-    }
+//    private void fetchingShopInformation(Product product) {
+//
+//        firestore.collection("restaurant")
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            for (QueryDocumentSnapshot document : task.getResult()) {
+//                                Gson gson = new Gson();
+//                                JsonElement jsonElement = gson.toJsonTree(document.getData());
+//                                Restaurant currentRes = gson.fromJson(jsonElement, Restaurant.class);
+//                                if (currentRes.getRestaurant_id().equals("" + product.getRes_id())) {
+//                                    shopName.setText(currentRes.getRestaurant_name());
+//                                    tvProductAddress.setText(document.get("restaurant_address").toString());
+//                                }
+//                            }
+//                        }
+//                    }
+//                });
+//    }
 
     private void loadListFeedback() {
     }
