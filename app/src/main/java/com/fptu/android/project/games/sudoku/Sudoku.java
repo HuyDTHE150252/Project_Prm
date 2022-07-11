@@ -33,7 +33,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 
-public class sudoku_game extends Fragment {
+public class Sudoku extends Fragment {
     private RecyclerView sudokuLayout;
     private SudokuAdapter adapter;
 
@@ -49,7 +49,7 @@ public class sudoku_game extends Fragment {
 
     FirebaseFirestore db;
 
-    public sudoku_game() {
+    public Sudoku() {
 
     }
 
@@ -117,11 +117,6 @@ public class sudoku_game extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_sudoku_game, container, false);
-    }
-
-    public interface IMySudokuApi {
-        @GET("/board")
-        Call<Object> generateSudokuBoard(@Query("difficulty") String level);
     }
 
     class SudokuBoard extends AsyncTask<String, Integer, ArrayList<Integer>> {
@@ -296,63 +291,69 @@ public class sudoku_game extends Fragment {
             return solvedBoard;
         }
     }
+}
 
-    class SudokuAdapter extends RecyclerView.Adapter<SudokuAdapter.SudokuViewHolder> {
-
-        private ArrayList<Integer> originBoard;
-        private ArrayList<Integer> solvedBoard;
-        private Context context;
-
-        public SudokuAdapter() {
-        }
-
-        @NonNull
-        @Override
-        public SudokuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            context = parent.getContext();
-            return new SudokuViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.sudoku_entrypoint, parent, false));
-        }
+interface IMySudokuApi {
+    @GET("/board")
+    Call<Object> generateSudokuBoard(@Query("difficulty") String level);
+}
 
 
-        @Override
-        public void onBindViewHolder(@NonNull SudokuViewHolder holder, @SuppressLint("RecyclerView") int position) {
-            if (originBoard != null) {
-                int currentValue = originBoard.get(position);
-                holder.entry.setText(currentValue + "");
-                holder.entry.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (originBoard.equals(solvedBoard)) {
-                            Toast.makeText(context, "Win!", Toast.LENGTH_SHORT).show();
-                        }
-                        originBoard.set(position, currentValue == 9 ? 0 : currentValue + 1);
-                        notifyDataSetChanged();
+class SudokuAdapter extends RecyclerView.Adapter<SudokuAdapter.SudokuViewHolder> {
+
+    private ArrayList<Integer> originBoard;
+    private ArrayList<Integer> solvedBoard;
+    private Context context;
+
+    public SudokuAdapter() {
+    }
+
+    @NonNull
+    @Override
+    public SudokuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        context = parent.getContext();
+        return new SudokuViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.sudoku_entrypoint, parent, false));
+    }
+
+
+    @Override
+    public void onBindViewHolder(@NonNull SudokuViewHolder holder, @SuppressLint("RecyclerView") int position) {
+        if (originBoard != null) {
+            int currentValue = originBoard.get(position);
+            holder.entry.setText(currentValue + "");
+            holder.entry.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (originBoard.equals(solvedBoard)) {
+                        Toast.makeText(context, "Win!", Toast.LENGTH_SHORT).show();
                     }
-                });
-            }
+                    originBoard.set(position, currentValue == 9 ? 0 : currentValue + 1);
+                    notifyDataSetChanged();
+                }
+            });
         }
+    }
 
-        public void setOriginBoard(ArrayList<Integer> originBoard) {
-            this.originBoard = originBoard;
-            notifyDataSetChanged();
-        }
+    public void setOriginBoard(ArrayList<Integer> originBoard) {
+        this.originBoard = originBoard;
+        notifyDataSetChanged();
+    }
 
-        public void setSolvedBoard(ArrayList<Integer> solvedBoard) {
-            this.solvedBoard = solvedBoard;
-        }
+    public void setSolvedBoard(ArrayList<Integer> solvedBoard) {
+        this.solvedBoard = solvedBoard;
+    }
 
-        @Override
-        public int getItemCount() {
-            return originBoard.size();
-        }
+    @Override
+    public int getItemCount() {
+        return originBoard.size();
+    }
 
-        public class SudokuViewHolder extends RecyclerView.ViewHolder {
-            private TextView entry;
+    public class SudokuViewHolder extends RecyclerView.ViewHolder {
+        private TextView entry;
 
-            public SudokuViewHolder(@NonNull View itemView) {
-                super(itemView);
-                entry = itemView.findViewById(R.id.sudoku_entrypoint);
-            }
+        public SudokuViewHolder(@NonNull View itemView) {
+            super(itemView);
+            entry = itemView.findViewById(R.id.sudoku_entrypoint);
         }
     }
 }

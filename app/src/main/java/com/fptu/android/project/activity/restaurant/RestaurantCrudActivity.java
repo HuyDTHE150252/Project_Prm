@@ -170,18 +170,19 @@ public class RestaurantCrudActivity extends AppCompatActivity {
                  Bundle bundle1 = getIntent().getExtras();
                  if(bundle!= null){
                      String Id = id;
-                     updateToFireStore(Id,name, price, description,quantity,category,rate,url);
+
+                     updateToFireStore(Id,name, price, description,quantity,category,rate,url,9);
 
 
                  }else {
                  String id = UUID.randomUUID().toString();
 
-                 saveToFireStore(id,name, price, description,quantity,category,rate,url);}
+                 saveToFireStore(id,name, price, description,quantity,category,rate,url,9);}
              }
 
 
          });}
-    private void updateToFireStore(String id, String name, String price, String description,String quantity,String category, float rate, String url) {
+    private void updateToFireStore(String id, String name, String price, String description,String quantity,String category, float rate, String url,int resid) {
         db.collection("product").document(id).update("name",name,"price",price,"description",description,"quantity",quantity,"category",category,"rate",rate,"url",url)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -200,7 +201,7 @@ public class RestaurantCrudActivity extends AppCompatActivity {
                 });
     }
     
-    private void saveToFireStore(String id, String name, String price, String description,String quantity,String category,float rate, String url){
+    private void saveToFireStore(String id, String name, String price, String description,String quantity,String category,float rate, String url,int resid){
         if(  !name.isEmpty() && !price.isEmpty()){
                 HashMap<String, Object> map = new HashMap<>();
                 map.put("id", id);
@@ -210,6 +211,7 @@ public class RestaurantCrudActivity extends AppCompatActivity {
                 map.put("quantity",quantity);
                 map.put("rate",rate);
                 map.put("url",url);
+                map.put("resid", resid);
                 String ctg = category.toLowerCase(Locale.ROOT);
             switch (ctg) {
                 // Case 1
@@ -240,9 +242,7 @@ public class RestaurantCrudActivity extends AppCompatActivity {
                     map.put("category", "cate_8");
                     break;
                 default:
-                    map.put("category", "10");
-
-
+                    map.put("category", "cate_1");
             }
 
 
