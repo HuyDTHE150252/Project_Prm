@@ -68,6 +68,7 @@ public class HomePageActivity extends AppCompatActivity {
                     case R.id.proflie:
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
                         break;
+
                     case R.id.logoutUser:
                         auth.signOut();//logout
                         startActivity(new Intent(HomePageActivity.this, LoginActivity.class));
