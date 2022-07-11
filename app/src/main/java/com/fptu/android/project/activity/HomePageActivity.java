@@ -24,7 +24,12 @@ import com.fptu.android.project.activity.shipper.ShipperActivity;
 import com.fptu.android.project.activity.user.LoginActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
+ 
 
 public class HomePageActivity extends AppCompatActivity {
 
@@ -47,6 +52,7 @@ public class HomePageActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
         nav_menu = findViewById(R.id.nav_view);
         firestore = FirebaseFirestore.getInstance();
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         nav_menu.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -95,19 +101,58 @@ public class HomePageActivity extends AppCompatActivity {
                         startActivity(new Intent(HomePageActivity.this, GoogmapActivity.class));
                         break;
                     case R.id.allOrder:
-                        if (auth.getCurrentUser().getProviderData().get(0).equals("admin")) {
+                        firestore.collection("dynamic_menu").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                            @Override
+                            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
 
-                            startActivity(new Intent(HomePageActivity.this, ShipperActivity.class));
-                            break;
-                        }
-                        Toast.makeText(HomePageActivity.this, "Only Shipper and Admin can see current orders!", Toast.LENGTH_SHORT).show();
+                                if (e != null) {
+
+                                }
+
+                                for (DocumentChange documentChange : documentSnapshots.getDocumentChanges()) {
+                                    String role = documentChange.getDocument().getData().get("role").toString();
+                                    if (role.equals("admin") && role.equals("shipper")) {
+                                        startActivity(new Intent(HomePageActivity.this, ShipperActivity.class));
+                                    } else {
+                                        Toast.makeText(HomePageActivity.this, "Only Shipper and Admin can see current orders!", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }
+                        });
 
                     case R.id.restaurant_product:
-                        if (auth.getCurrentUser().getEmail().equals("tuanduong144@gmail.com")) {
-                            startActivity(new Intent(HomePageActivity.this, RestaurantCrudActivity.class));
-                            break;
-                        }
-                        Toast.makeText(HomePageActivity.this, "Only Admin can add products!", Toast.LENGTH_SHORT).show();
+                        firestore.collection("dynamic_menu").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                            @Override
+                            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+
+                                if (e != null) {
+
+                                }
+
+                                for (DocumentChange documentChange : documentSnapshots.getDocumentChanges()) {
+                                    String role = documentChange.getDocument().getData().get("role").toString();
+                                    if (role.equals("admin")) {
+                                        startActivity(new Intent(HomePageActivity.this, RestaurantCrudActivity.class));
+                                    } else {
+                                        Toast.makeText(HomePageActivity.this, "Only Admin can add products!", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }
+                        });
+                        firestore.collection("dynamic_menu").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                            @Override
+                            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+
+                                if (e != null) {
+
+                                }
+
+                                for (DocumentChange documentChange : documentSnapshots.getDocumentChanges()) {
+                                    String uid = documentChange.getDocument().getData().get("uid").toString();
+
+                                }
+                            }
+                        });
                 }
 
                 drawerLayout.closeDrawer(GravityCompat.START);
