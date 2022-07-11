@@ -23,11 +23,18 @@ import com.fptu.android.project.activity.restaurant.RestaurantActivity;
 import com.fptu.android.project.activity.restaurant.RestaurantCrudActivity;
 import com.fptu.android.project.activity.shipper.ShipperActivity;
 import com.fptu.android.project.activity.user.LoginActivity;
+import com.fptu.android.project.model.User;
 
-import com.fptu.android.project.games.smartquiz.SmartQuiz;
-
+import com.fptu.android.project.model.Restaurant;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 
 public class HomePageActivity extends AppCompatActivity {
 
@@ -35,6 +42,7 @@ public class HomePageActivity extends AppCompatActivity {
     private NavigationView nav_menu;
     ProgressBar progressBar;
     FirebaseAuth auth;
+    FirebaseFirestore firestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +56,8 @@ public class HomePageActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         drawerLayout = findViewById(R.id.drawer_layout);
         nav_menu = findViewById(R.id.nav_view);
+        firestore = FirebaseFirestore.getInstance();
+
         nav_menu.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -99,8 +109,11 @@ public class HomePageActivity extends AppCompatActivity {
                         startActivity(new Intent(HomePageActivity.this, ShipperActivity.class));
                         break;
                     case R.id.restaurant_product:
-                        startActivity(new Intent(HomePageActivity.this, RestaurantCrudActivity.class));
-                        break;
+                        if(auth.getCurrentUser().getEmail().equals("tuanduong144@gmail.com")) {
+                            startActivity(new Intent(HomePageActivity.this, RestaurantCrudActivity.class));
+                            break;
+                        }
+                        Toast.makeText(HomePageActivity.this, "Only Shop can add product!", Toast.LENGTH_SHORT).show();
                 }
 
                 drawerLayout.closeDrawer(GravityCompat.START);
