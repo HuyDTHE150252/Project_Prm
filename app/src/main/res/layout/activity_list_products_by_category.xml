@@ -12,6 +12,7 @@
         android:background="#fc8403" />
 
     <TextView
+        android:id="@+id/txt_listproduct"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
@@ -22,7 +23,6 @@
         android:id="@+id/recyclerView_listProductbyCate"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
-
+        android:layout_below="@+id/txt_listproduct"/>
 
 </RelativeLayout>

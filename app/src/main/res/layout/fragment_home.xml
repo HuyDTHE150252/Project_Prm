@@ -60,6 +60,21 @@
                 tools:layout_editor_absoluteY="136dp" />
 
             <TextView
+                android:id="@+id/trendingtxtView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="Trending"
+                android:textColor="@color/black"
+                android:textSize="22dp"
+                app:drawableEndCompat="@drawable/ic_viewmore" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/trending_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
                 android:id="@+id/product"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -67,8 +82,7 @@
                 android:layout_marginStart="20dp"
                 android:text="Product  "
                 android:textColor="@color/black"
-                android:textSize="22dp"
-                app:drawableEndCompat="@drawable/ic_viewmore" />
+                android:textSize="22dp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/product_recyclerView"

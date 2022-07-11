@@ -53,7 +53,6 @@ public class    ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Produ
         Glide.with(context).load(listProduct.get(position).getProduct_url()).into(holder.product_img);
         holder.product_name.setText(product.getProduct_name());
         holder.product_description.setText(product.getDescription());
-        holder.rate.setText(Float.toString(product.getRate()));
         holder.product_price.setText(String.valueOf(product.getProduct_price()));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +74,6 @@ public class    ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Produ
         private ImageView product_img;
         private TextView product_name;
         private TextView product_description;
-        private TextView rate;
         private TextView product_price;
 
         public ProductViewHolder(@NonNull View itemView) {
@@ -83,7 +81,6 @@ public class    ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Produ
             product_img = itemView.findViewById(R.id.product_image);
             product_name = itemView.findViewById(R.id.product_name);
             product_description = itemView.findViewById(R.id.product_description);
-            rate = itemView.findViewById(R.id.product_rate);
             product_price = itemView.findViewById(R.id.product_price);
         }
     }

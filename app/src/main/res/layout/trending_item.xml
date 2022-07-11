@@ -35,7 +35,7 @@
             <TextView
                 android:id="@+id/trend_name"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_below="@id/trend_image"
                 android:layout_centerHorizontal="true"
                 android:text="Trà Sữa Nướng"
@@ -48,7 +48,7 @@
                 android:layout_height="80dp"
                 android:layout_below="@id/trend_name"
                 android:padding="10dp"
-                android:text="Ngon vcl"
+                android:text="Ngon "
                 android:textSize="15dp" />
 
             <TextView

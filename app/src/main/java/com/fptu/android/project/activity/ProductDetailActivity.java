@@ -60,7 +60,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         tvQuantity = findViewById(R.id.tvQuantity);
         tvPrice = findViewById(R.id.txtPriceNumber);
         btnAddToCart = findViewById(R.id.productdetail_addtocart);
-        ratingBar = (RatingBar) findViewById(R.id.productdetail_rating);
+//        ratingBar = (RatingBar) findViewById(R.id.productdetail_rating);
         description = findViewById(R.id.productdetail_description);
     }
 
