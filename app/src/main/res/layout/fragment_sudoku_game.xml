@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".games.sudoku.sudoku_game">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/sudoku_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:text="SUDOKU GAME"
+            android:textSize="20dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/sudoku_board"
+            android:layout_width="match_parent"
+            android:layout_height="520dp"
+            android:layout_below="@+id/sudoku_title"
+            android:layout_centerInParent="true"
+            android:padding="10dp"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/sudoku_current_point"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sudoku_board"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="Current Point: " />
+
+
+        <TextView
+            android:id="@+id/sudoku_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sudoku_board"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/sudoku_current_point"
+            android:text="Level: " />
+
+        <RelativeLayout
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sudoku_board"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_toRightOf="@+id/sudoku_level">
+
+            <TextView
+                android:id="@+id/board_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Board Status: " />
+
+            <ProgressBar
+                android:id="@+id/sudoku_loadingBoard_progressbar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/board_status" />
+
+            <TextView
+                android:id="@+id/sudoku_loadingBoard_percentage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/sudoku_loadingBoard_progressbar"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/board_status"
+                android:text="0/100" />
+
+        </RelativeLayout>
+
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sudoku_current_point"
+            android:layout_centerInParent="true"
+            android:layout_margin="15dp">
+
+            <Button
+                android:id="@+id/sudoku_new_board"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_centerVertical="true"
+                android:text="NEW"
+                android:textAlignment="center" />
+
+            <Button
+                android:id="@+id/sudoku_erase_board"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:text="Erase"
+                android:textAlignment="center" />
+
+            <Button
+                android:id="@+id/sudoku_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="2"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="hint"
+                android:textAlignment="center" />
+
+
+        </GridLayout>
+    </RelativeLayout>
+</FrameLayout>

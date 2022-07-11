@@ -47,7 +47,7 @@ public class ShipperActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         recyclerView = findViewById(R.id.recycleListShipper);
         orderList = new ArrayList<>();
-        orderHistoryAdapter = new ShipperApdapter(getApplicationContext(), orderList);
+        orderHistoryAdapter = new ShipperApdapter(getApplicationContext(),orderList);
 //        orderHistoryAdapter.setData(getListOrder());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -69,14 +69,23 @@ public class ShipperActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {
-                                String docId = documentSnapshot.getId();
 //                               String currentTime=documentSnapshot.getString("currentDateOrder");
-                                orderViewModel = documentSnapshot.toObject(Order.class);
-                                orderViewModel.setDocumentId(docId);
-                                orderList.add(orderViewModel);
-                                orderHistoryAdapter.notifyDataSetChanged();
-                                recyclerView.setVisibility(View.VISIBLE);
-                                Log.d("data", "DocumentSnapshot data: " + documentSnapshot.getId());
+                                String docId = documentSnapshot.getId();
+                                String address=documentSnapshot.getString("addressShipping");
+                                String currentDate=documentSnapshot.getString("currentDateOrder");
+                                String status=documentSnapshot.getString("orderStatus");
+//                               String currentTime=documentSnapshot.getString("currentDateOrder");
+                                if(status.equalsIgnoreCase("In Progress")){
+                                    orderViewModel = documentSnapshot.toObject(Order.class);
+                                    orderViewModel.setDocumentId(docId);
+                                    orderViewModel.setAddress(address);
+                                    orderViewModel.setCurrentDate(currentDate);
+//                                orderViewModel.setOrderStatus(status);
+                                    orderList.add(orderViewModel);
+                                    orderHistoryAdapter.notifyDataSetChanged();
+                                    Log.d("data", "DocumentSnapshot data: " + documentSnapshot.getId());
+                                }
+
                             }
 
                         } else {

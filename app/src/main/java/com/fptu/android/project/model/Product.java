@@ -5,24 +5,32 @@ import java.io.Serializable;
 public class Product implements Serializable {
 
     private String product_id;
+
+    private String product_url;
+
     private String product_name;
     private String categoryId;
     private String description;
     private int product_price;
-    private String product_url;
     private int quantity;
-
-
     private String res_name;
     private String res_address;
-
-
     private float rate;
     private int status;
+
+
+    public Product(String product_name, String description, String res_address, int product_price, float rate) {
+        this.product_name = product_name;
+        this.description = description;
+        this.res_address = res_address;
+        this.product_price = product_price;
+        this.rate = rate;
+    }
 
     public Product() {
 
     }
+
 
     public Product(String product_id, String product_name, String description, int product_price) {
         this.product_id = product_id;
@@ -32,35 +40,9 @@ public class Product implements Serializable {
     }
 
     public Product(String product_id, String product_name, String description, int product_price, String product_url) {
-        this.product_id = product_id;
-        this.product_name = product_name;
-        this.description = description;
-        this.product_price = product_price;
-        this.product_url = product_url;
-    }
 
-    public Product(String product_id, String product_name, String categoryId, String description, int product_price, String product_url) {
-        this.product_id = product_id;
-        this.product_name = product_name;
-        this.categoryId = categoryId;
-        this.description = description;
-        this.product_price = product_price;
-        this.product_url = product_url;
-    }
 
-    public Product(String product_id, String product_name, String categoryId, String description, int product_price, String product_url, int quantity, String res_name, String res_address, float rate, int status) {
-        this.product_id = product_id;
-        this.product_name = product_name;
-        this.categoryId = categoryId;
-        this.description = description;
-        this.product_price = product_price;
-        this.product_url = product_url;
-        this.quantity = quantity;
-        this.res_name = res_name;
-        this.res_address = res_address;
-        this.rate = rate;
-        this.status = status;
-    }
+}
 
     public String getProduct_id() {
         return product_id;
@@ -86,12 +68,36 @@ public class Product implements Serializable {
         this.product_name = product_name;
     }
 
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
+    }
+
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getProduct_price() {
+        return product_price;
+    }
+
+    public void setProduct_price(int product_price) {
+        this.product_price = product_price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public String getRes_name() {
@@ -110,15 +116,6 @@ public class Product implements Serializable {
         this.res_address = res_address;
     }
 
-    public int getProduct_price() {
-        return product_price;
-    }
-
-    public void setProduct_price(int product_price) {
-        this.product_price = product_price;
-    }
-
-
     public float getRate() {
         return rate;
     }
@@ -135,31 +132,15 @@ public class Product implements Serializable {
         this.status = status;
     }
 
-    public String getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
     @Override
     public String toString() {
         return "Product{" +
-                "product_id=" + product_id +
+                "product_id='" + product_id + '\'' +
+                ", product_url='" + product_url + '\'' +
                 ", product_name='" + product_name + '\'' +
                 ", categoryId='" + categoryId + '\'' +
                 ", description='" + description + '\'' +
                 ", product_price=" + product_price +
-                ", product_url='" + product_url + '\'' +
                 ", quantity=" + quantity +
                 ", res_name='" + res_name + '\'' +
                 ", res_address='" + res_address + '\'' +

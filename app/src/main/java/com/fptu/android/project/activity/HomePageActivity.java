@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
 import com.fptu.android.project.R;
 import com.fptu.android.project.activity.fragment.CartFragment;
@@ -21,8 +22,6 @@ import com.fptu.android.project.activity.ggmap.GoogmapActivity;
 import com.fptu.android.project.activity.restaurant.RestaurantActivity;
 import com.fptu.android.project.activity.shipper.ShipperActivity;
 import com.fptu.android.project.activity.user.LoginActivity;
-import com.fptu.android.project.adapter.OrderHistoryAdapter;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -38,10 +37,11 @@ public class HomePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
         HomeFragment homeFragment = new HomeFragment();
+
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, homeFragment).commit();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        auth=FirebaseAuth.getInstance();
+        auth = FirebaseAuth.getInstance();
         drawerLayout = findViewById(R.id.drawer_layout);
         nav_menu = findViewById(R.id.nav_view);
         nav_menu.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -49,11 +49,16 @@ public class HomePageActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.homepage:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment())
+                                .commit();
+                        refreshFragmentUI(homeFragment);
+
                         break;
                     case R.id.cart:
                         if (auth.getCurrentUser() != null) {
                             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CartFragment()).commit();
+
                         } else {
                             Intent intent = new Intent(HomePageActivity.this, LoginActivity.class);
                             Toast.makeText(HomePageActivity.this, "Login first then Add to cart", Toast.LENGTH_SHORT).show();
@@ -63,6 +68,7 @@ public class HomePageActivity extends AppCompatActivity {
                     case R.id.proflie:
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
                         break;
+
                     case R.id.logoutUser:
                         auth.signOut();//logout
                         startActivity(new Intent(HomePageActivity.this, LoginActivity.class));
@@ -92,6 +98,15 @@ public class HomePageActivity extends AppCompatActivity {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+    }
+
+    public void refreshFragmentUI(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .detach(fragment)
+                .attach(fragment)
+                .commit();
+
     }
 
     @Override

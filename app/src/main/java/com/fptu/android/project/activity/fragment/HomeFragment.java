@@ -1,6 +1,7 @@
 package com.fptu.android.project.activity.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +23,11 @@ import com.fptu.android.project.model.Category;
 import com.fptu.android.project.model.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,6 +35,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
@@ -93,11 +99,7 @@ public class HomeFragment extends Fragment {
 
         }
     }
-    private void getList(){
-        FirebaseStorage firebaseStorage=FirebaseStorage.getInstance();
-        FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
 
-    }
 
     private List<Product> getListProduct() {
         List<Product> list = new ArrayList<>();
@@ -113,10 +115,13 @@ public class HomeFragment extends Fragment {
                             p.setProduct_price(Integer.valueOf(doc.get("price").toString()));
                             p.setRate(Float.valueOf(doc.get("rate").toString()));
                             p.setProduct_url(doc.get("url").toString());
+                            p.setQuantity(Integer.valueOf(doc.get("quantity").toString()));
                             list.add(p);
+                            product_adapter.notifyDataSetChanged();
                         }
                     }
                 });
+
 
         return list;
     }
@@ -135,6 +140,7 @@ public class HomeFragment extends Fragment {
                             p.setProduct_price(Integer.valueOf(doc.get("price").toString()));
                             p.setRate(Float.valueOf(doc.get("rate").toString()));
                             p.setProduct_url(doc.get("url").toString());
+                            trend_adapter.notifyDataSetChanged();
                             list.add(p);
                         }
                     }
@@ -154,6 +160,7 @@ public class HomeFragment extends Fragment {
         list.add(new Category(7, "Cake", "https://firebasestorage.googleapis.com/v0/b/projectprm-392.appspot.com/o/picture%2Fbirthday_cake_icon.png?alt=media&token=3cb41ca1-2815-40b1-8bbc-834e30d2e859"));
         list.add(new Category(8, "Beer", "https://firebasestorage.googleapis.com/v0/b/projectprm-392.appspot.com/o/picture%2Fbeer_icon.png?alt=media&token=49538c20-b8aa-437e-ba47-929b7955edd2"));
 
+//
         return list;
     }
 }

@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="RestaurentID : "
+            android:text="Address : "
             app:layout_constraintStart_toStartOf="@+id/is_order_date"
             app:layout_constraintTop_toBottomOf="@+id/is_order_date" />
 
@@ -82,22 +82,54 @@
             android:id="@+id/completed_btn"
             android:layout_width="127dp"
             android:layout_height="53dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
             android:text="Completed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/order_address" />
 
         <ImageButton
             android:id="@+id/tickIMG"
-            android:layout_width="148dp"
-            android:layout_height="135dp"
-            android:layout_marginStart="104dp"
-            android:layout_marginTop="8dp"
-
+            android:layout_width="64dp"
+            android:layout_height="67dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="5dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/completed_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/completed_btn"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/order_successfully" />
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/iorder" />
+
+        <ImageButton
+            android:id="@+id/tickX"
+            android:layout_width="64dp"
+            android:layout_height="67dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="5dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/completed_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/completed_btn"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/icx" />
+
+        <Button
+            android:id="@+id/btnCancelOrder"
+            android:layout_width="127dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="63dp"
+            android:layout_marginEnd="38dp"
+            android:text="Cancel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.222"
+            app:layout_constraintStart_toEndOf="@+id/completed_btn"
+            app:layout_constraintTop_toBottomOf="@+id/tickIMG" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

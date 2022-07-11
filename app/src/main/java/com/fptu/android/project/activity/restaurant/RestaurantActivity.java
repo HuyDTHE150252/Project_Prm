@@ -76,6 +76,7 @@ public class RestaurantActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {
+
                         String img = documentSnapshot.getString("restaurant_img");
                         String rid = documentSnapshot.getString("restaurant_id");
                         String  name = documentSnapshot.getString("restaurant_name");
@@ -83,13 +84,19 @@ public class RestaurantActivity extends AppCompatActivity {
                         String status = documentSnapshot.getString("restaurant_status");
                         String address = documentSnapshot.getString("restaurant_address");
                         res = new Restaurant(img,name,address,rate,status);
+
+
+
+
+
+
                         resList.add(res);
                         restaurant_adapter.notifyDataSetChanged();
                         //recyclerView.setVisibility(View.VISIBLE);
 
 
 
-                        Log.d("Write1", documentSnapshot.getId() + " => " + documentSnapshot.getData());
+                        Log.d("a", "e", (Throwable) documentSnapshot.getData());
                     }
                     // calculateTotalAmount(cartList);
 

@@ -58,7 +58,6 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
         String orderStatus=order.getOrderStatus();
 
         holder.name.setText(orderList.get(position).getProductName());
-
         holder.quantity.setText(orderList.get(position).getTotalQuantity());
         holder.price.setText(String.valueOf(orderList.get(position).getTotalPrice()));
         holder.status.setText(orderList.get(position).getOrderStatus());
