@@ -29,7 +29,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 
-public class smartQuiz extends Fragment {
+public class SmartQuiz extends Fragment {
 
     private CardView quizCard;
 
@@ -39,7 +39,7 @@ public class smartQuiz extends Fragment {
     private ArrayList<Button> answers;
     private Quiz quiz;
 
-    public smartQuiz() {
+    public SmartQuiz() {
 
     }
 
@@ -69,8 +69,8 @@ public class smartQuiz extends Fragment {
                 @Override
                 public void onClick(View v) {
                     if (currentButton.getText().equals(quiz.getCorrect_answer())) {
-                        currentQuizRight++;
-                        if (currentQuizRight < 10) {
+                        if (currentQuizRight <= 10 && currentQuizRight >= 0) {
+                            currentQuizRight++;
                             renderQuestion();
                         }
                     } else {
@@ -108,8 +108,10 @@ public class smartQuiz extends Fragment {
                         //update quiz
                         quiz = output.get(0);
                         question.setText(quiz.getQuestion());
+
                         ArrayList<String> allAnswer = quiz.getIncorrect_answers();
                         allAnswer.add(quiz.getCorrect_answer());
+
                         Collections.shuffle(allAnswer);
                         for (int i = 0; i < answers.size(); i++) {
                             Button currentButton = answers.get(i);
@@ -130,7 +132,6 @@ public class smartQuiz extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         return inflater.inflate(R.layout.fragment_smart_quizz, container, false);
     }
 
@@ -142,8 +143,6 @@ public class smartQuiz extends Fragment {
             bindingAction(view);
         }
     }
-
-
 }
 
 interface IMyQuizApi {

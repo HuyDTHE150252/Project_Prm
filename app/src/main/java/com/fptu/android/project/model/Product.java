@@ -18,13 +18,21 @@ public class Product implements Serializable {
     private float rate;
     private int status;
 
+    private int res_id;
 
-    public Product(String product_name, String description, String res_address, int product_price, float rate) {
+
+    public Product(String product_id, String product_url, String product_name, String description, String res_name, String res_address, int product_price, float rate, int status, int quantity, int res_id) {
+        this.product_id = product_id;
+        this.product_url = product_url;
         this.product_name = product_name;
         this.description = description;
+        this.res_name = res_name;
         this.res_address = res_address;
         this.product_price = product_price;
         this.rate = rate;
+        this.status = status;
+        this.quantity = quantity;
+        this.res_id = res_id;
     }
 
     public Product() {
@@ -39,10 +47,7 @@ public class Product implements Serializable {
         this.product_price = product_price;
     }
 
-    public Product(String product_id, String product_name, String description, int product_price, String product_url) {
 
-
-}
 
     public String getProduct_id() {
         return product_id;
@@ -132,6 +137,15 @@ public class Product implements Serializable {
         this.status = status;
     }
 
+
+    public int getRes_id() {
+        return res_id;
+    }
+
+    public void setRes_id(int res_id) {
+        this.res_id = res_id;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -146,6 +160,7 @@ public class Product implements Serializable {
                 ", res_address='" + res_address + '\'' +
                 ", rate=" + rate +
                 ", status=" + status +
+                ", res_id=" + res_id +
                 '}';
     }
 }
