@@ -22,6 +22,7 @@ import com.fptu.android.project.activity.ggmap.GoogmapActivity;
 import com.fptu.android.project.activity.restaurant.RestaurantActivity;
 import com.fptu.android.project.activity.shipper.ShipperActivity;
 import com.fptu.android.project.activity.user.LoginActivity;
+import com.fptu.android.project.games.smartquiz.SmartQuiz;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".games.sudoku.sudoku_game">
+    tools:context=".games.sudoku.Sudoku">
 
     <RelativeLayout
         android:layout_width="match_parent"

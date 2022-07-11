@@ -8,6 +8,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,9 +19,16 @@ import com.fptu.android.project.activity.user.LoginActivity;
 import com.fptu.android.project.adapter.FeedbackAdapter;
 import com.fptu.android.project.model.Feedback;
 import com.fptu.android.project.model.Product;
+import com.fptu.android.project.model.Restaurant;
 import com.fptu.android.project.service.CartService;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +39,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     int quantity = 1;
     int totalPrice = 0;
     RatingBar ratingBar;
-    TextView tvProductName, tvQuantity, tvPrice, tvProductAddress, feedback,description;
+    TextView tvProductName, tvQuantity, tvPrice, tvProductAddress, feedback, description, shopName;
     FirebaseFirestore firestore;
     TextView btnAddToCart;
     FirebaseAuth auth;
@@ -51,10 +59,15 @@ public class ProductDetailActivity extends AppCompatActivity {
         tvProductName = findViewById(R.id.productdetail_name);
         tvQuantity = findViewById(R.id.tvQuantity);
         tvPrice = findViewById(R.id.txtPriceNumber);
-        tvProductAddress = findViewById(R.id.productdetail_shopaddress);
+
         btnAddToCart = findViewById(R.id.productdetail_addtocart);
         ratingBar = (RatingBar) findViewById(R.id.productdetail_rating);
-        description=findViewById(R.id.productdetail_description);
+        description = findViewById(R.id.productdetail_description);
+
+
+        //shop information
+        tvProductAddress = findViewById(R.id.productdetail_shopaddress);
+        shopName = findViewById(R.id.productdetail_shopname);
 
     }
 
@@ -147,6 +160,33 @@ public class ProductDetailActivity extends AppCompatActivity {
         description.setText(product.getDescription());
         Glide.with(getApplicationContext()).load(product.getProduct_url())
                 .into(img);
+
+        fetchingShopInformation(product);
+    }
+
+    private void fetchingShopInformation(Product product) {
+        firestore.collection("restaurant")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                //System.out.println(document.getData());
+                                Gson gson = new Gson();
+                                JsonElement jsonElement = gson.toJsonTree(document.getData());
+                                Restaurant currentRes = gson.fromJson(jsonElement, Restaurant.class);
+                                if(currentRes.getRestaurant_id() == product.getRes_id()){
+                                    shopName.setText(currentRes.getRestaurant_name());
+                                }else{
+                                    shopName.setText("dit me deo co");
+                                }
+                            }
+                        }
+                    }
+                });
+
+
     }
 
     private void loadListFeedback() {
