@@ -88,10 +88,6 @@ private void notifyRemoved(int position){
         holder.name.setText(pList.get(position).getProduct_name());
         holder.description.setText(pList.get(position).getDescription());
         holder.price.setText(String.valueOf(pList.get(position).getProduct_price()));
-        holder.rate.setText(String.valueOf(pList.get(position).getRate()));
-
-
-
     }
 
     @Override

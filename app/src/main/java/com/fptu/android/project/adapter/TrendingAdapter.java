@@ -49,7 +49,6 @@ public class TrendingAdapter extends RecyclerView.Adapter<TrendingAdapter.Trendi
         Glide.with(context).load(listTrending.get(position).getProduct_url()).into(holder.trending_img);
         holder.trending_name.setText(trending.getProduct_name());
         holder.trend_description.setText(trending.getDescription());
-        holder.rate.setText(Float.toString(trending.getRate()));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

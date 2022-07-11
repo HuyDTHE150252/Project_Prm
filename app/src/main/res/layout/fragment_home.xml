@@ -78,12 +78,11 @@
                 android:id="@+id/product"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/trending_recyclerView"
+                android:layout_below="@id/category_recyclerView"
                 android:layout_marginStart="20dp"
                 android:text="Product  "
                 android:textColor="@color/black"
-                android:textSize="22dp"
-                app:drawableEndCompat="@drawable/ic_viewmore" />
+                android:textSize="22dp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/product_recyclerView"
