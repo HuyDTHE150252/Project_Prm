@@ -19,22 +19,12 @@ import com.fptu.android.project.activity.fragment.CartFragment;
 import com.fptu.android.project.activity.fragment.HomeFragment;
 import com.fptu.android.project.activity.fragment.ProfileFragment;
 import com.fptu.android.project.activity.ggmap.GoogmapActivity;
-
 import com.fptu.android.project.activity.restaurant.RestaurantCrudActivity;
 import com.fptu.android.project.activity.shipper.ShipperActivity;
 import com.fptu.android.project.activity.user.LoginActivity;
-import com.fptu.android.project.model.User;
-
-import com.fptu.android.project.model.Restaurant;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 
 public class HomePageActivity extends AppCompatActivity {
 
@@ -70,18 +60,17 @@ public class HomePageActivity extends AppCompatActivity {
 
                         break;
                     case R.id.cart:
-//                        if (auth.getCurrentUser() != null) {
-//                            if (auth.getCurrentUser().isEmailVerified()) {
-//                                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CartFragment()).commit();
-//                            } Toast.makeText(HomePageActivity.this, "You have to verify your email to place orders!", Toast.LENGTH_SHORT).show();
-//
-//                        } else {
-//                            Intent intent = new Intent(HomePageActivity.this, LoginActivity.class);
-//                            Toast.makeText(HomePageActivity.this, "Login first then Add to cart", Toast.LENGTH_SHORT).show();
-//                            startActivity(intent);
-//                        }
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CartFragment()).commit();
+                        if (auth.getCurrentUser() != null) {
+                            if (auth.getCurrentUser().isEmailVerified()) {
+                                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CartFragment()).commit();
+                            }
+                            Toast.makeText(HomePageActivity.this, "You have to verify your email to place orders!", Toast.LENGTH_SHORT).show();
 
+                        } else {
+                            Intent intent = new Intent(HomePageActivity.this, LoginActivity.class);
+                            Toast.makeText(HomePageActivity.this, "Login first then Add to cart", Toast.LENGTH_SHORT).show();
+                            startActivity(intent);
+                        }
                         break;
                     case R.id.proflie:
                         if (auth.getCurrentUser() != null) {

@@ -44,6 +44,7 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -147,49 +148,43 @@ public class ProfileFragment extends Fragment {
 
     private void fetchingStaticDataForUser(View view) {
         lineChart = view.findViewById(R.id.user_chart_activities);
-
-
-        List<Entry> entries = new ArrayList<Entry>();
-
-        entries.add(new Entry(1, 2 + 10));
-        entries.add(new Entry(2, 2 + 50));
-        entries.add(new Entry(3, 2 + 104));
-        entries.add(new Entry(4, 2 + 130));
-        entries.add(new Entry(5, 2 + 110));
-        entries.add(new Entry(6, 2 + 110));
-        entries.add(new Entry(7, 2 + 110));
-        entries.add(new Entry(8, 2 + 110));
-        entries.add(new Entry(9, 2 + 110));
-        entries.add(new Entry(10, 2 + 110));
-        entries.add(new Entry(11, 2 + 110));
-        entries.add(new Entry(12, 2 + 110));
-
-
-        String currentUserId = fAuth.getCurrentUser().getUid();
         System.out.println(userId);
         fStore.collection("Order").whereEqualTo("userId", userId)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
+                            HashMap<Integer, Integer> staticData = new HashMap<>();
+                            for (int i = 0; i < 12; i++) {
+                                staticData.put(i + 1, 0);
+                            }
                             for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {
                                 String currentDate = documentSnapshot.getString("currentDateOrder");
+                                String month = currentDate.split(" ")[1];
+                                if (!month.contains(",")) {
+                                    staticData.put(Integer.parseInt(month), staticData.get(Integer.parseInt(month)) + 1);
+                                }
 
-                                System.out.println(currentDate);
                             }
-
+                            List<Entry> entries = new ArrayList<Entry>();
+                            for (Integer item : staticData.keySet()) {
+                                int month = item;
+                                int amount = staticData.get(month);
+                                entries.add(new Entry(month, amount));
+                            }
+                            LineDataSet dataSet = new LineDataSet(entries, "Orders"); // add entries to dataset
+                            dataSet.setColor(ColorTemplate.COLORFUL_COLORS[0]);
+                            LineData lineData = new LineData(dataSet);
+                            lineChart.setData(lineData);
+                            lineChart.setDescription(null);
+                            lineChart.setScaleEnabled(false);
+                            lineChart.invalidate(); // refresh
                         } else {
                             Log.w("err", "Error getting documents.", task.getException());
                         }
                     }
                 });
 
-        LineDataSet dataSet = new LineDataSet(entries, "Orders"); // add entries to dataset
-        dataSet.setColor(ColorTemplate.COLORFUL_COLORS[0]);
-        LineData lineData = new LineData(dataSet);
-        lineChart.setData(lineData);
-        lineChart.setDescription(null);
-        lineChart.invalidate(); // refresh
 
     }
 
