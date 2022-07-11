@@ -39,7 +39,7 @@
     <item
         android:id="@+id/orderUser"
         android:icon="@drawable/ic_invoice"
-        android:title="MyOrder" />
+        android:title="HistoryOrder" />
     <item
         android:id="@+id/allOrder"
         android:icon="@drawable/ic_invoice"
