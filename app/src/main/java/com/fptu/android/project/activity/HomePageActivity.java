@@ -20,6 +20,7 @@ import com.fptu.android.project.activity.fragment.HomeFragment;
 import com.fptu.android.project.activity.fragment.ProfileFragment;
 import com.fptu.android.project.activity.ggmap.GoogmapActivity;
 import com.fptu.android.project.activity.restaurant.RestaurantActivity;
+import com.fptu.android.project.activity.restaurant.RestaurantCrudActivity;
 import com.fptu.android.project.activity.shipper.ShipperActivity;
 import com.fptu.android.project.activity.user.LoginActivity;
 import com.google.android.material.navigation.NavigationView;
@@ -88,6 +89,9 @@ public class HomePageActivity extends AppCompatActivity {
                         break;
                     case R.id.allOrder:
                         startActivity(new Intent(HomePageActivity.this, ShipperActivity.class));
+                        break;
+                    case R.id.restaurant_product:
+                        startActivity(new Intent(HomePageActivity.this, RestaurantCrudActivity.class));
                         break;
                 }
 
