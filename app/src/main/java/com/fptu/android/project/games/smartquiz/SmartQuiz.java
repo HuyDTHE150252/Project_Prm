@@ -46,6 +46,20 @@ public class SmartQuiz extends Fragment {
 
     }
 
+    public interface ExitGame {
+        void getNewFragment();
+    }
+
+    private ExitGame callback;
+
+    public void setCallback(ExitGame callback) {
+        this.callback = callback;
+    }
+
+
+    private void exitGame() {
+        this.callback.getNewFragment();
+    }
 
     private void bindingView(View view) {
 
@@ -62,8 +76,8 @@ public class SmartQuiz extends Fragment {
 
     }
 
-    private static int currentQuizRight = 0;
-    private static int trialCount = 5;
+    private int currentQuizRight = 0;
+    private int trialCount = 5;
 
     @SuppressLint("ResourceAsColor")
     private void bindingAction(View view) {
@@ -76,6 +90,7 @@ public class SmartQuiz extends Fragment {
                 @Override
                 public void onClick(View v) {
                     if (trialCount == 0) {
+                        exitGame();
                         Toast.makeText(view.getContext(), "Good bye", Toast.LENGTH_SHORT).show();
                     } else {
                         if (currentQuizRight >= 0 && currentQuizRight < 10) {
@@ -100,6 +115,7 @@ public class SmartQuiz extends Fragment {
             });
         }
     }
+
 
     private static Retrofit retrofit;
     private static IMyQuizApi myQuizApi;
@@ -221,7 +237,10 @@ class Quiz {
     }
 
     public String getQuestion() {
-        return question;
+        return question
+                .replace("&#039;","'")
+                .replace("&quot;","“")
+                .replace("&shy;","");
     }
 
     public void setQuestion(String question) {

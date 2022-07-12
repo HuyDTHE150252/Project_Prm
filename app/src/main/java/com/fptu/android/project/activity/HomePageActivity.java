@@ -3,13 +3,11 @@ package com.fptu.android.project.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -24,7 +22,6 @@ import com.fptu.android.project.activity.restaurant.RestaurantActivity;
 import com.fptu.android.project.activity.restaurant.RestaurantCrudActivity;
 import com.fptu.android.project.activity.shipper.ShipperActivity;
 import com.fptu.android.project.activity.user.LoginActivity;
-import com.fptu.android.project.adapter.ProductAdapter;
 import com.fptu.android.project.games.smartquiz.SmartQuiz;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
@@ -125,8 +122,17 @@ public class HomePageActivity extends AppCompatActivity {
                         });
                         break;
                     case R.id.smartQuiz:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SmartQuiz())
+                        SmartQuiz quiz = new SmartQuiz();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, quiz)
                                 .commit();
+                        quiz.setCallback(new SmartQuiz.ExitGame() {
+                            @Override
+                            public void getNewFragment() {
+                                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment())
+                                        .commit();
+                            }
+                        });
+
                         break;
                 }
 
