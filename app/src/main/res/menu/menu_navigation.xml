@@ -50,6 +50,10 @@
         android:icon="@drawable/admin_dashboard_icon_png_16"
         android:title="Add product" />
     <item
+        android:id="@+id/aboutApp"
+        android:icon="@drawable/admin_dashboard_icon_png_16"
+        android:title="About Restaurant" />
+    <item
         android:id="@+id/logoutUser"
         android:icon="@drawable/ic_lock"
         android:title="Logout" />

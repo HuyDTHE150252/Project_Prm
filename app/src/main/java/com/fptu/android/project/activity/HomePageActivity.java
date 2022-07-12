@@ -19,6 +19,7 @@ import com.fptu.android.project.activity.fragment.CartFragment;
 import com.fptu.android.project.activity.fragment.HomeFragment;
 import com.fptu.android.project.activity.fragment.ProfileFragment;
 import com.fptu.android.project.activity.ggmap.GoogmapActivity;
+import com.fptu.android.project.activity.restaurant.RestaurantActivity;
 import com.fptu.android.project.activity.restaurant.RestaurantCrudActivity;
 import com.fptu.android.project.activity.shipper.ShipperActivity;
 import com.fptu.android.project.activity.user.LoginActivity;
@@ -89,7 +90,9 @@ public class HomePageActivity extends AppCompatActivity {
                             //startActivity(intent);
                         }
                         break;
-
+                    case R.id.aboutApp:
+                        startActivity(new Intent(HomePageActivity.this, RestaurantActivity.class));
+                        break;
                     case R.id.logoutUser:
                         auth.signOut();//logout
                         startActivity(new Intent(HomePageActivity.this, LoginActivity.class));
@@ -124,7 +127,7 @@ public class HomePageActivity extends AppCompatActivity {
                                 String role = documentSnapshot.getString("role");
                                 System.out.println(role);
                                 if (role.equals("admin")) {
-                                    startActivity(new Intent(HomePageActivity.this, ShipperActivity.class));
+                                    startActivity(new Intent(HomePageActivity.this, RestaurantCrudActivity.class));
                                 } else {
                                     Toast.makeText(HomePageActivity.this, "Only Admin can add products!", Toast.LENGTH_SHORT).show();
                                 }

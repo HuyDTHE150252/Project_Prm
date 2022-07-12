@@ -31,9 +31,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 
-public class RateProductActivity extends AppCompatActivity {
+public class RatingRestaurantActivity extends AppCompatActivity {
     ImageView imgRate, cancelRating;
-    TextView tv;
+
     EditText edtComment;
     RatingBar ratingBar;
     Button btnConfirm;
@@ -42,8 +42,7 @@ public class RateProductActivity extends AppCompatActivity {
 
 
     void bidingView() {
-        imgRate = findViewById(R.id.rateProductImage);
-        tv = findViewById(R.id.rateProductName);
+        imgRate = findViewById(R.id.rateRestaurantImage);
         edtComment = findViewById(R.id.edtCardNumber);
         ratingBar = findViewById(R.id.rateBar);
         btnConfirm = findViewById(R.id.rateConfirmButton);
@@ -56,7 +55,7 @@ public class RateProductActivity extends AppCompatActivity {
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    inputData();
+                inputData();
             }
         });
         cancelRating.setOnClickListener(new View.OnClickListener() {
@@ -67,16 +66,16 @@ public class RateProductActivity extends AppCompatActivity {
         });
     }
 
+
     private void inputData() {
-        Product product = (Product) getIntent().getSerializableExtra("ratingProduct");
-        String pname=product.getProduct_name();
+
         String rating=""+ratingBar.getRating();
         String review=edtComment.getText().toString();
         String timeStamp=""+System.currentTimeMillis();
         HashMap<String,Object> map= new HashMap<>();
 
         Calendar calForDate = Calendar.getInstance();
-        SimpleDateFormat currentDate = new SimpleDateFormat("MM dd,yyyy");
+        SimpleDateFormat currentDate = new SimpleDateFormat("MM dd yyyy");
         String saveCurrentDate = currentDate.format(calForDate.getTime());
         SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
         String saveCurrentTime = currentTime.format(calForDate.getTime());
@@ -86,12 +85,12 @@ public class RateProductActivity extends AppCompatActivity {
         map.put("rating",""+rating);
         map.put("review",""+review);
         map.put("timeStamp",timeStamp);
-        map.put("productName",pname);
+//        map.put("productName",pname);
         firestore.collection("Feedback").document(auth.getCurrentUser().getUid())
                 .set(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(RateProductActivity.this, "Nice", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RatingRestaurantActivity.this, "Nice", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -99,12 +98,9 @@ public class RateProductActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rate_product);
+        setContentView(R.layout.activity_rating_restaurant);
         bidingView();
         bidingAction();
-        Product product = (Product) getIntent().getSerializableExtra("ratingProduct");
-        tv.setText(product.getProduct_name());
-//        imgRate.setImageResource(product.getProduct_image());
         loadMyReview();
 
     }
@@ -112,31 +108,29 @@ public class RateProductActivity extends AppCompatActivity {
     private void loadMyReview() {
         firestore.collection("Feedback").document(auth.getCurrentUser().getUid())
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                Log.d("t", "DocumentSnapshot data: " + document.getData());
+                                Log.d("t", "db rating getString() is: " + document.getString("rating"));
+                                Log.d("t", "db rating getString() is: " + document.getString("review"));
 
-                        Log.d("t", "DocumentSnapshot data: " + document.getData());
-                        Log.d("t", "db rating getString() is: " + document.getString("rating"));
-                        Log.d("t", "db rating getString() is: " + document.getString("review"));
-
-                         String rating =  document.getString("rating");
-
-                         ratingBar.setRating(Float.parseFloat(rating));
-                         String review =  document.getString("review");
-                         edtComment.setText(review);
-                        Log.d("t", "String start is: " +ratingBar );
-                        Log.d("t", "String review is: " + edtComment);
-                        Toast.makeText(RateProductActivity.this, "OK", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(RateProductActivity.this, "Nice", Toast.LENGTH_SHORT).show();
+                                String rating =  document.getString("rating");
+                                ratingBar.setRating(Float.parseFloat(rating));
+                                String review =  document.getString("review");
+                                edtComment.setText(review);
+                                Log.d("t", "String start is: " +ratingBar );
+                                Log.d("t", "String review is: " + edtComment);
+                                Toast.makeText(RatingRestaurantActivity.this, "OK", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(RatingRestaurantActivity.this, "Nice", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Log.d("T", "get failed with ", task.getException());
+                        }
                     }
-                } else {
-                    Log.d("T", "get failed with ", task.getException());
-                }
-            }
-        });
+                });
     }
-    }
+}
