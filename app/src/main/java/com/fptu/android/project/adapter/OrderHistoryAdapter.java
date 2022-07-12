@@ -86,11 +86,12 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
                 String orderDate=order.getCurrentDate();
                 String orderAddress=order.getAddress();
                 String orderStatus=order.getOrderStatus();
+                String methodPayment=order.getPaymentState();
                 b.putString("orderId",orderId);
                 b.putString("orderDate",orderDate);
                 b.putString("orderAddress",orderAddress);
                 b.putString("orderStatus",orderStatus);
-
+                b.putString("status",methodPayment);
 
                 i.putExtras(b);
                 ContextCompat.startActivity(context,i,b);

@@ -52,7 +52,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
 
     void bidingView() {
-        feedback = findViewById(R.id.productdetail_feedback);
+
         img = findViewById(R.id.productdetail_image);
         plus = findViewById(R.id.plusCardBtn);
         minus = findViewById(R.id.minusCardBtn);
@@ -60,24 +60,19 @@ public class ProductDetailActivity extends AppCompatActivity {
         tvQuantity = findViewById(R.id.tvQuantity);
         tvPrice = findViewById(R.id.txtPriceNumber);
         btnAddToCart = findViewById(R.id.productdetail_addtocart);
-        ratingBar = (RatingBar) findViewById(R.id.productdetail_rating);
+//        ratingBar = (RatingBar) findViewById(R.id.productdetail_rating);
         description = findViewById(R.id.productdetail_description);
     }
 
     void bidingAction() {
-        feedback.setOnClickListener(this::feedbackProduct);
+
         btnAddToCart.setOnClickListener(this::onClick);
         minus.setOnClickListener(this::minusQuantity);
         plus.setOnClickListener(this::plusQuantity);
 
     }
 
-    private void feedbackProduct(View view) {
-        product = (Product) getIntent().getSerializableExtra("detailed");
-        Intent intent = new Intent(ProductDetailActivity.this, RateProductActivity.class);
-        intent.putExtra("ratingProduct", product);
-        startActivity(intent);
-    }
+
 
 
     private void plusQuantity(View view) {
@@ -115,21 +110,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     private RecyclerView rcvFeedback;
     private FeedbackAdapter feedbackadapter;
 
-    private void bindingView() {
-        rcvFeedback = findViewById(R.id.rcvFeedback);
-        feedbackadapter = new FeedbackAdapter(this);
-    }
 
-    private List<Feedback> getListFeedback() {
-        List<Feedback> list = new ArrayList<>();
-        list.add(new Feedback("abc123", "Ngon", 5, "29/06/2022"));
-        list.add(new Feedback("abc1234", "Ngon", 5, "29/06/2022"));
-        list.add(new Feedback("abc12345", "Ngon", 5, "29/06/2022"));
-        list.add(new Feedback("abc123456", "Ngon", 5, "29/06/2022"));
-        list.add(new Feedback("abc1234567", "Ngon", 5, "29/06/2022"));
-
-        return list;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,14 +118,6 @@ public class ProductDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_product_detail);
         bidingView();
         bidingAction();
-        bindingView();
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
-        rcvFeedback.setLayoutManager(linearLayoutManager);
-        feedbackList = new ArrayList<>();
-        feedbackadapter.setData(getListFeedback());
-        rcvFeedback.setAdapter(feedbackadapter);
-        loadListFeedback();
-
         firestore = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
         Product product = (Product) getIntent().getSerializableExtra("detailed");
@@ -155,33 +128,6 @@ public class ProductDetailActivity extends AppCompatActivity {
                 .into(img);
 
     }
-
-//    private void fetchingShopInformation(Product product) {
-//
-//        firestore.collection("restaurant")
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            for (QueryDocumentSnapshot document : task.getResult()) {
-//                                Gson gson = new Gson();
-//                                JsonElement jsonElement = gson.toJsonTree(document.getData());
-//                                Restaurant currentRes = gson.fromJson(jsonElement, Restaurant.class);
-//                                if (currentRes.getRestaurant_id().equals("" + product.getRes_id())) {
-//                                    shopName.setText(currentRes.getRestaurant_name());
-//                                    tvProductAddress.setText(document.get("restaurant_address").toString());
-//                                }
-//                            }
-//                        }
-//                    }
-//                });
-//    }
-
-    private void loadListFeedback() {
-    }
-
-
     private void onClick(View view) {
         if (auth.getCurrentUser() != null) {
             product = (Product) getIntent().getSerializableExtra("detailed");

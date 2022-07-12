@@ -4,12 +4,11 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fptu.android.project.R;
-import com.fptu.android.project.adapter.MyAdapter;
+import com.fptu.android.project.adapter.MyRestaurantAdapter;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
@@ -17,9 +16,9 @@ import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 
 public class TouchHelper extends ItemTouchHelper.SimpleCallback {
 
-    private MyAdapter adapter;
+    private MyRestaurantAdapter adapter;
 
-    public TouchHelper(MyAdapter adapter) {
+    public TouchHelper(MyRestaurantAdapter adapter) {
         super(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
         this.adapter = adapter;
     }

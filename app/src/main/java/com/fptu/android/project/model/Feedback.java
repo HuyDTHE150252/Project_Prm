@@ -11,8 +11,20 @@ public class Feedback implements Serializable {
     private String description;
     private float rate;
     private String feedback_date;
+    private String uid;
 
-    public Feedback(String user_name,String description, float rate, String feedback_date ){
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public Feedback() {
+    }
+
+    public Feedback(String user_name, String description, float rate, String feedback_date ){
         this.user_name = user_name;
         this.description = description;
         this.rate = rate;

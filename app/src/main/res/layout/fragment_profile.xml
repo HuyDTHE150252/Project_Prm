@@ -119,7 +119,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
-                        android:text="Email Not Verfied !"
+                        android:text="Email Is Not Verified !"
                         android:textColor="#C2185B"
                         android:textSize="20sp"
                         android:textStyle="bold"
@@ -265,17 +265,26 @@
 
             </LinearLayout>
 
-            <RelativeLayout
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/circularbordersolid"
+                android:gravity="center"
+                android:padding="20dp"
+                android:orientation="horizontal">
 
-                <com.github.mikephil.charting.charts.PieChart
+
+                <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/user_chart_activities"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true" />
-            </RelativeLayout>
+                    android:layout_height="200dp"
+                    android:layout_centerInParent="true"
+                      />
+
+            </LinearLayout>
             <!--Bootom Cards with sections-->
             <LinearLayout
                 android:id="@+id/personalinfo"

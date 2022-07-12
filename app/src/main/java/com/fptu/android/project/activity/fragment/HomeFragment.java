@@ -3,6 +3,8 @@ package com.fptu.android.project.activity.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -12,6 +14,7 @@ import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -42,6 +45,7 @@ public class HomeFragment extends Fragment {
     private CategoryAdapter cate_adapter;
     private TrendingAdapter trend_adapter;
     private ProductAdapter product_adapter;
+    private SearchView searchView;
     FirebaseFirestore database = FirebaseFirestore.getInstance();
 
 
@@ -134,9 +138,11 @@ public class HomeFragment extends Fragment {
                             p.setQuantity(Integer.valueOf(doc.get("quantity").toString()));
                             list.add(p);
                             product_adapter.notifyDataSetChanged();
+
                         }
                     }
                 });
+
 
         return list;
     }
@@ -163,4 +169,5 @@ public class HomeFragment extends Fragment {
 
         return list;
     }
+
 }

@@ -1,11 +1,13 @@
 package com.fptu.android.project.games.smartquiz;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,6 +37,7 @@ public class SmartQuiz extends Fragment {
 
     private TextView question;
     private TextView point;
+    private TextView trialView;
 
     private ArrayList<Button> answers;
     private Quiz quiz;
@@ -50,7 +53,7 @@ public class SmartQuiz extends Fragment {
 
         question = view.findViewById(R.id.quizGame_question);
         point = view.findViewById(R.id.quiz_point);
-
+        trialView = view.findViewById(R.id.quiz_trial);
         answers = new ArrayList<>();
         answers.add(view.findViewById(R.id.quizGame_answer_1));
         answers.add(view.findViewById(R.id.quizGame_answer_2));
@@ -60,23 +63,40 @@ public class SmartQuiz extends Fragment {
     }
 
     private static int currentQuizRight = 0;
+    private static int trialCount = 5;
 
+    @SuppressLint("ResourceAsColor")
     private void bindingAction(View view) {
-        renderQuestion();
+        quizCard.setVisibility(View.INVISIBLE);
+        renderQuestion(view);
         for (int i = 0; i < answers.size(); i++) {
             Button currentButton = answers.get(i);
+            currentButton.setBackgroundColor(R.color.md_deep_orange_400);
             currentButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (currentButton.getText().equals(quiz.getCorrect_answer())) {
-                        if (currentQuizRight <= 10 && currentQuizRight >= 0) {
-                            currentQuizRight++;
-                            renderQuestion();
-                        }
+                    if (trialCount == 0) {
+                        Toast.makeText(view.getContext(), "Good bye", Toast.LENGTH_SHORT).show();
+                        getActivity().getFragmentManager().popBackStack();
                     } else {
-                        currentQuizRight--;
+                        if (currentQuizRight >= 0 && currentQuizRight < 10) {
+                            if (currentButton.getText().equals(quiz.getCorrect_answer())) {
+                                currentQuizRight++;
+                                renderQuestion(view);
+                            } else {
+                                currentButton.setVisibility(View.INVISIBLE);
+                                trialCount--;
+                                if (trialCount == 0) {
+                                    Toast.makeText(view.getContext(), "You are out of trial", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            trialView.setText("Trial: " + trialCount + "/5");
+                            point.setText("Point: " + currentQuizRight + "/10");
+                        } else {
+                            getActivity().getFragmentManager().popBackStack();
+                            Toast.makeText(view.getContext(), "Good job!", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                    point.setText("Point: " + currentQuizRight + "/10");
                 }
             });
         }
@@ -85,8 +105,12 @@ public class SmartQuiz extends Fragment {
     private static Retrofit retrofit;
     private static IMyQuizApi myQuizApi;
 
-    private void renderQuestion() {
+    private void renderQuestion(View view) {
 
+        for (int i = 0; i < answers.size(); i++) {
+            Button currentButton = answers.get(i);
+            currentButton.setVisibility(View.VISIBLE);
+        }
         final String BASE_URL = "https://opentdb.com/";
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
@@ -117,6 +141,7 @@ public class SmartQuiz extends Fragment {
                             Button currentButton = answers.get(i);
                             currentButton.setText(allAnswer.get(i));
                         }
+                        quizCard.setVisibility(View.VISIBLE);
                         System.out.println("Current quiz: " + quiz);
                     }
 

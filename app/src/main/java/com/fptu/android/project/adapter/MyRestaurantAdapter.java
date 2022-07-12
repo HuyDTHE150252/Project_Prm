@@ -1,5 +1,6 @@
 package com.fptu.android.project.adapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -24,14 +25,17 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+public class MyRestaurantAdapter extends RecyclerView.Adapter<MyRestaurantAdapter.MyViewHolder> {
       private ShowActivity activity;
       private List<Product> pList;
+      Context context;
       private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    public MyRestaurantAdapter(Context context) {
+        this.context = context;
+    }
 
-
-      public MyAdapter(ShowActivity activity, List<Product> pList){
+    public MyRestaurantAdapter(ShowActivity activity, List<Product> pList){
           this.activity = activity;
           this.pList = pList;
       }

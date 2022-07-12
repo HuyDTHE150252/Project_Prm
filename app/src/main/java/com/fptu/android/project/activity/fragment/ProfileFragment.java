@@ -22,8 +22,15 @@ import androidx.fragment.app.Fragment;
 import com.fptu.android.project.R;
 import com.fptu.android.project.activity.user.EditProflieActivity;
 import com.fptu.android.project.activity.user.LoginActivity;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -31,9 +38,14 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 
 public class ProfileFragment extends Fragment {
@@ -45,13 +57,13 @@ public class ProfileFragment extends Fragment {
     FirebaseUser user;
     StorageReference storageReference;
     ImageView imgUser;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_profile, container, false);
 
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -78,8 +90,7 @@ public class ProfileFragment extends Fragment {
         resendCode = view.findViewById(R.id.resendCode);
         verifyMsg = view.findViewById(R.id.verifyMsg);
         verified = view.findViewById(R.id.verified);
-
-
+        System.out.println(fAuth.getCurrentUser().getDisplayName());
         // Email Verification
         if (!user.isEmailVerified()) {
             verifyMsg.setVisibility(View.VISIBLE);
@@ -106,7 +117,7 @@ public class ProfileFragment extends Fragment {
             verified.setVisibility(View.VISIBLE);
         }
         // Get user's avatar
-        StorageReference profileRef = storageReference.child("users/"+fAuth.getCurrentUser().getUid()+"/profile.jpg");
+        StorageReference profileRef = storageReference.child("users/" + fAuth.getCurrentUser().getUid() + "/profile.jpg");
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -124,11 +135,54 @@ public class ProfileFragment extends Fragment {
                     fullName.setText(documentSnapshot.getString("fName"));
                     email.setText(documentSnapshot.getString("email"));
 
+
                 } else {
                     Log.d("tag", "onEvent: Document do not exists");
                 }
             }
         });
+        fetchingStaticDataForUser(view);
+    }
+
+    private LineChart lineChart;
+
+    private void fetchingStaticDataForUser(View view) {
+        lineChart = view.findViewById(R.id.user_chart_activities);
+        fStore.collection("Order").whereEqualTo("userId", userId)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            HashMap<Integer, Integer> staticData = new HashMap<>();
+                            for (int i = 0; i < 12; i++) {
+                                staticData.put(i + 1, 0);
+                            }
+                            for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {
+                                String currentDate = documentSnapshot.getString("currentDateOrder");
+                                String month = currentDate.split(" ")[1];
+                                if (!month.contains(",")) {
+                                    staticData.put(Integer.parseInt(month), staticData.get(Integer.parseInt(month)) + 1);
+                                }
+                            }
+                            List<Entry> entries = new ArrayList<Entry>();
+                            for (Integer item : staticData.keySet()) {
+                                int month = item;
+                                int amount = staticData.get(month);
+                                entries.add(new Entry(month, amount));
+                            }
+                            LineDataSet dataSet = new LineDataSet(entries, "Orders"); // add entries to dataset
+                            dataSet.setColor(ColorTemplate.COLORFUL_COLORS[0]);
+                            LineData lineData = new LineData(dataSet);
+                            lineChart.setData(lineData);
+                            lineChart.setDescription(null);
+                            lineChart.setScaleEnabled(false);
+                            lineChart.invalidate(); // refresh
+                        } else {
+                            Log.w("err", "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+
 
     }
 
@@ -144,7 +198,6 @@ public class ProfileFragment extends Fragment {
     public void logout(View view) {
         FirebaseAuth.getInstance().signOut();//logout
         startActivity(new Intent(getActivity(), LoginActivity.class));
-
     }
 
     private void resetPassword(View view) {
@@ -152,7 +205,7 @@ public class ProfileFragment extends Fragment {
 
         final AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(view.getContext());
         passwordResetDialog.setTitle("Reset Password ?");
-        passwordResetDialog.setMessage("Enter New Password >= 6 Characters long.");
+        passwordResetDialog.setMessage("Enter New Password with more than 6 Characters long.");
         passwordResetDialog.setView(resetPassword);
 
         passwordResetDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {

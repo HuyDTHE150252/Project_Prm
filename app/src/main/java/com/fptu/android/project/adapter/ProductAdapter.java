@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,12 +18,15 @@ import com.fptu.android.project.R;
 import com.fptu.android.project.activity.ProductDetailActivity;
 import com.fptu.android.project.model.Product;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder>{
 
     private Context context;
     private List<Product> listProduct;
+    private List<Product> listProductSearch;
 
     public ProductAdapter(Context context) {
         this.context = context;
@@ -30,6 +35,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public ProductAdapter(Context context, List<Product> listProduct) {
         this.context = context;
         this.listProduct = listProduct;
+        this.listProductSearch = listProduct;
     }
 
     public void setData(List<Product> list) {
@@ -69,6 +75,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         return listProduct.size();
     }
 
+
+
     public class ProductViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView product_img;
@@ -84,4 +92,5 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             product_price = itemView.findViewById(R.id.product_price);
         }
     }
+
 }
