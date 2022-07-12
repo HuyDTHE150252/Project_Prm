@@ -107,7 +107,7 @@ public class EditProflieActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(EditProflieActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(), ProfileFragment.class));
+                                startActivity(new Intent(EditProflieActivity.this, ProfileFragment.class));
                                 finish();
                             }
 

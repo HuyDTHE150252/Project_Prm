@@ -54,7 +54,7 @@ public class HomePageActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
         nav_menu = findViewById(R.id.nav_view);
         firestore = FirebaseFirestore.getInstance();
-        String uid = auth.getCurrentUser().getUid();
+        //String uid = auth.getCurrentUser().getUid();
 
         nav_menu.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -124,7 +124,7 @@ public class HomePageActivity extends AppCompatActivity {
                                 String role = documentSnapshot.getString("role");
                                 System.out.println(role);
                                 if (role.equals("admin")) {
-                                    startActivity(new Intent(HomePageActivity.this, ShipperActivity.class));
+                                    startActivity(new Intent(HomePageActivity.this, RestaurantCrudActivity.class));
                                 } else {
                                     Toast.makeText(HomePageActivity.this, "Only Admin can add products!", Toast.LENGTH_SHORT).show();
                                 }
