@@ -1,5 +1,6 @@
 package com.fptu.android.project.adapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.fptu.android.project.R;
+import com.fptu.android.project.activity.HomePageActivity;
 import com.fptu.android.project.activity.restaurant.RestaurantCrudActivity;
 import com.fptu.android.project.activity.restaurant.ShowActivity;
 import com.fptu.android.project.model.Product;
@@ -27,11 +29,14 @@ import java.util.List;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
       private ShowActivity activity;
       private List<Product> pList;
+      Context context;
       private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    public MyAdapter(Context context) {
+        this.context = context;
+    }
 
-
-      public MyAdapter(ShowActivity activity, List<Product> pList){
+    public MyAdapter(ShowActivity activity, List<Product> pList){
           this.activity = activity;
           this.pList = pList;
       }

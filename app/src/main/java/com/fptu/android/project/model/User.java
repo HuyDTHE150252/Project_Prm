@@ -13,7 +13,11 @@ public class User implements Serializable {
 
     }
 
-    public User(String id, String username, String password,  String fname, String phone) {
+    public User(String id) {
+        this.id = id;
+    }
+
+    public User(String id, String username, String password, String fname, String phone) {
         this.id = id;
         this.username = username;
         this.password = password;

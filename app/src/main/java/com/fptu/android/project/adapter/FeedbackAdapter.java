@@ -61,58 +61,10 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.Feedba
         holder.feedback_description.setText(feedback.getDescription());
         holder.feedback_rate.setRating(feedback.getRate());
         holder.feedback_date.setText(feedback.getFeedback_date());
-        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                deleteFeedback(position);
-            }
-        });
+
     }
 
-    private void deleteFeedback(int position) {
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();;
-        AlertDialog.Builder alert = new AlertDialog.Builder(context);
-        alert.setTitle("Delete");
-        alert.setMessage("Are you sure you want to delete?");
-        alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                firestore.collection("Feedback")
-                        .document(listFeedback.get(position).getFeedback_id())
-                        .delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-
-                                    listFeedback.remove(listFeedback.get(position));
-                                    notifyItemChanged(position);
-                                    notifyDataSetChanged();
-
-                                    Toast.makeText(context, "Item deleted", Toast.LENGTH_SHORT).show();
-
-                                } else {
-                                    Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-
-
-
-                dialog.dismiss();
-            }
-        });
-
-        alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        alert.show();
-    }
 
     @Override
     public int getItemCount() {
@@ -125,7 +77,7 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.Feedba
         private TextView feedback_description;
         private RatingBar feedback_rate;
         private TextView feedback_date;
-        private Button btnDelete;
+
 
         public FeedbackViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -133,7 +85,7 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.Feedba
             feedback_description = itemView.findViewById(R.id.feedback_description);
             feedback_rate = itemView.findViewById(R.id.feedback_rating);
             feedback_date = itemView.findViewById(R.id.feedback_date);
-            btnDelete=itemView.findViewById(R.id.btnDeleteFeedback);
+
         }
     }
 }

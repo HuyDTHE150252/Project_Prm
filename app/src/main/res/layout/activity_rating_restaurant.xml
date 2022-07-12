@@ -4,27 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.RateProductActivity">
+    tools:context=".activity.RatingRestaurantActivity">
     <ImageView
-        android:id="@+id/rateProductImage"
+        android:id="@+id/rateRestaurantImage"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_launcher_background" />
+        app:srcCompat="@drawable/nhahangngon" />
 
     <TextView
-        android:id="@+id/rateProductName"
+        android:id="@+id/rateRestaurantName"
         android:layout_width="222dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:maxLines="3"
-        android:text="TextView"
+        android:text="Restaurant"
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/rateProductImage"
+        app:layout_constraintStart_toEndOf="@+id/rateRestaurantImage"
         app:layout_constraintTop_toTopOf="parent" />
 
     <RatingBar
@@ -78,7 +78,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rateProductImage"
+        app:layout_constraintTop_toBottomOf="@+id/rateRestaurantImage"
         tools:layout_editor_absoluteX="-145dp"
         tools:layout_editor_absoluteY="-6dp" />
 

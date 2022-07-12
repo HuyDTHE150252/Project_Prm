@@ -9,13 +9,7 @@
         android:layout_height="match_parent"
         android:backgroundTint="#e6e6e6">
 
-        <ImageView
-            android:id="@+id/feedback_userimg"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_margin="5dp"
-            android:scaleType="centerCrop"
-            app:srcCompat="@drawable/default_user" />
+
 
         <TextView
             android:id="@+id/feedback_username"
@@ -67,13 +61,7 @@
             android:layout_marginTop="149dp"
             android:background="@color/black" />
 
-        <Button
-            android:id="@+id/btnDeleteFeedback"
-            android:layout_marginLeft="300dp"
-            android:layout_marginTop="40dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Delete" />
+
 
     </androidx.cardview.widget.CardView>
 </RelativeLayout>
