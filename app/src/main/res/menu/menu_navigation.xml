@@ -19,6 +19,7 @@
         <item
             android:id="@+id/smartQuiz"
             android:title="Funny Quiz"
+            android:icon="@drawable/quiz"
             />
     </group>
 
