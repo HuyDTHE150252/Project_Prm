@@ -45,8 +45,8 @@ public class RestaurantCrudActivity extends AppCompatActivity {
     private EditText edit_name, edit_price, edit_description, edit_category, edit_quantity, edit_url;
     private Button btnAdd;
     private FirebaseFirestore db;
-    private Button btnShow, uploadBtn;
-    private String id, name, price, description,category,quantity, rate, url;
+    private Button btnShow;
+    private String id, name, price, description,category,quantity, url;
     private ImageView imageView;
     private Uri imageUri;
     private ProgressBar progressBar;
@@ -67,7 +67,7 @@ public class RestaurantCrudActivity extends AppCompatActivity {
 
         btnAdd = findViewById(R.id.btnConfirmAddProduct);
         btnShow = findViewById(R.id.btnShow);
-        uploadBtn = findViewById(R.id.upload_btn);
+
         imageView = findViewById(R.id.imageViewAdd);
         db = FirebaseFirestore.getInstance();
 
@@ -80,8 +80,8 @@ public class RestaurantCrudActivity extends AppCompatActivity {
             price = bundle.getString("price");
             description = bundle.getString("description");
             quantity = bundle.getString("quantity");
-            category = bundle.getString("category");
-            rate = bundle.getString("rate");
+            category = bundle.getString("type");
+
             url = bundle.getString("url");
 
             edit_name.setText(name);
@@ -106,16 +106,6 @@ public class RestaurantCrudActivity extends AppCompatActivity {
                 galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
                 galleryIntent.setType("image/*");
                 startActivityForResult(galleryIntent , 2);
-            }
-        });
-        uploadBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (imageUri != null){
-                    uploadToFirebase(imageUri);
-                }else{
-                    Toast.makeText(RestaurantCrudActivity.this, "Please Select Image", Toast.LENGTH_SHORT).show();
-                }
             }
         });
 
@@ -162,7 +152,7 @@ public class RestaurantCrudActivity extends AppCompatActivity {
 
         });}
     private void updateToFireStore(String id, String name, String price, String description,String quantity,String category, float rate, String url) {
-        db.collection("product").document(id).update("name",name,"price",price,"description",description,"quantity",quantity,"category",category,"rate",rate,"url",url)
+        db.collection("product").document(id).update("name",name,"price",price,"description",description,"quantity",quantity,"type",category,"rate",rate,"url",url)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -188,9 +178,9 @@ public class RestaurantCrudActivity extends AppCompatActivity {
             map.put("price", price);
             map.put("description", description);
             map.put("quantity",quantity);
-            map.put("rate",rate);
+
             map.put("url",url);
-            map.put("category",category);
+            map.put("type",category.toLowerCase(Locale.ROOT));
 
 
 
