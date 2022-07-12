@@ -1,10 +1,13 @@
 package com.fptu.android.project.activity.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
@@ -15,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fptu.android.project.R;
+import com.fptu.android.project.activity.SearchActivity;
 import com.fptu.android.project.adapter.CategoryAdapter;
 import com.fptu.android.project.adapter.ProductAdapter;
 import com.fptu.android.project.adapter.TrendingAdapter;
@@ -32,6 +36,7 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     private ViewFlipper viewFlipper;
+    private TextView search;
     int[] slider = {R.drawable.do_an_nhanh, R.drawable.do_an_vat, R.drawable.do_an_vat_2};
     private RecyclerView category, product, trending;
     private CategoryAdapter cate_adapter;
@@ -60,6 +65,15 @@ public class HomeFragment extends Fragment {
             viewFlipper.setFlipInterval(3000);
             viewFlipper.setAutoStart(true);
 
+            search = view.findViewById(R.id.search);
+            search.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intentSearch = new Intent(view.getContext(), SearchActivity.class);
+                    startActivity(intentSearch);
+                }
+            });
+
             category = view.findViewById(R.id.category_recyclerView);
             trending = view.findViewById(R.id.trending_recyclerView);
             product = view.findViewById(R.id.product_recyclerView);
@@ -85,17 +99,22 @@ public class HomeFragment extends Fragment {
         }
     }
 
-
     private List<Category> getListCategory() {
         List<Category> list = new ArrayList<>();
-        list.add(new Category(1, "Food", "https://firebasestorage.googleapis.com/v0/b/projectprm-392.appspot.com/o/picture%2Ffood_icon.png?alt=media&token=dc332de1-5004-47a6-b8c2-473d73c1fe7ba"));
-        list.add(new Category(2, "Drink", "https://firebasestorage.googleapis.com/v0/b/projectprm-392.appspot.com/o/picture%2Fdrink_icon.png?alt=media&token=da5a1021-9dab-47a6-ba0d-8a62f6853623"));
-        list.add(new Category(3, "FastFood", "https://firebasestorage.googleapis.com/v0/b/projectprm-392.appspot.com/o/picture%2Ffast_food_icon.png?alt=media&token=b02e8786-89d8-45c0-8cc9-741406937d2c"));
-        list.add(new Category(4, "RawFood", "https://firebasestorage.googleapis.com/v0/b/projectprm-392.appspot.com/o/picture%2Fraw_food_icon.png?alt=media&token=2f4cb48f-2fc1-40fa-85b2-02544505d00c"));
-        list.add(new Category(5, "Fruit", "https://firebasestorage.googleapis.com/v0/b/projectprm-392.appspot.com/o/picture%2Ffruit_icon.png?alt=media&token=2d2cc5b1-30a4-4c98-8698-cc646841329a"));
-        list.add(new Category(6, "IceCream", "https://firebasestorage.googleapis.com/v0/b/projectprm-392.appspot.com/o/picture%2Ficecream_icon.png?alt=media&token=eae11848-1ce0-466f-9b2b-c95f4d29219d"));
-        list.add(new Category(7, "Cake", "https://firebasestorage.googleapis.com/v0/b/projectprm-392.appspot.com/o/picture%2Fbirthday_cake_icon.png?alt=media&token=3cb41ca1-2815-40b1-8bbc-834e30d2e859"));
-        list.add(new Category(8, "Beer", "https://firebasestorage.googleapis.com/v0/b/projectprm-392.appspot.com/o/picture%2Fbeer_icon.png?alt=media&token=49538c20-b8aa-437e-ba47-929b7955edd2"));
+        database.collection("category")
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for (DocumentSnapshot doc : task.getResult().getDocuments()) {
+                            Category c = new Category();
+                            c.setCate_name(doc.get("name").toString());
+                            c.setUrl(doc.get("url").toString());
+                            c.setType(doc.get("type").toString());
+                            list.add(c);
+                            cate_adapter.notifyDataSetChanged();
+                        }
+                    }
+                });
         return list;
     }
 
@@ -114,7 +133,7 @@ public class HomeFragment extends Fragment {
                             p.setProduct_url(doc.get("url").toString());
                             p.setQuantity(Integer.valueOf(doc.get("quantity").toString()));
                             list.add(p);
-
+                            product_adapter.notifyDataSetChanged();
                         }
                     }
                 });
@@ -137,7 +156,7 @@ public class HomeFragment extends Fragment {
                             p.setProduct_url(doc.get("url").toString());
                             p.setQuantity(Integer.valueOf(doc.get("quantity").toString()));
                             list.add(p);
-
+                            trend_adapter.notifyDataSetChanged();
                         }
                     }
                 });

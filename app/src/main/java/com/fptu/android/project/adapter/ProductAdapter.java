@@ -18,7 +18,7 @@ import com.fptu.android.project.model.Product;
 
 import java.util.List;
 
-public class    ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder>{
+public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder>{
 
     private Context context;
     private List<Product> listProduct;
