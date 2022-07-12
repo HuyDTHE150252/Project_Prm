@@ -22,14 +22,16 @@ import com.fptu.android.project.activity.ggmap.GoogmapActivity;
 import com.fptu.android.project.activity.restaurant.RestaurantCrudActivity;
 import com.fptu.android.project.activity.shipper.ShipperActivity;
 import com.fptu.android.project.activity.user.LoginActivity;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
- 
+
 
 public class HomePageActivity extends AppCompatActivity {
 
@@ -52,7 +54,7 @@ public class HomePageActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
         nav_menu = findViewById(R.id.nav_view);
         firestore = FirebaseFirestore.getInstance();
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String uid = auth.getCurrentUser().getUid();
 
         nav_menu.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -101,58 +103,34 @@ public class HomePageActivity extends AppCompatActivity {
                         startActivity(new Intent(HomePageActivity.this, GoogmapActivity.class));
                         break;
                     case R.id.allOrder:
-                        firestore.collection("dynamic_menu").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        firestore.collection("users").document(auth.getCurrentUser().getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                             @Override
-                            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
-
-                                if (e != null) {
-
-                                }
-
-                                for (DocumentChange documentChange : documentSnapshots.getDocumentChanges()) {
-                                    String role = documentChange.getDocument().getData().get("role").toString();
-                                    if (role.equals("admin") && role.equals("shipper")) {
-                                        startActivity(new Intent(HomePageActivity.this, ShipperActivity.class));
-                                    } else {
-                                        Toast.makeText(HomePageActivity.this, "Only Shipper and Admin can see current orders!", Toast.LENGTH_SHORT).show();
-                                    }
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                String role = documentSnapshot.getString("role");
+                                System.out.println(role);
+                                if (role.equals("admin") || role.equals("shipper")) {
+                                    startActivity(new Intent(HomePageActivity.this, ShipperActivity.class));
+                                } else {
+                                    Toast.makeText(HomePageActivity.this, "Only Shipper and Admin can see current orders!", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
-
+                        break;
                     case R.id.restaurant_product:
-                        firestore.collection("dynamic_menu").addSnapshotListener(new EventListener<QuerySnapshot>() {
+
+                        firestore.collection("users").document(auth.getCurrentUser().getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                             @Override
-                            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
-
-                                if (e != null) {
-
-                                }
-
-                                for (DocumentChange documentChange : documentSnapshots.getDocumentChanges()) {
-                                    String role = documentChange.getDocument().getData().get("role").toString();
-                                    if (role.equals("admin")) {
-                                        startActivity(new Intent(HomePageActivity.this, RestaurantCrudActivity.class));
-                                    } else {
-                                        Toast.makeText(HomePageActivity.this, "Only Admin can add products!", Toast.LENGTH_SHORT).show();
-                                    }
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                String role = documentSnapshot.getString("role");
+                                System.out.println(role);
+                                if (role.equals("admin")) {
+                                    startActivity(new Intent(HomePageActivity.this, ShipperActivity.class));
+                                } else {
+                                    Toast.makeText(HomePageActivity.this, "Only Admin can add products!", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
-                        firestore.collection("dynamic_menu").addSnapshotListener(new EventListener<QuerySnapshot>() {
-                            @Override
-                            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
-
-                                if (e != null) {
-
-                                }
-
-                                for (DocumentChange documentChange : documentSnapshots.getDocumentChanges()) {
-                                    String uid = documentChange.getDocument().getData().get("uid").toString();
-
-                                }
-                            }
-                        });
+                        break;
                 }
 
                 drawerLayout.closeDrawer(GravityCompat.START);

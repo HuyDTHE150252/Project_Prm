@@ -37,6 +37,7 @@ import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
+    public static final String role = "user";
     private EditText et_email, et_username, et_phone, et_password, et_cfpassword;
     private Button btn_signup;
     private FirebaseAuth fAuth;
@@ -139,6 +140,7 @@ public class SignupActivity extends AppCompatActivity {
                     user.put("fName",username);
                     user.put("email",email);
                     user.put("phone",phone);
+                    user.put("role",role);
                     documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
