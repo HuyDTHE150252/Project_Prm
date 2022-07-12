@@ -55,7 +55,7 @@ public class HomePageActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
         nav_menu = findViewById(R.id.nav_view);
         firestore = FirebaseFirestore.getInstance();
-        String uid = auth.getCurrentUser().getUid();
+        //String uid = auth.getCurrentUser().getUid();
 
         nav_menu.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
