@@ -1,7 +1,10 @@
 package com.fptu.android.project.activity;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -9,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -22,6 +26,7 @@ import com.fptu.android.project.activity.ggmap.GoogmapActivity;
 import com.fptu.android.project.activity.restaurant.RestaurantCrudActivity;
 import com.fptu.android.project.activity.shipper.ShipperActivity;
 import com.fptu.android.project.activity.user.LoginActivity;
+import com.fptu.android.project.adapter.ProductAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,8 +42,10 @@ public class HomePageActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private NavigationView nav_menu;
+    SearchView searchView;
     ProgressBar progressBar;
     FirebaseAuth auth;
+    private ProductAdapter product_adapter;
     FirebaseFirestore firestore;
 
     @Override
@@ -124,7 +131,7 @@ public class HomePageActivity extends AppCompatActivity {
                                 String role = documentSnapshot.getString("role");
                                 System.out.println(role);
                                 if (role.equals("admin")) {
-                                    startActivity(new Intent(HomePageActivity.this, ShipperActivity.class));
+                                    startActivity(new Intent(HomePageActivity.this, RestaurantCrudActivity.class));
                                 } else {
                                     Toast.makeText(HomePageActivity.this, "Only Admin can add products!", Toast.LENGTH_SHORT).show();
                                 }
@@ -165,4 +172,19 @@ public class HomePageActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, homeFragment).commit();
         }
     }
+//    searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//        @Override
+//        public boolean onQueryTextSubmit(String query) {
+//            product_adapter.getFilter().filter(query);
+//            return false;
+//        }
+//
+//        @Override
+//        public boolean onQueryTextChange(String newText) {
+//            product_adapter.getFilter().filter(newText);
+//            return false;
+//        }
+//    });
+
+
 }
