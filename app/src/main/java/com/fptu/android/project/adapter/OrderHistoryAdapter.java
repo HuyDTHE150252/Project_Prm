@@ -55,11 +55,13 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
             return;
         }
         String orderStatus=order.getOrderStatus();
+        String orderId=order.getDocumentId();
         holder.name.setText(orderList.get(position).getProductName());
         holder.currentD.setText(orderList.get(position).getCurrentDate());
         holder.addressOrder.setText(orderList.get(position).getAddress());
         holder.orderID.setText(orderList.get(position).getDocumentId());
         holder.status.setText(orderList.get(position).getOrderStatus());
+
         if(orderStatus.equals("In Progress")){
             holder.status.setTextColor(context.getResources().getColor(R.color.colorPrimary));
         }else if(orderStatus.equals("Completed")){
@@ -92,7 +94,6 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
                 b.putString("orderAddress",orderAddress);
                 b.putString("orderStatus",orderStatus);
                 b.putString("status",methodPayment);
-
                 i.putExtras(b);
                 ContextCompat.startActivity(context,i,b);
             }

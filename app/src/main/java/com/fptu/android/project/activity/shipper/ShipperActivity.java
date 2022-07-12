@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.fptu.android.project.R;
+import com.fptu.android.project.activity.HomePageActivity;
 import com.fptu.android.project.activity.user.LoginActivity;
 import com.fptu.android.project.adapter.OrderHistoryAdapter;
 import com.fptu.android.project.adapter.ShipperApdapter;
@@ -53,6 +54,9 @@ public class ShipperActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(orderHistoryAdapter);
         loadAllOrder();
+        if(orderList.size()==0){
+            Toast.makeText(ShipperActivity.this, "List is empty", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
