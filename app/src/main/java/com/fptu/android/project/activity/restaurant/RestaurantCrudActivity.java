@@ -12,13 +12,17 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.fptu.android.project.R;
+import com.fptu.android.project.adapter.MyRestaurantAdapter;
 import com.fptu.android.project.interfaces.RestaurantProductDAO;
 import com.fptu.android.project.model.Model;
 import com.fptu.android.project.model.Product;
@@ -40,7 +44,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.UUID;
 
-public class RestaurantCrudActivity extends AppCompatActivity {
+public class RestaurantCrudActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     FirebaseDatabase fire;
     private EditText edit_name, edit_price, edit_description, edit_category, edit_quantity, edit_url;
     private Button btnAdd;
@@ -52,6 +56,7 @@ public class RestaurantCrudActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private DatabaseReference root = FirebaseDatabase.getInstance().getReference("ImageProduct");
     private StorageReference reference = FirebaseStorage.getInstance().getReference("ImgProduct");
+    Spinner spinner;
 
 
 
@@ -62,14 +67,23 @@ public class RestaurantCrudActivity extends AppCompatActivity {
         edit_name = findViewById(R.id.edtName);
         edit_price = findViewById(R.id.edtPrice);
         edit_description = findViewById(R.id.edtDescription);
-        edit_category = findViewById(R.id.edtCategory);
+
         edit_quantity = findViewById(R.id.edtQuantity);
+
+
 
         btnAdd = findViewById(R.id.btnConfirmAddProduct);
         btnShow = findViewById(R.id.btnShow);
 
         imageView = findViewById(R.id.imageViewAdd);
         db = FirebaseFirestore.getInstance();
+
+        spinner = findViewById(R.id.spinner1);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.types,
+                android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
 
         Bundle bundle = getIntent().getExtras();
         if (bundle !=null){
@@ -80,7 +94,7 @@ public class RestaurantCrudActivity extends AppCompatActivity {
             price = bundle.getString("price");
             description = bundle.getString("description");
             quantity = bundle.getString("quantity");
-            category = bundle.getString("type");
+            //category = bundle.getString("type");
 
             url = bundle.getString("url");
 
@@ -88,7 +102,8 @@ public class RestaurantCrudActivity extends AppCompatActivity {
             edit_price.setText(price);
             edit_description.setText(description);
             edit_quantity.setText(quantity);
-            edit_category.setText(category);
+
+
 
 
 
@@ -127,12 +142,12 @@ public class RestaurantCrudActivity extends AppCompatActivity {
                 }else{
                     Toast.makeText(RestaurantCrudActivity.this, "Please Select Image", Toast.LENGTH_SHORT).show();
                 }
-
+                String type = spinner.getSelectedItem().toString();
                 String name = edit_name.getText().toString();
                 String price = edit_price.getText().toString();
                 String description = edit_description.getText().toString();
                 String quantity = edit_quantity.getText().toString();
-                String category = edit_category.getText().toString();
+               // String category = edit_category.getText().toString();
                 Float rate = 1.0f;
                 String url = imageUri.toString();
 
@@ -140,19 +155,19 @@ public class RestaurantCrudActivity extends AppCompatActivity {
                 if(bundle!= null){
                     String Id = id;
 
-                    updateToFireStore(Id,name, price, description,quantity,category,url);
+                    updateToFireStore(Id,name, price, description,quantity,type,url);
 
 
                 }else {
                     String id = UUID.randomUUID().toString();
 
-                    saveToFireStore(id,name, price, description,quantity,category,url);}
+                    saveToFireStore(id,name, price, description,quantity,type,url);}
             }
 
 
         });}
-    private void updateToFireStore(String id, String name, String price, String description,String quantity,String category, String url) {
-        db.collection("product").document(id).update("name",name,"price",price,"description",description,"quantity",quantity,"type",category,"url",url)
+    private void updateToFireStore(String id, String name, String price, String description,String quantity,String type, String url) {
+        db.collection("product").document(id).update("name",name,"price",price,"description",description,"quantity",quantity,"type",type,"url",url)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -170,7 +185,7 @@ public class RestaurantCrudActivity extends AppCompatActivity {
                 });
     }
 
-    private void saveToFireStore(String id, String name, String price, String description,String quantity,String category, String url){
+    private void saveToFireStore(String id, String name, String price, String description,String quantity,String type, String url){
         if(  !name.isEmpty() && !price.isEmpty()){
             HashMap<String, Object> map = new HashMap<>();
             map.put("id", id);
@@ -180,7 +195,7 @@ public class RestaurantCrudActivity extends AppCompatActivity {
             map.put("quantity",quantity);
 
             map.put("url",url);
-            map.put("type",category.toLowerCase(Locale.ROOT));
+            map.put("type",spinner.getSelectedItem().toString());
 
 
 
@@ -246,4 +261,14 @@ public class RestaurantCrudActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String text = parent.getItemAtPosition(position).toString();
+        Toast.makeText(parent.getContext(), text, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }
