@@ -7,8 +7,6 @@
     android:layout_height="match_parent"
     android:background="@color/md_orange_50">
 
-
-
     <ScrollView
         android:layout_width="409dp"
         android:layout_height="729dp"
@@ -118,8 +116,8 @@
                 android:layout_marginTop="16dp"
                 android:text="Category"
                 android:textSize="18sp" />
-            <EditText
-                android:id="@+id/edtCategory"
+            <Spinner
+                android:id="@+id/spinner1"
                 android:layout_width="375dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -127,7 +125,8 @@
                 android:ems="10"
                 android:hint="Enter Category"
                 android:inputType="textPersonName"
-                android:textSize="16sp"/>
+                android:textSize="16sp">
+            </Spinner>
 
             <TextView
                 android:id="@+id/text_img"
@@ -167,7 +166,6 @@
                 android:layout_marginBottom="5dp"
                 android:onClick="onConfirmAddressClick"
                 android:text="Add New Product"/>
-
 
         </LinearLayout>
 

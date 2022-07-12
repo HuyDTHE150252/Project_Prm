@@ -4,8 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#C6C3C3"
+
     tools:context=".activity.OrderHistoryActivity">
+
+    <TextView
+        android:id="@+id/tvNoOrder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your Order Is Empty"
+        android:layout_marginTop="100dp"
+        android:textSize="30sp"
+        android:textColor="@color/md_red_200"
+        android:visibility="invisible"
+
+        tools:layout_editor_absoluteX="27dp"
+        tools:layout_editor_absoluteY="301dp"
+        tools:ignore="MissingConstraints" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/orderHisRecyclerView"

@@ -66,22 +66,20 @@ public class HomePageActivity extends AppCompatActivity {
                         break;
                     case R.id.cart:
                         if (auth.getCurrentUser() != null) {
-                            if (auth.getCurrentUser().isEmailVerified()) {
-                                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CartFragment()).commit();
-                            }
-                            Toast.makeText(HomePageActivity.this, "You have to verify your email to check out your orders!", Toast.LENGTH_SHORT).show();
-
+                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CartFragment()).commit();
                         } else {
-                            Intent intent = new Intent(HomePageActivity.this, LoginActivity.class);
+                            Intent i = new Intent(HomePageActivity.this, LoginActivity.class);
                             Toast.makeText(HomePageActivity.this, "Login first then Add to cart", Toast.LENGTH_SHORT).show();
-                            startActivity(intent);
+                            startActivity(i);
                         }
                         break;
                     case R.id.proflie:
                         if (auth.getCurrentUser() != null) {
                             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
                         } else {
+
                             Toast.makeText(HomePageActivity.this, "You have to login to see your profile!", Toast.LENGTH_SHORT).show();
+
                         }
                         break;
                     case R.id.aboutApp:
@@ -118,7 +116,6 @@ public class HomePageActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
                                 String role = documentSnapshot.getString("role");
-
                                 if (role.equals("admin")) {
                                     startActivity(new Intent(HomePageActivity.this, RestaurantCrudActivity.class));
                                 } else {

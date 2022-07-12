@@ -6,9 +6,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.fptu.android.project.R;
 import com.fptu.android.project.adapter.OrderHistoryAdapter;
@@ -35,11 +37,16 @@ public class OrderHistoryActivity extends AppCompatActivity {
     FirebaseAuth auth;
     FirebaseFirestore db;
     Order orderViewModel;
+    TextView tv;
+    void bindingView(){
+        tv=findViewById(R.id.tvNoOrder);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_history);
+        bindingView();
         db=FirebaseFirestore.getInstance();
         auth=FirebaseAuth.getInstance();
         recyclerView=findViewById(R.id.orderHisRecyclerView);
@@ -49,7 +56,12 @@ public class OrderHistoryActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager= new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(orderHistoryAdapter);
+
         loadListMyOrder();
+        if(orderList.size()==0){
+           tv.setVisibility(View.VISIBLE);
+        }
+
 
     }
 
@@ -66,7 +78,6 @@ public class OrderHistoryActivity extends AppCompatActivity {
                                String currentDate=documentSnapshot.getString("currentDateOrder");
                                String status=documentSnapshot.getString("orderStatus");
                                String paymentMethod=documentSnapshot.getString("status");
-
                                 orderViewModel = documentSnapshot.toObject(Order.class);
                                 orderViewModel.setDocumentId(docId);
                                 orderViewModel.setAddress(address);
@@ -75,6 +86,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
                                 orderViewModel.setPaymentState(paymentMethod);
                                 orderList.add(orderViewModel);
                                 orderHistoryAdapter.notifyDataSetChanged();
+
                                 Log.d("t", "DocumentSnapshot data: " + documentSnapshot.getData());
                             }
 
