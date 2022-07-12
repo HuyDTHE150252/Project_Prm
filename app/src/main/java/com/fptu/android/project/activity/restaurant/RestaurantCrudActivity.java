@@ -64,7 +64,7 @@ public class RestaurantCrudActivity extends AppCompatActivity {
         edit_description = findViewById(R.id.edtDescription);
         edit_category = findViewById(R.id.edtCategory);
         edit_quantity = findViewById(R.id.edtQuantity);
-        edit_url = findViewById(R.id.edtImg);
+
         btnAdd = findViewById(R.id.btnConfirmAddProduct);
         btnShow = findViewById(R.id.btnShow);
         uploadBtn = findViewById(R.id.upload_btn);
@@ -90,7 +90,7 @@ public class RestaurantCrudActivity extends AppCompatActivity {
             edit_quantity.setText(quantity);
             edit_category.setText(category);
 
-            edit_url.setText(url);
+
 
 
         }else {
