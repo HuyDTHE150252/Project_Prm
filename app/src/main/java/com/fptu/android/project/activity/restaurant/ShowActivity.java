@@ -1,12 +1,12 @@
 package com.fptu.android.project.activity.restaurant;
 
+import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
 
 import com.fptu.android.project.R;
 import com.fptu.android.project.adapter.MyRestaurantAdapter;
@@ -21,11 +21,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShowActivity extends AppCompatActivity {
+    
     private RecyclerView recyclerView;
     private FirebaseFirestore db;
     private MyRestaurantAdapter adapter;
     private List<Product> list;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,24 +70,4 @@ public class ShowActivity extends AppCompatActivity {
 
     }
 
-//    public void showData() {
-//        db.collection("product").get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        list.clear();
-//                        for (DocumentSnapshot snapshot: task.getResult()){
-//                            Product product = new Product(Integer.valueOf(snapshot.getString("id").toString()), snapshot.getString("name"), snapshot.getString("description"), Integer.valueOf(snapshot.getString("price").toString()));
-//                                   list.add(product);
-//                        }
-//                        adapter.notifyDataSetChanged();
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Toast.makeText(ShowActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//
-//    }
 }

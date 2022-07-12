@@ -4,24 +4,15 @@ import java.io.Serializable;
 
 public class Category implements Serializable {
 
-    private int cate_id;
     private String cate_name;
     private String url;
+    private String type;
 
     public Category(){}
 
-    public Category(int cate_id, String cate_name, String url) {
-        this.cate_id = cate_id;
+    public Category(String cate_name, String url) {
         this.cate_name = cate_name;
         this.url = url;
-    }
-
-    public int getCate_id() {
-        return cate_id;
-    }
-
-    public void setCate_id(int cate_id) {
-        this.cate_id = cate_id;
     }
 
     public String getCate_name() {
@@ -40,5 +31,11 @@ public class Category implements Serializable {
         this.url = url;
     }
 
+    public String getType() {
+        return type;
+    }
 
+    public void setType(String type) {
+        this.type = type;
+    }
 }

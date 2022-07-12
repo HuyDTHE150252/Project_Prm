@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RestaurantActivity extends AppCompatActivity {
+
     List<Feedback> feedbackList;
     private RecyclerView rcvFeedback;
     private FeedbackAdapter feedbackadapter;
@@ -86,7 +87,6 @@ public class RestaurantActivity extends AppCompatActivity {
                                         feedbackadapter.notifyDataSetChanged();
                                         Log.d("t", "DocumentSnapshot data: " + document.getData());
 
-
                                         Log.d("t", "db rating getString() is: " + document.getString("rating"));
                                         Log.d("t", "db rating getString() is: " + document.getString("review"));
                                     } else {
@@ -95,8 +95,6 @@ public class RestaurantActivity extends AppCompatActivity {
 
                             }
                             }
-
-
                     }
                 });
         return list;

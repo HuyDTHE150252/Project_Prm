@@ -3,14 +3,15 @@ package com.fptu.android.project.model;
 import java.io.Serializable;
 
 public class User implements Serializable {
+
     private String id;
     private String username;
     private String password;
     private String fname;
     private String phone;
     private String role;
-    public User(){
 
+    public User(){
     }
 
     public User(String id) {
@@ -21,9 +22,7 @@ public class User implements Serializable {
         this.id = id;
         this.username = username;
         this.password = password;
-
         this.fname = fname;
-
         this.phone = phone;
         this.role = role;
     }

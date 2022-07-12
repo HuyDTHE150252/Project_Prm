@@ -22,16 +22,18 @@
                 android:layout_height="300dp"
                 android:background="#fc8403">
 
-                <EditText
+                <TextView
                     android:id="@+id/search"
                     android:layout_width="372dp"
                     android:layout_height="48dp"
                     android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginBottom="220dp"
                     android:background="@drawable/search_bg"
                     android:drawableStart="@drawable/ic_search"
-                    android:hint="Search"
+                    android:text="Search"
+                    android:textSize="20dp"
+                    android:gravity="center_vertical"
                     android:paddingStart="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -43,7 +45,7 @@
                     android:layout_width="377dp"
                     android:layout_height="158dp"
                     android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginBottom="24dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

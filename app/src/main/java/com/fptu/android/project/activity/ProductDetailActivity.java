@@ -8,9 +8,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -19,18 +17,10 @@ import com.fptu.android.project.activity.user.LoginActivity;
 import com.fptu.android.project.adapter.FeedbackAdapter;
 import com.fptu.android.project.model.Feedback;
 import com.fptu.android.project.model.Product;
-import com.fptu.android.project.model.Restaurant;
 import com.fptu.android.project.service.CartService;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDetailActivity extends AppCompatActivity {
@@ -45,11 +35,9 @@ public class ProductDetailActivity extends AppCompatActivity {
     FirebaseAuth auth;
     int cost = 0;
     Product product = null;
-    List<Feedback> feedbackList;
     Feedback f;
     CartService c;
     int current = 20;
-
 
     void bidingView() {
 
@@ -60,7 +48,6 @@ public class ProductDetailActivity extends AppCompatActivity {
         tvQuantity = findViewById(R.id.tvQuantity);
         tvPrice = findViewById(R.id.txtPriceNumber);
         btnAddToCart = findViewById(R.id.productdetail_addtocart);
-//        ratingBar = (RatingBar) findViewById(R.id.productdetail_rating);
         description = findViewById(R.id.productdetail_description);
     }
 
@@ -71,9 +58,6 @@ public class ProductDetailActivity extends AppCompatActivity {
         plus.setOnClickListener(this::plusQuantity);
 
     }
-
-
-
 
     private void plusQuantity(View view) {
 
@@ -101,16 +85,9 @@ public class ProductDetailActivity extends AppCompatActivity {
             tvQuantity.setText(String.valueOf(quantity));
             totalPrice = Integer.parseInt(tvQuantity.getText().toString()) * (product.getProduct_price());
             tvPrice.setText(String.valueOf(totalPrice));
-
         }
 
-
     }
-
-    private RecyclerView rcvFeedback;
-    private FeedbackAdapter feedbackadapter;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

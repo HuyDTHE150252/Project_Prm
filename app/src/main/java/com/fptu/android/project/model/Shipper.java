@@ -3,6 +3,7 @@ package com.fptu.android.project.model;
 import java.util.List;
 
 public class Shipper {
+
     private String uId;
     private String shipId;
     List<Order> order;

@@ -76,8 +76,6 @@ public class OrderDetailActivity extends AppCompatActivity {
         recyclerView.setAdapter(orderDetailAdapter);
         loadListMyItem();
 
-
-
     }
 
     private void loadListMyItem() {
