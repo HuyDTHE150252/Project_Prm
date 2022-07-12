@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 
 import com.fptu.android.project.R;
-import com.fptu.android.project.adapter.MyAdapter;
+import com.fptu.android.project.adapter.MyRestaurantAdapter;
 import com.fptu.android.project.model.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,7 +23,7 @@ import java.util.List;
 public class ShowActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private FirebaseFirestore db;
-    private MyAdapter adapter;
+    private MyRestaurantAdapter adapter;
     private List<Product> list;
 
 
@@ -38,7 +38,7 @@ public class ShowActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
         list = new ArrayList<>();
-        adapter = new MyAdapter(this, list);
+        adapter = new MyRestaurantAdapter(this, list);
         recyclerView.setAdapter(adapter);
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new TouchHelper(adapter));
