@@ -23,20 +23,19 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.List;
 
 public class ShipperApdapter extends RecyclerView.Adapter<ShipperApdapter.ViewHolder> {
+
     Context context;
     List<Order> orderList;
-
 
     public ShipperApdapter(Context context, List<Order> orderList) {
         this.context = context;
         this.orderList = orderList;
-
     }
+
     public ShipperApdapter(Context context) {
         this.context = context;
-
-
     }
+
     public void setData(List<Order> orderList) {
         this.orderList = orderList;
         notifyDataSetChanged();
@@ -52,7 +51,6 @@ public class ShipperApdapter extends RecyclerView.Adapter<ShipperApdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ShipperApdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
-        //holder.name.setText(orderList.get(position).getProductName());
         holder.currentD.setText(orderList.get(position).getCurrentDate());
         holder.addressOrder.setText(orderList.get(position).getAddress());
         holder.orderID.setText(orderList.get(position).getDocumentId());
@@ -64,7 +62,6 @@ public class ShipperApdapter extends RecyclerView.Adapter<ShipperApdapter.ViewHo
             public void onClick(View v) {
                 holder.completedBtn.setVisibility(View.GONE);
                 holder. cancelBtn.setVisibility(View.GONE);
-//                holder.xStick.setVisibility(View.VISIBLE);
                 changeStatusCancel(position);
 
             }
@@ -134,26 +131,18 @@ public class ShipperApdapter extends RecyclerView.Adapter<ShipperApdapter.ViewHo
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView name, currentD,addressOrder,orderID;
-        Button  completedBtn, cancelBtn;
-        ImageView stick,xStick;
-
-
-
+        TextView currentD, addressOrder, orderID;
+        Button completedBtn, cancelBtn;
+        ImageView stick;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            orderID=itemView.findViewById(R.id.order_history_item_id);
-//            name = itemView.findViewById(R.id.order_history_item_name);
+            orderID = itemView.findViewById(R.id.order_history_item_id);
             currentD = itemView.findViewById(R.id.order_history_item_order_date);
-            addressOrder=itemView.findViewById(R.id.order_history_item_address);
+            addressOrder = itemView.findViewById(R.id.order_history_item_address);
             completedBtn = itemView.findViewById(R.id.completed_btn);
             stick = itemView.findViewById(R.id.tickIMG);
-//            xStick=itemView.findViewById(R.id.tickX);
             cancelBtn=itemView.findViewById(R.id.btnCancelOrder);
-
-
-
 
         }
     }

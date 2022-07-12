@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class CartService implements CartInterface {
+
     FirebaseFirestore firestore;
     List<Order> cartList;
     FirebaseAuth auth;
@@ -35,7 +36,6 @@ public class CartService implements CartInterface {
         this.context=context;
     }
 
-
     @Override
     public void addToCart(String uid, String name, String quantity, int total) {
         HashMap<String, Object> cartMap = new HashMap<>();
@@ -44,7 +44,6 @@ public class CartService implements CartInterface {
         cartMap.put("productName", name);
         cartMap.put("quantity", quantity);
         cartMap.put("totalPrice",total);
-
 
             firestore.collection("AddToCart").document(auth.getCurrentUser().getUid()).collection("CurrentUser")
                     .add(cartMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {

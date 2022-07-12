@@ -28,18 +28,17 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
+
     Context context;
     List<Order> cartList;
     CartService c;
-    public CartAdapter() {
 
+    public CartAdapter() {
     }
 
     public CartAdapter(Context context, List<Order> cartList) {
         this.context = context;
         this.cartList = cartList;
-
-
     }
 
     public void setData(List<Order> cartList) {
@@ -117,14 +116,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         alert.show();
     }
 
-
     @Override
     public int getItemCount() {
         return cartList.size();
     }
 
-
     public class ViewHolder extends RecyclerView.ViewHolder {
+
         TextView name, txtquantity, totalPrice;
         ImageView deleteItem;
 
@@ -134,8 +132,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             totalPrice = itemView.findViewById(R.id.cart_totalPrice);
             txtquantity = itemView.findViewById(R.id.cart_totalQuantity);
             deleteItem = itemView.findViewById(R.id.imgDeleteItem);
-
-
 
         }
     }

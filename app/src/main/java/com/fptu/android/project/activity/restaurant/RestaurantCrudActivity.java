@@ -41,19 +41,16 @@ import java.util.Locale;
 import java.util.UUID;
 
 public class RestaurantCrudActivity extends AppCompatActivity {
-    FirebaseDatabase fire;
-    private EditText edit_name, edit_price, edit_description, edit_category, edit_quantity, edit_url;
+
+    private EditText edit_name, edit_price, edit_description, edit_category, edit_quantity;
     private Button btnAdd;
     private FirebaseFirestore db;
     private Button btnShow;
     private String id, name, price, description,category,quantity, url;
     private ImageView imageView;
     private Uri imageUri;
-    private ProgressBar progressBar;
     private DatabaseReference root = FirebaseDatabase.getInstance().getReference("ImageProduct");
     private StorageReference reference = FirebaseStorage.getInstance().getReference("ImgProduct");
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,30 +71,22 @@ public class RestaurantCrudActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle !=null){
             btnAdd.setText("update");
-
             id = bundle.getString("id");
             name = bundle.getString("name");
             price = bundle.getString("price");
             description = bundle.getString("description");
             quantity = bundle.getString("quantity");
             category = bundle.getString("type");
-
             url = bundle.getString("url");
-
             edit_name.setText(name);
             edit_price.setText(price);
             edit_description.setText(description);
             edit_quantity.setText(quantity);
             edit_category.setText(category);
-
-
-
-
         }else {
             btnAdd.setText("Save");
 
         }
-
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,26 +122,23 @@ public class RestaurantCrudActivity extends AppCompatActivity {
                 String description = edit_description.getText().toString();
                 String quantity = edit_quantity.getText().toString();
                 String category = edit_category.getText().toString();
-                Float rate = 1.0f;
                 String url = imageUri.toString();
 
                 Bundle bundle1 = getIntent().getExtras();
                 if(bundle!= null){
                     String Id = id;
-
-                    updateToFireStore(Id,name, price, description,quantity,category,rate,url);
-
+                    updateToFireStore(Id,name, price, description,quantity,category,url);
 
                 }else {
                     String id = UUID.randomUUID().toString();
 
-                    saveToFireStore(id,name, price, description,quantity,category,rate,url);}
+                    saveToFireStore(id,name, price, description,quantity,category,url);}
             }
 
 
         });}
-    private void updateToFireStore(String id, String name, String price, String description,String quantity,String category, float rate, String url) {
-        db.collection("product").document(id).update("name",name,"price",price,"description",description,"quantity",quantity,"type",category,"rate",rate,"url",url)
+    private void updateToFireStore(String id, String name, String price, String description,String quantity,String category, String url) {
+        db.collection("product").document(id).update("name",name,"price",price,"description",description,"quantity",quantity,"type",category,"url",url)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -170,22 +156,16 @@ public class RestaurantCrudActivity extends AppCompatActivity {
                 });
     }
 
-    private void saveToFireStore(String id, String name, String price, String description,String quantity,String category,float rate, String url){
-        if(  !name.isEmpty() && !price.isEmpty()){
+    private void saveToFireStore(String id, String name, String price, String description,String quantity,String category, String url){
+        if( !name.isEmpty() && !price.isEmpty()){
             HashMap<String, Object> map = new HashMap<>();
             map.put("id", id);
             map.put("name", name);
             map.put("price", price);
             map.put("description", description);
             map.put("quantity",quantity);
-
             map.put("url",url);
             map.put("type",category.toLowerCase(Locale.ROOT));
-
-
-
-
-
 
             db.collection("product").document(id).set(map)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -235,15 +215,11 @@ public class RestaurantCrudActivity extends AppCompatActivity {
 
     }
 
-
-
     private String getFileExtension(Uri mUri){
 
         ContentResolver cr = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cr.getType(mUri));
-
     }
-
 
 }

@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CartFragment extends Fragment {
+
     RecyclerView recyclerView;
     CartAdapter cartAdapter;
     List<Order> cartList;
@@ -40,7 +41,6 @@ public class CartFragment extends Fragment {
     Order cartViewModel;
     TextView overTotalAmount;
     TextView tvCheckout;
-
 
     @Nullable
     @Override
@@ -73,8 +73,6 @@ public class CartFragment extends Fragment {
         });
         getAllListProductCart();
         recyclerView.setAdapter(cartAdapter);
-
-
 
         return view;
     }

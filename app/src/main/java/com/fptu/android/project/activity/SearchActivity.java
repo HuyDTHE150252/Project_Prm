@@ -98,29 +98,3 @@ public class SearchActivity extends AppCompatActivity {
     }
 }
 
-
-//    @Override
-//    public Filter getFilter() {
-//        return new Filter() {
-//            @Override
-//            protected FilterResults performFiltering(CharSequence constraint) {
-//                String strSearch = constraint.toString();
-//                if(strSearch.isEmpty()){
-//                    listProduct = listProductSearch;
-//                }else{
-//                    List<Product> list = new ArrayList<>();
-//                    for(Product product : listProductSearch){
-//                        if(product.getProduct_name().toLowerCase().contains(strSearch.toLowerCase())){
-//                            list.add(product);
-//                        }
-//                    }
-//                    listProduct = list;
-//
-//                }
-//
-//                FilterResults filterResults = new FilterResults();
-//                filterResults.values= listProduct;
-//
-//
-//                return filterResults;
-//            }

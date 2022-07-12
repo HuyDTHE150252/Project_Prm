@@ -32,14 +32,13 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 public class RatingRestaurantActivity extends AppCompatActivity {
-    ImageView imgRate, cancelRating;
 
+    ImageView imgRate, cancelRating;
     EditText edtComment;
     RatingBar ratingBar;
     Button btnConfirm;
     FirebaseAuth auth;
     FirebaseFirestore firestore;
-
 
     void bidingView() {
         imgRate = findViewById(R.id.rateRestaurantImage);

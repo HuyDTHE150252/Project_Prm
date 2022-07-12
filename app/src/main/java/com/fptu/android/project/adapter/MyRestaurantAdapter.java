@@ -21,7 +21,6 @@ import com.fptu.android.project.model.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
-//import com.fptu.android.project.model.Product;
 
 import java.util.List;
 
@@ -48,11 +47,9 @@ public class MyRestaurantAdapter extends RecyclerView.Adapter<MyRestaurantAdapte
           bundle.putString("description", String.valueOf(item.getDescription()));
           bundle.putString("quantity", String.valueOf(item.getQuantity()));
           bundle.putString("cate_id", item.getCategoryId());
-          //bundle.putString("rate",String.valueOf(item.getRate()));
           Intent intent = new Intent(activity, RestaurantCrudActivity.class);
           intent.putExtras(bundle);
           activity.startActivity(intent);
-//          Log.u("Write1", "Error getting documents.", task.getException());
 
       }
     public void deleteData(int position){
@@ -71,13 +68,6 @@ public class MyRestaurantAdapter extends RecyclerView.Adapter<MyRestaurantAdapte
 
 }
 
-
-
-private void notifyRemoved(int position){
-          pList.remove(position);
-          notifyRemoved(position);
-          activity.getListProduct();
-}
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -105,14 +95,11 @@ private void notifyRemoved(int position){
         ImageView product_img;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-
             product_img = itemView.findViewById(R.id.product_image);
             name = itemView.findViewById(R.id.product_name);
             description = itemView.findViewById(R.id.product_description);
             price = itemView.findViewById(R.id.product_price);
             rate = itemView.findViewById(R.id.product_rate);
-
-
 
         }
     }

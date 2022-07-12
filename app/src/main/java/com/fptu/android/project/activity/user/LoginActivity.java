@@ -45,6 +45,7 @@ import java.util.Map;
 
 
 public class LoginActivity extends AppCompatActivity {
+
     public static final String TAG = "TAG";
     private Button btn_signup, btn_signin, btn_forgot;
     private EditText et_username, et_password;
@@ -156,10 +157,6 @@ public class LoginActivity extends AppCompatActivity {
     private void signInByGG(View view) {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
-
-
-
-
     }
 
     private void forgotpassword(View view) {
@@ -252,7 +249,6 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), HomePageActivity.class);
             startActivity(intent);
         }
-
 
     }
 

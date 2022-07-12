@@ -18,7 +18,6 @@ import com.fptu.android.project.R;
 import com.fptu.android.project.activity.OrderDetailActivity;
 import com.fptu.android.project.model.Order;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapter.ViewHolder> {
@@ -68,15 +67,6 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
             holder.status.setTextColor(context.getResources().getColor(R.color.md_red_A100));
         }
 
-
-//        holder.btnDetailOrder.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                    Intent intent= new Intent(context,OrderDetailActivity.class);
-//                    intent.putExtra("detailed",order);
-//                    context.startActivity(intent);
-//            }
-//        });
         holder.btnDetailOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,10 +94,11 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
         return orderList.size();
     }
 
-
     public class ViewHolder extends RecyclerView.ViewHolder {
+
         TextView name, currentD,addressOrder,orderID,status;
         Button btnDetailOrder;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             orderID=itemView.findViewById(R.id.order_history_item_id);

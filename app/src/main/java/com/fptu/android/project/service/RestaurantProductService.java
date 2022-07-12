@@ -9,7 +9,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 
 public class RestaurantProductService implements RestaurantProductDAO {
+
     private DatabaseReference databaseReference;
+
     public RestaurantProductService()
     {
         FirebaseDatabase db = FirebaseDatabase.getInstance();
@@ -19,17 +21,12 @@ public class RestaurantProductService implements RestaurantProductDAO {
 
     @Override
     public Task<Void> add(Product pro) {
-//        if(pro == null)// throw exc
         return databaseReference.push().setValue(pro);
-
     }
 
     @Override
     public Task<Void> update(String key, HashMap<String ,Object> hashMap) {
         return databaseReference.child(key).updateChildren(hashMap);
     }
-
-
-
 
 }

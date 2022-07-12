@@ -21,8 +21,8 @@ import com.google.firebase.perf.util.Constants;
 import org.json.JSONObject;
 
 public class NotificationService extends FirebaseMessagingService {
-    FirebaseAuth auth=FirebaseAuth.getInstance();
 
+    FirebaseAuth auth=FirebaseAuth.getInstance();
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage message) {
@@ -37,7 +37,6 @@ public class NotificationService extends FirebaseMessagingService {
         getFireBaseMessage(title,body);
 
     }
-
 
     public void getFireBaseMessage(String title, String msg){
         Intent intent= new Intent(this, HomePageActivity.class);

@@ -169,8 +169,6 @@
                 android:text="Add New Product"/>
 
 
-
-
         </LinearLayout>
 
     </ScrollView>

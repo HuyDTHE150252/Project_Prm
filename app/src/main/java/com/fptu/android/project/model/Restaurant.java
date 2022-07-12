@@ -3,6 +3,7 @@ package com.fptu.android.project.model;
 import java.io.Serializable;
 
 public class Restaurant implements Serializable {
+
     private String restaurant_image;
     private String restaurant_id;
     private int uid;
@@ -16,7 +17,6 @@ public class Restaurant implements Serializable {
 
     public Restaurant(String img, String name, String address, String rate, String status) {
     }
-
 
     public Restaurant(String restaurant_image, String restaurant_id, int uid, String restaurant_name, String restaurant_address, String restaurant_rate, String restaurant_status, String des, int status) {
         this.restaurant_image = restaurant_image;

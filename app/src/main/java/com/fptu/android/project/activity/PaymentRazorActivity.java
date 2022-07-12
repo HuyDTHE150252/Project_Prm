@@ -37,6 +37,7 @@ import java.util.UUID;
 
 
 public class PaymentRazorActivity extends AppCompatActivity implements PaymentResultListener {
+
     TextView totalPrice;
     Button payBtn;
     FirebaseFirestore firestore;
@@ -44,7 +45,7 @@ public class PaymentRazorActivity extends AppCompatActivity implements PaymentRe
     CartService cartService;
     List<Order> list;
 
-    private void bidingView() {
+    private void bindingView() {
         payBtn = findViewById(R.id.pay_btn);
         firestore = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
@@ -53,7 +54,7 @@ public class PaymentRazorActivity extends AppCompatActivity implements PaymentRe
 
     }
 
-    void bidingAction() {
+    void bindingAction() {
 
         payBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,19 +103,16 @@ public class PaymentRazorActivity extends AppCompatActivity implements PaymentRe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
 
-        bidingView();
+        bindingView();
         int amount=0;
         list = (ArrayList<Order>) getIntent().getSerializableExtra("itemListA");
         for (int i=0;i<list.size();i++){
             amount+=list.get(i).getTotalPrice();
         }
         totalPrice.setText(String.valueOf(amount));
-        bidingAction();
-
+        bindingAction();
 
     }
-
-
 
     @Override
     public void onPaymentSuccess(String s) {
@@ -125,7 +123,6 @@ public class PaymentRazorActivity extends AppCompatActivity implements PaymentRe
         builder.show();
 
         //notification
-
 
        list = (ArrayList<Order>) getIntent().getSerializableExtra("itemListA");
         if (list != null) {
@@ -177,14 +174,12 @@ public class PaymentRazorActivity extends AppCompatActivity implements PaymentRe
                         }
                     });
 
-
         } else {
             Intent intent = new Intent(PaymentRazorActivity.this, HomePageActivity.class);
             Toast.makeText(PaymentRazorActivity.this, "Payment fail", Toast.LENGTH_SHORT).show();
             startActivity(intent);
         }
     }
-
 
     @Override
     public void onPaymentError(int i, String s) {

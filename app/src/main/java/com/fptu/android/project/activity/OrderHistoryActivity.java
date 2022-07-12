@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class OrderHistoryActivity extends AppCompatActivity {
+
     RecyclerView recyclerView;
     OrderHistoryAdapter orderHistoryAdapter;
     List<Order> orderList;
@@ -42,19 +43,15 @@ public class OrderHistoryActivity extends AppCompatActivity {
         db=FirebaseFirestore.getInstance();
         auth=FirebaseAuth.getInstance();
         recyclerView=findViewById(R.id.orderHisRecyclerView);
+
         orderList= new ArrayList<>();
         orderHistoryAdapter= new OrderHistoryAdapter(this,orderList);
-//        orderHistoryAdapter.setData(getListOrder());
         LinearLayoutManager linearLayoutManager= new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(orderHistoryAdapter);
         loadListMyOrder();
 
-        //loadAllOrder();
-
     }
-
-
 
     private void loadListMyOrder(){
         String uid=auth.getCurrentUser().getUid();

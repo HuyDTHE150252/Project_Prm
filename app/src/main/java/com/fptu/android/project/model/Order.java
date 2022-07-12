@@ -3,8 +3,8 @@ package com.fptu.android.project.model;
 import java.io.Serializable;
 
 public class Order implements Serializable {
+
     String productName;
-//    String productPrice;
     String currentTime;
     String currentDate;
     String totalQuantity;

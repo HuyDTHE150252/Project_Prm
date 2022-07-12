@@ -34,6 +34,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EditProflieActivity extends AppCompatActivity {
+
     public static final String TAG = "TAG";
     EditText profileFullName, profileEmail, profilePhone;
     ImageView profileImageView;
@@ -146,7 +147,7 @@ public class EditProflieActivity extends AppCompatActivity {
     }
 
     private void uploadImageToFirebase(Uri imageUri) {
-        // uplaod image to firebase storage
+        // upload image to firebase storage
         final StorageReference fileRef = storageReference.child("users/" + fAuth.getCurrentUser().getUid() + "/profile.jpg");
         fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override

@@ -41,14 +41,11 @@ public class OrderActivity extends AppCompatActivity {
 
     EditText fullname, phone, shippingAddress;
     Button btnConfirmAddress, btnBack,btnPaymentDirect;
-
     FirebaseFirestore firestore;
     FirebaseAuth auth;
     CartService cartService;
 
-
-
-    void bidingView() {
+    void bindingView() {
         firestore = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
         fullname = findViewById(R.id.edtShipName);
@@ -89,8 +86,6 @@ public class OrderActivity extends AppCompatActivity {
               startActivity(intent);
           }
 
-
-
       } else {
           Toast.makeText(OrderActivity.this, "Please input all information to checkout", Toast.LENGTH_SHORT).show();
       }
@@ -98,7 +93,7 @@ public class OrderActivity extends AppCompatActivity {
       return  final_address;
   }
 
-    void bidingAction() {
+    void bindingAction() {
         btnBack.setOnClickListener(this::backScreen);
         btnConfirmAddress.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +101,6 @@ public class OrderActivity extends AppCompatActivity {
 
                 finalAddress();
             }
-
 
         });
         btnPaymentDirect.setOnClickListener(new View.OnClickListener() {
@@ -180,43 +174,32 @@ public class OrderActivity extends AppCompatActivity {
                                         }
                                     });
 
-
                         }else{
                         Intent intent = new Intent(OrderActivity.this, HomePageActivity.class);
 //              intent.putExtra("itemListA", (Serializable) list);
                         startActivity(intent);
                     }
 
-
-
                 } else {
                     Toast.makeText(OrderActivity.this, "Please input all information to checkout", Toast.LENGTH_SHORT).show();
                 }
-
 
             }
         });
 
     }
 
-
-
-
     private void backScreen(View view) {
         onBackPressed();
 
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shipping_address);
-        bidingView();
-        bidingAction();
-
-
-
+        bindingView();
+        bindingAction();
 
     }
 }

@@ -1,12 +1,12 @@
 package com.fptu.android.project.activity.restaurant;
 
+import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
 
 import com.fptu.android.project.R;
 import com.fptu.android.project.adapter.MyRestaurantAdapter;
@@ -21,11 +21,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShowActivity extends AppCompatActivity {
+    
     private RecyclerView recyclerView;
     private FirebaseFirestore db;
     private MyRestaurantAdapter adapter;
     private List<Product> list;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

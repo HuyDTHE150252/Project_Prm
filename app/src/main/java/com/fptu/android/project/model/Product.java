@@ -11,7 +11,6 @@ public class Product implements Serializable {
     private String description;
     private int product_price;
     private int quantity;
-    private int status;
 
     public Product() {
 
@@ -21,8 +20,7 @@ public class Product implements Serializable {
         this.product_url = product_url;
     }
 
-    public Product(String product_id, String product_url, String product_name, String categoryId, String description,
-                   int product_price, int quantity, String res_name, String res_address, int status) {
+    public Product(String product_id, String product_url, String product_name, String categoryId, String description, int product_price, int quantity) {
         this.product_id = product_id;
         this.product_url = product_url;
         this.product_name = product_name;
@@ -30,9 +28,7 @@ public class Product implements Serializable {
         this.description = description;
         this.product_price = product_price;
         this.quantity = quantity;
-        this.status = status;
     }
-
 
     public String getProduct_id() {
         return product_id;
@@ -90,12 +86,6 @@ public class Product implements Serializable {
         this.quantity = quantity;
     }
 
-    public int getStatus() {
-        return status;
-    }
 
-    public void setStatus(int status) {
-        this.status = status;
-    }
 
 }
