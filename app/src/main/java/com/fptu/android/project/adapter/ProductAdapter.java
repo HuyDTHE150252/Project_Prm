@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class    ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> implements Filterable {
+public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder>{
 
     private Context context;
     private List<Product> listProduct;
@@ -93,38 +93,4 @@ public class    ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Produ
         }
     }
 
-    @Override
-    public Filter getFilter() {
-        return new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence constraint) {
-                String strSearch = constraint.toString();
-                if(strSearch.isEmpty()){
-                    listProduct = listProductSearch;
-                }else{
-                    List<Product> list = new ArrayList<>();
-                    for(Product product : listProductSearch){
-                        if(product.getProduct_name().toLowerCase().contains(strSearch.toLowerCase())){
-                            list.add(product);
-                        }
-                    }
-                    listProduct = list;
-
-                }
-
-                FilterResults filterResults = new FilterResults();
-                filterResults.values= listProduct;
-
-
-                return filterResults;
-            }
-
-            @Override
-            protected void publishResults(CharSequence constraint, FilterResults results) {
-                listProduct = (List<Product>) results.values;
-                notifyDataSetChanged();
-
-            }
-        };
-    }
 }
