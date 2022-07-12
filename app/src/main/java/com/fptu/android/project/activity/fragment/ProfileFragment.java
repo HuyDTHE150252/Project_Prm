@@ -164,7 +164,6 @@ public class ProfileFragment extends Fragment {
                                 if (!month.contains(",")) {
                                     staticData.put(Integer.parseInt(month), staticData.get(Integer.parseInt(month)) + 1);
                                 }
-
                             }
                             List<Entry> entries = new ArrayList<Entry>();
                             for (Integer item : staticData.keySet()) {
