@@ -11,6 +11,7 @@ public class Product implements Serializable {
     private String description;
     private int product_price;
     private int quantity;
+    private String currentDate;
 
     public Product() {
 
@@ -86,6 +87,11 @@ public class Product implements Serializable {
         this.quantity = quantity;
     }
 
+    public String getCurrentDate() {
+        return currentDate;
+    }
 
-
+    public void setCurrentDate(String currentDate) {
+        this.currentDate = currentDate;
+    }
 }

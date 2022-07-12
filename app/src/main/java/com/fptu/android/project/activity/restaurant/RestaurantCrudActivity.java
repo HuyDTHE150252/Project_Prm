@@ -1,13 +1,7 @@
 package com.fptu.android.project.activity.restaurant;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -21,27 +15,27 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.fptu.android.project.R;
-import com.fptu.android.project.adapter.MyRestaurantAdapter;
-import com.fptu.android.project.interfaces.RestaurantProductDAO;
-import com.fptu.android.project.model.Model;
 import com.fptu.android.project.model.Product;
-import com.fptu.android.project.service.RestaurantProductService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Transaction;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.OnProgressListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.UUID;
 
 public class RestaurantCrudActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -133,20 +127,15 @@ public class RestaurantCrudActivity extends AppCompatActivity implements Adapter
                 String price = edit_price.getText().toString();
                 String description = edit_description.getText().toString();
                 String quantity = edit_quantity.getText().toString();
-                // String category = edit_category.getText().toString();
-                Float rate = 1.0f;
                 String url = imageUri.toString();
 
                 Bundle bundle1 = getIntent().getExtras();
                 if(bundle!= null){
                     String Id = id;
-
                     updateToFireStore(Id,name, price, description,quantity,type,url);
-
 
                 }else {
                     String id = UUID.randomUUID().toString();
-
                     saveToFireStore(id,name, price, description,quantity,type,url);}
             }
 
@@ -172,15 +161,19 @@ public class RestaurantCrudActivity extends AppCompatActivity implements Adapter
     }
 
     private void saveToFireStore(String id, String name, String price, String description,String quantity,String type, String url){
-        if(  !name.isEmpty() && !price.isEmpty()){
+        if (!name.isEmpty() && !price.isEmpty()) {
             HashMap<String, Object> map = new HashMap<>();
+            Calendar calForDate = Calendar.getInstance();
+            SimpleDateFormat currentDate = new SimpleDateFormat("MM dd yyyy");
+            String CurrentDate = currentDate.format(calForDate.getTime());
             map.put("id", id);
             map.put("name", name);
             map.put("price", price);
             map.put("description", description);
-            map.put("quantity",quantity);
-            map.put("url",url);
-            map.put("type",spinner.getSelectedItem().toString());
+            map.put("quantity", quantity);
+            map.put("url", url);
+            map.put("type", spinner.getSelectedItem().toString());
+            map.put("date", CurrentDate);
 
             db.collection("product").document(id).set(map)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {

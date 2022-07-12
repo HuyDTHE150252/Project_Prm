@@ -25,40 +25,32 @@
     <item android:title="Communicate">
         <menu>
             <item
-                android:id="@+id/message"
-                android:icon="@drawable/ic_chat_menu"
-                android:title="Message" />
+                android:id="@+id/locationUser"
+                android:icon="@drawable/ic_location_24dp"
+                android:title="Location" />
+
             <item
-                android:id="@+id/share"
-                android:icon="@drawable/ic_share_menu"
-                android:title="Share" />
+                android:id="@+id/orderUser"
+                android:icon="@drawable/ic_invoice"
+                android:title="HistoryOrder" />
+            <item
+                android:id="@+id/allOrder"
+                android:icon="@drawable/ic_invoice"
+                android:title="AllOrder" />
+
+            <item
+                android:id="@+id/restaurant_product"
+                android:icon="@drawable/admin_dashboard_icon_png_16"
+                android:title="Add product" />
+            <item
+                android:id="@+id/aboutApp"
+                android:icon="@drawable/admin_dashboard_icon_png_16"
+                android:title="About Restaurant" />
+            <item
+                android:id="@+id/logoutUser"
+                android:icon="@drawable/ic_lock"
+                android:title="Logout" />
         </menu>
     </item>
-    <item
-        android:id="@+id/locationUser"
-        android:icon="@drawable/ic_location_24dp"
-        android:title="Location" />
-
-    <item
-        android:id="@+id/orderUser"
-        android:icon="@drawable/ic_invoice"
-        android:title="HistoryOrder" />
-    <item
-        android:id="@+id/allOrder"
-        android:icon="@drawable/ic_invoice"
-        android:title="AllOrder" />
-
-    <item
-        android:id="@+id/restaurant_product"
-        android:icon="@drawable/admin_dashboard_icon_png_16"
-        android:title="Add product" />
-    <item
-        android:id="@+id/aboutApp"
-        android:icon="@drawable/admin_dashboard_icon_png_16"
-        android:title="About Restaurant" />
-    <item
-        android:id="@+id/logoutUser"
-        android:icon="@drawable/ic_lock"
-        android:title="Logout" />
 
 </menu>

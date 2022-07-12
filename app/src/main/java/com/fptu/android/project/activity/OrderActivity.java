@@ -1,20 +1,17 @@
 package com.fptu.android.project.activity;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import com.fptu.android.project.R;
-import com.fptu.android.project.common.Config;
 import com.fptu.android.project.model.Order;
 import com.fptu.android.project.service.CartService;
 import com.fptu.android.project.service.MyForegroundService;
@@ -24,12 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -136,7 +128,6 @@ public class OrderActivity extends AppCompatActivity {
                             cartMap.put("userId", uId);
                             cartMap.put("currentTimeOrder", saveCurrentTime);
                             cartMap.put("currentDateOrder", saveCurrentDate);
-
                             cartMap.put("addressShipping", final_address);
                             cartMap.put("orderStatus","In Progress");
                             cartMap.put("status","Direct");

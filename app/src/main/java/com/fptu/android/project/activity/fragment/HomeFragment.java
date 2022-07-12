@@ -31,6 +31,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -92,7 +93,7 @@ public class HomeFragment extends Fragment {
 
             LinearLayoutManager trendingLayoutManager = new LinearLayoutManager(view.getContext(), RecyclerView.HORIZONTAL, false);
             trending.setLayoutManager(trendingLayoutManager);
-            trend_adapter.setData(getListTrending());
+            trend_adapter.setData(getListNewest());
             trending.setAdapter(trend_adapter);
 
             LinearLayoutManager productLayoutManager = new LinearLayoutManager(view.getContext(), RecyclerView.VERTICAL, false);
@@ -147,9 +148,9 @@ public class HomeFragment extends Fragment {
         return list;
     }
 
-    private List<Product> getListTrending() {
+    private List<Product> getListNewest() {
         List<Product> list = new ArrayList<>();
-        database.collection("product")
+        database.collection("product").orderBy("date", Query.Direction.DESCENDING).limit(5)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {

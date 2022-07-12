@@ -69,7 +69,6 @@ public class Order implements Serializable {
 
     public Order(String productName, String currentTime, String currentDate, String totalQuantity, int totalPrice) {
         this.productName = productName;
-//        this.productPrice = productPrice;
         this.currentTime = currentTime;
         this.currentDate = currentDate;
         this.totalQuantity = totalQuantity;
