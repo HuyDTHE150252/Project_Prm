@@ -77,7 +77,6 @@ public class SmartQuiz extends Fragment {
                 public void onClick(View v) {
                     if (trialCount == 0) {
                         Toast.makeText(view.getContext(), "Good bye", Toast.LENGTH_SHORT).show();
-
                     } else {
                         if (currentQuizRight >= 0 && currentQuizRight < 10) {
                             if (currentButton.getText().equals(quiz.getCorrect_answer())) {
