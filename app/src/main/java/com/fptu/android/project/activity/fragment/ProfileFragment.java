@@ -26,6 +26,7 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -134,8 +135,6 @@ public class ProfileFragment extends Fragment {
                     phone.setText(documentSnapshot.getString("phone"));
                     fullName.setText(documentSnapshot.getString("fName"));
                     email.setText(documentSnapshot.getString("email"));
-
-
                 } else {
                     Log.d("tag", "onEvent: Document do not exists");
                 }
@@ -173,9 +172,14 @@ public class ProfileFragment extends Fragment {
                             LineDataSet dataSet = new LineDataSet(entries, "Orders"); // add entries to dataset
                             dataSet.setColor(ColorTemplate.COLORFUL_COLORS[0]);
                             LineData lineData = new LineData(dataSet);
+
                             lineChart.setData(lineData);
+
                             lineChart.setDescription(null);
                             lineChart.setScaleEnabled(false);
+                            lineChart.getAxisRight().setDrawLabels(false);
+                            //lineChart.getAxisLeft().setDrawLabels(false);
+                            //lineChart.getXAxis().setLabelCount(1,true);
                             lineChart.invalidate(); // refresh
                         } else {
                             Log.w("err", "Error getting documents.", task.getException());
