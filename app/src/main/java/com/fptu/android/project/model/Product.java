@@ -19,6 +19,13 @@ public class Product implements Serializable {
 
     }
 
+    public Product(String product_url) {
+        this.product_url = product_url;
+    }
+
+
+
+
     public Product(String product_id, String product_url, String product_name, String categoryId, String description, int product_price, int quantity, String res_name, String res_address, int status) {
         this.product_id = product_id;
         this.product_url = product_url;
@@ -32,12 +39,7 @@ public class Product implements Serializable {
         this.status = status;
     }
 
-    public Product(String product_id, String product_name, String description, int product_price) {
-        this.product_id = product_id;
-        this.product_name = product_name;
-        this.description = description;
-        this.product_price = product_price;
-    }
+
 
 
 

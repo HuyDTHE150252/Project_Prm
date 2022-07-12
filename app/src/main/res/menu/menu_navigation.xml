@@ -16,7 +16,10 @@
             android:icon="@drawable/ic_login_menu"
             android:title="Profile" />
 
-
+        <item
+            android:id="@+id/smartQuiz"
+            android:title="Funny Quiz"
+            />
     </group>
 
     <item android:title="Communicate">
@@ -49,6 +52,10 @@
         android:id="@+id/restaurant_product"
         android:icon="@drawable/admin_dashboard_icon_png_16"
         android:title="Add product" />
+    <item
+        android:id="@+id/aboutApp"
+        android:icon="@drawable/admin_dashboard_icon_png_16"
+        android:title="About Restaurant" />
     <item
         android:id="@+id/logoutUser"
         android:icon="@drawable/ic_lock"

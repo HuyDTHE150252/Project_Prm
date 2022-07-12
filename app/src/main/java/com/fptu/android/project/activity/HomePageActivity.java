@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -19,24 +20,27 @@ import com.fptu.android.project.activity.fragment.CartFragment;
 import com.fptu.android.project.activity.fragment.HomeFragment;
 import com.fptu.android.project.activity.fragment.ProfileFragment;
 import com.fptu.android.project.activity.ggmap.GoogmapActivity;
+import com.fptu.android.project.activity.restaurant.RestaurantActivity;
 import com.fptu.android.project.activity.restaurant.RestaurantCrudActivity;
 import com.fptu.android.project.activity.shipper.ShipperActivity;
 import com.fptu.android.project.activity.user.LoginActivity;
+import com.fptu.android.project.adapter.ProductAdapter;
+import com.fptu.android.project.games.smartquiz.SmartQuiz;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
 
 
 public class HomePageActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private NavigationView nav_menu;
+    SearchView searchView;
     ProgressBar progressBar;
     FirebaseAuth auth;
+    private ProductAdapter product_adapter;
     FirebaseFirestore firestore;
 
     @Override
@@ -52,8 +56,6 @@ public class HomePageActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
         nav_menu = findViewById(R.id.nav_view);
         firestore = FirebaseFirestore.getInstance();
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
         nav_menu.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -70,7 +72,7 @@ public class HomePageActivity extends AppCompatActivity {
                             if (auth.getCurrentUser().isEmailVerified()) {
                                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CartFragment()).commit();
                             }
-                            Toast.makeText(HomePageActivity.this, "You have to verify your email to place orders!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(HomePageActivity.this, "You have to verify your email to check out your orders!", Toast.LENGTH_SHORT).show();
 
                         } else {
                             Intent intent = new Intent(HomePageActivity.this, LoginActivity.class);
@@ -87,7 +89,9 @@ public class HomePageActivity extends AppCompatActivity {
                             //startActivity(intent);
                         }
                         break;
-
+                    case R.id.aboutApp:
+                        startActivity(new Intent(HomePageActivity.this, RestaurantActivity.class));
+                        break;
                     case R.id.logoutUser:
                         auth.signOut();//logout
                         startActivity(new Intent(HomePageActivity.this, LoginActivity.class));
@@ -101,58 +105,37 @@ public class HomePageActivity extends AppCompatActivity {
                         startActivity(new Intent(HomePageActivity.this, GoogmapActivity.class));
                         break;
                     case R.id.allOrder:
-                        firestore.collection("dynamic_menu").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        firestore.collection("users").document(auth.getCurrentUser().getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                             @Override
-                            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
-
-                                if (e != null) {
-
-                                }
-
-                                for (DocumentChange documentChange : documentSnapshots.getDocumentChanges()) {
-                                    String role = documentChange.getDocument().getData().get("role").toString();
-                                    if (role.equals("admin") && role.equals("shipper")) {
-                                        startActivity(new Intent(HomePageActivity.this, ShipperActivity.class));
-                                    } else {
-                                        Toast.makeText(HomePageActivity.this, "Only Shipper and Admin can see current orders!", Toast.LENGTH_SHORT).show();
-                                    }
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                String role = documentSnapshot.getString("role");
+                                if (role.equals("admin") || role.equals("shipper")) {
+                                    startActivity(new Intent(HomePageActivity.this, ShipperActivity.class));
+                                } else {
+                                    Toast.makeText(HomePageActivity.this, "Only Shipper and Admin can see current orders!", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
-
+                        break;
                     case R.id.restaurant_product:
-                        firestore.collection("dynamic_menu").addSnapshotListener(new EventListener<QuerySnapshot>() {
+
+                        firestore.collection("users").document(auth.getCurrentUser().getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                             @Override
-                            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                String role = documentSnapshot.getString("role");
 
-                                if (e != null) {
-
-                                }
-
-                                for (DocumentChange documentChange : documentSnapshots.getDocumentChanges()) {
-                                    String role = documentChange.getDocument().getData().get("role").toString();
-                                    if (role.equals("admin")) {
-                                        startActivity(new Intent(HomePageActivity.this, RestaurantCrudActivity.class));
-                                    } else {
-                                        Toast.makeText(HomePageActivity.this, "Only Admin can add products!", Toast.LENGTH_SHORT).show();
-                                    }
+                                if (role.equals("admin")) {
+                                    startActivity(new Intent(HomePageActivity.this, RestaurantCrudActivity.class));
+                                } else {
+                                    Toast.makeText(HomePageActivity.this, "Only Admin can add products!", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
-                        firestore.collection("dynamic_menu").addSnapshotListener(new EventListener<QuerySnapshot>() {
-                            @Override
-                            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
-
-                                if (e != null) {
-
-                                }
-
-                                for (DocumentChange documentChange : documentSnapshots.getDocumentChanges()) {
-                                    String uid = documentChange.getDocument().getData().get("uid").toString();
-
-                                }
-                            }
-                        });
+                        break;
+                    case R.id.smartQuiz:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SmartQuiz())
+                                .commit();
+                        break;
                 }
 
                 drawerLayout.closeDrawer(GravityCompat.START);
@@ -187,4 +170,19 @@ public class HomePageActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, homeFragment).commit();
         }
     }
+//    searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//        @Override
+//        public boolean onQueryTextSubmit(String query) {
+//            product_adapter.getFilter().filter(query);
+//            return false;
+//        }
+//
+//        @Override
+//        public boolean onQueryTextChange(String newText) {
+//            product_adapter.getFilter().filter(newText);
+//            return false;
+//        }
+//    });
+
+
 }

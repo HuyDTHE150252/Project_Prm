@@ -22,17 +22,25 @@
         <TextView
             android:id="@+id/quiz_point"
             android:layout_width="match_parent"
-            android:textAlignment="center"
             android:layout_height="wrap_content"
             android:layout_below="@+id/quizGame_title"
-            android:text="Point: 0/10" />
+            android:text="Point: 0/10"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/quiz_trial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/quiz_point"
+            android:text="Trial: 5/5"
+            android:textAlignment="center" />
 
         <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/quiz_card"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_below="@+id/quiz_point"
+            android:layout_below="@+id/quiz_trial"
             android:layout_margin="15dp"
             app:cardCornerRadius="100dp">
 

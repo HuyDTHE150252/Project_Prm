@@ -29,12 +29,13 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class EditProflieActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
-    EditText profileFullName,profileEmail,profilePhone;
+    EditText profileFullName, profileEmail, profilePhone;
     ImageView profileImageView;
     Button saveBtn, changeAvatar;
     FirebaseAuth fAuth;
@@ -64,7 +65,7 @@ public class EditProflieActivity extends AppCompatActivity {
         changeAvatar = findViewById(R.id.changeAvatar);
         saveBtn = findViewById(R.id.saveProfileInfo);
 
-        StorageReference profileRef = storageReference.child("users/"+fAuth.getCurrentUser().getUid()+"/profile.jpg");
+        StorageReference profileRef = storageReference.child("users/" + fAuth.getCurrentUser().getUid() + "/profile.jpg");
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -76,20 +77,20 @@ public class EditProflieActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(openGalleryIntent,1000);
+                startActivityForResult(openGalleryIntent, 1000);
             }
         });
         changeAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(openGalleryIntent,1000);
+                startActivityForResult(openGalleryIntent, 1000);
             }
         });
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(profileFullName.getText().toString().isEmpty() || profileEmail.getText().toString().isEmpty() || profilePhone.getText().toString().isEmpty()){
+                if (profileFullName.getText().toString().isEmpty() || profileEmail.getText().toString().isEmpty() || profilePhone.getText().toString().isEmpty()) {
                     Toast.makeText(EditProflieActivity.this, "One or Many fields are empty.", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -99,25 +100,24 @@ public class EditProflieActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         DocumentReference docRef = fStore.collection("users").document(user.getUid());
-                        Map<String,Object> edited = new HashMap<>();
-                        edited.put("email",email);
-                        edited.put("fName",profileFullName.getText().toString());
-                        edited.put("phone",profilePhone.getText().toString());
+                        Map<String, Object> edited = new HashMap<>();
+                        edited.put("email", email);
+                        edited.put("fName", profileFullName.getText().toString());
+                        edited.put("phone", profilePhone.getText().toString());
                         docRef.update(edited).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(EditProflieActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(), ProfileFragment.class));
+                                startActivity(new Intent(EditProflieActivity.this, ProfileFragment.class));
                                 finish();
                             }
 
                         });
-                        //Toast.makeText(EditProflieActivity.this, "Email is changed.", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(EditProflieActivity.this,   e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditProflieActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -134,12 +134,9 @@ public class EditProflieActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @androidx.annotation.Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 1000){
-            if(resultCode == Activity.RESULT_OK){
+        if (requestCode == 1000) {
+            if (resultCode == Activity.RESULT_OK) {
                 Uri imageUri = data.getData();
-
-                //profileImage.setImageURI(imageUri);
-
                 uploadImageToFirebase(imageUri);
 
 
@@ -150,7 +147,7 @@ public class EditProflieActivity extends AppCompatActivity {
 
     private void uploadImageToFirebase(Uri imageUri) {
         // uplaod image to firebase storage
-        final StorageReference fileRef = storageReference.child("users/"+fAuth.getCurrentUser().getUid()+"/profile.jpg");
+        final StorageReference fileRef = storageReference.child("users/" + fAuth.getCurrentUser().getUid() + "/profile.jpg");
         fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {

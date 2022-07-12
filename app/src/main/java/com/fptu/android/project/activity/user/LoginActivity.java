@@ -117,8 +117,6 @@ public class LoginActivity extends AppCompatActivity {
 
                         }
 
-
-                        // ...
                     }
                 });
     }
@@ -160,57 +158,9 @@ public class LoginActivity extends AppCompatActivity {
         startActivityForResult(signInIntent, RC_SIGN_IN);
 
 
-//        fAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//            @Override
-//            public void onComplete(@NonNull Task<AuthResult> task) {
-//                if(task.isSuccessful()){
 
-            // send verification link
 
-            // FirebaseUser fuser = fAuth.getCurrentUser();
-//                    fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
-//                        @Override
-//                        public void onSuccess(Void aVoid) {
-//                            Toast.makeText(LoginActivity.this, "Verification Email Has been Sent.", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }).addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                            Log.d(TAG, "onFailure: Email not sent " + e.getMessage());
-//                        }
-//                    });
-
-            //Toast.makeText(LoginActivity.this, "User Created.", Toast.LENGTH_SHORT).show();
-//                    userID = fAuth.getCurrentUser().getUid();
-//                    DocumentReference documentReference = fStore.collection("users").document(userID);
-//                    Map<String,Object> user = new HashMap<>();
-//                    user.put("uId",userID);
-//                    user.put("fName","name");
-//                    user.put("email","email");
-//                    user.put("phone","phone");
-//                    Log.d("uid", "onSuccess: user Profile is created for "+ userID);
-//                    documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                        @Override
-//                        public void onSuccess(Void aVoid) {
-//                            Log.d(TAG, "onSuccess: user Profile is created for "+ userID);
-//                        }
-//                    }).addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                            Log.d(TAG, "onFailure: " + e.toString());
-//                        }
-//                    });
-//                    startActivity(new Intent(getApplicationContext(),HomePageActivity.class));
-//        }
-
-//                }else {
-//                    Toast.makeText(LoginActivity.this, "Error ! " , Toast.LENGTH_SHORT).show();
-//                    //progressBar.setVisibility(View.GONE);
-//                }
-//            }
-//        });
-
-        }
+    }
 
     private void forgotpassword(View view) {
         final EditText resetMail = new EditText(view.getContext());

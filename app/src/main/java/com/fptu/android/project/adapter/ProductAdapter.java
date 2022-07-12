@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,12 +18,15 @@ import com.fptu.android.project.R;
 import com.fptu.android.project.activity.ProductDetailActivity;
 import com.fptu.android.project.model.Product;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-public class    ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder>{
+public class    ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> implements Filterable {
 
     private Context context;
     private List<Product> listProduct;
+    private List<Product> listProductSearch;
 
     public ProductAdapter(Context context) {
         this.context = context;
@@ -30,6 +35,7 @@ public class    ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Produ
     public ProductAdapter(Context context, List<Product> listProduct) {
         this.context = context;
         this.listProduct = listProduct;
+        this.listProductSearch = listProduct;
     }
 
     public void setData(List<Product> list) {
@@ -69,6 +75,8 @@ public class    ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Produ
         return listProduct.size();
     }
 
+
+
     public class ProductViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView product_img;
@@ -83,5 +91,40 @@ public class    ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Produ
             product_description = itemView.findViewById(R.id.product_description);
             product_price = itemView.findViewById(R.id.product_price);
         }
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String strSearch = constraint.toString();
+                if(strSearch.isEmpty()){
+                    listProduct = listProductSearch;
+                }else{
+                    List<Product> list = new ArrayList<>();
+                    for(Product product : listProductSearch){
+                        if(product.getProduct_name().toLowerCase().contains(strSearch.toLowerCase())){
+                            list.add(product);
+                        }
+                    }
+                    listProduct = list;
+
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values= listProduct;
+
+
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                listProduct = (List<Product>) results.values;
+                notifyDataSetChanged();
+
+            }
+        };
     }
 }
