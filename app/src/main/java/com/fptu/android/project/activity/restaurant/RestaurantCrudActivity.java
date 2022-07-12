@@ -140,19 +140,19 @@ public class RestaurantCrudActivity extends AppCompatActivity {
                 if(bundle!= null){
                     String Id = id;
 
-                    updateToFireStore(Id,name, price, description,quantity,category,rate,url);
+                    updateToFireStore(Id,name, price, description,quantity,category,url);
 
 
                 }else {
                     String id = UUID.randomUUID().toString();
 
-                    saveToFireStore(id,name, price, description,quantity,category,rate,url);}
+                    saveToFireStore(id,name, price, description,quantity,category,url);}
             }
 
 
         });}
-    private void updateToFireStore(String id, String name, String price, String description,String quantity,String category, float rate, String url) {
-        db.collection("product").document(id).update("name",name,"price",price,"description",description,"quantity",quantity,"type",category,"rate",rate,"url",url)
+    private void updateToFireStore(String id, String name, String price, String description,String quantity,String category, String url) {
+        db.collection("product").document(id).update("name",name,"price",price,"description",description,"quantity",quantity,"type",category,"url",url)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -170,7 +170,7 @@ public class RestaurantCrudActivity extends AppCompatActivity {
                 });
     }
 
-    private void saveToFireStore(String id, String name, String price, String description,String quantity,String category,float rate, String url){
+    private void saveToFireStore(String id, String name, String price, String description,String quantity,String category, String url){
         if(  !name.isEmpty() && !price.isEmpty()){
             HashMap<String, Object> map = new HashMap<>();
             map.put("id", id);
