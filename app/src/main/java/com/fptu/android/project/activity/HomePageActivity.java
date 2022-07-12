@@ -38,6 +38,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.Locale;
+
 
 public class HomePageActivity extends AppCompatActivity {
 
@@ -62,8 +64,6 @@ public class HomePageActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
         nav_menu = findViewById(R.id.nav_view);
         firestore = FirebaseFirestore.getInstance();
-        //String uid = auth.getCurrentUser().getUid();
-
         nav_menu.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -80,7 +80,7 @@ public class HomePageActivity extends AppCompatActivity {
                             if (auth.getCurrentUser().isEmailVerified()) {
                                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CartFragment()).commit();
                             }
-                            Toast.makeText(HomePageActivity.this, "You have to verify your email to place orders!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(HomePageActivity.this, "You have to verify your email to check out your orders!", Toast.LENGTH_SHORT).show();
 
                         } else {
                             Intent intent = new Intent(HomePageActivity.this, LoginActivity.class);
@@ -117,7 +117,6 @@ public class HomePageActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
                                 String role = documentSnapshot.getString("role");
-                                System.out.println(role);
                                 if (role.equals("admin") || role.equals("shipper")) {
                                     startActivity(new Intent(HomePageActivity.this, ShipperActivity.class));
                                 } else {
@@ -132,7 +131,7 @@ public class HomePageActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
                                 String role = documentSnapshot.getString("role");
-                                System.out.println(role);
+
                                 if (role.equals("admin")) {
                                     startActivity(new Intent(HomePageActivity.this, RestaurantCrudActivity.class));
                                 } else {

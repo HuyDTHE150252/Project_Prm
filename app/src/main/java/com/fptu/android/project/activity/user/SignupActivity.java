@@ -88,28 +88,28 @@ public class SignupActivity extends AppCompatActivity {
         phone = et_phone.getText().toString();
         username = et_username.getText().toString();
         if (TextUtils.isEmpty(email)) {
-            Toast.makeText(this, "Vui lòng nhập email!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter your Email!", Toast.LENGTH_SHORT).show();
             return;
         }
         if (TextUtils.isEmpty(username)) {
-            Toast.makeText(this, "Vui lòng nhập tên!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter your Username!", Toast.LENGTH_SHORT).show();
             return;
         }
         if (TextUtils.isEmpty(phone)) {
-            Toast.makeText(this, "Vui lòng nhập sđt!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter your Phone number!", Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (TextUtils.isEmpty(password)) {
-            Toast.makeText(this, "Vui lòng nhập password!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter your Password!", Toast.LENGTH_SHORT).show();
             return;
         }
         if (TextUtils.isEmpty(cfpassword)) {
-            Toast.makeText(this, "Vui lòng xác nhận password!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter Confirm password!", Toast.LENGTH_SHORT).show();
             return;
         }
         if (!TextUtils.equals(password, cfpassword)) {
-            Toast.makeText(this, "Vui lòng xác nhận đúng mật khẩu", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter correct Confirm password!", Toast.LENGTH_SHORT).show();
             return;
         }
         fAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {

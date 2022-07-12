@@ -90,7 +90,7 @@ public class ProfileFragment extends Fragment {
         resendCode = view.findViewById(R.id.resendCode);
         verifyMsg = view.findViewById(R.id.verifyMsg);
         verified = view.findViewById(R.id.verified);
-
+        System.out.println(fAuth.getCurrentUser().getDisplayName());
         // Email Verification
         if (!user.isEmailVerified()) {
             verifyMsg.setVisibility(View.VISIBLE);
@@ -148,7 +148,6 @@ public class ProfileFragment extends Fragment {
 
     private void fetchingStaticDataForUser(View view) {
         lineChart = view.findViewById(R.id.user_chart_activities);
-        System.out.println(userId);
         fStore.collection("Order").whereEqualTo("userId", userId)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -207,7 +206,7 @@ public class ProfileFragment extends Fragment {
 
         final AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(view.getContext());
         passwordResetDialog.setTitle("Reset Password ?");
-        passwordResetDialog.setMessage("Enter New Password >= 6 Characters long.");
+        passwordResetDialog.setMessage("Enter New Password with more than 6 Characters long.");
         passwordResetDialog.setView(resetPassword);
 
         passwordResetDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
