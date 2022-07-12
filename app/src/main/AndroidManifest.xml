@@ -25,14 +25,13 @@
         android:theme="@style/Theme.Project"
         tools:targetApi="31">
         <activity
-<<<<<<< HEAD
             android:name=".activity.SearchActivity"
-=======
+            android:exported="false" />
+        <activity
             android:name=".activity.RatingRestaurantActivity"
             android:exported="false" />
         <activity
             android:name=".activity.restaurant.RestaurantActivity"
->>>>>>> ec3ccae1acb06d3be3632b287e858668cd81b88a
             android:exported="false" />
         <activity
             android:name=".activity.ListProductsByCategoryActivity"
