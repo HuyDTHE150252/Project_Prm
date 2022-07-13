@@ -188,6 +188,7 @@
     <color name="md_light_green_A100">#CCFF90</color>
     <color name="md_light_green_A200">#B2FF59</color>
     <color name="md_light_green_A400">#76FF03</color>
+    <color name="FPT_green">#4EB748</color>
     <color name="md_light_green_A700">#64DD17</color>
 
     <!-- lime-->
