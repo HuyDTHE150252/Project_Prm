@@ -69,14 +69,12 @@ public class TrendingAdapter extends RecyclerView.Adapter<TrendingAdapter.Trendi
         private ImageView trending_img;
         private TextView trending_name;
         private TextView trend_description;
-        private TextView rate;
 
         public TrendingViewHolder(@NonNull View itemView) {
             super(itemView);
             trending_img = itemView.findViewById(R.id.trend_image);
             trending_name = itemView.findViewById(R.id.trend_name);
             trend_description = itemView.findViewById(R.id.trend_description);
-            rate = itemView.findViewById(R.id.trend_rate);
         }
     }
 }

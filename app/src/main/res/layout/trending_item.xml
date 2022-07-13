@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layoutTrendingItem"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_height="350dp"
     android:layout_marginHorizontal="3dp"
     android:layout_marginVertical="10dp">
 
 
     <androidx.cardview.widget.CardView
         android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:backgroundTint="#fffae6"
         app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -42,24 +42,23 @@
                 android:textColor="@color/black"
                 android:textSize="20dp" />
 
-            <TextView
-                android:id="@+id/trend_description"
-                android:layout_width="wrap_content"
-                android:layout_height="80dp"
-                android:layout_below="@id/trend_name"
-                android:padding="10dp"
-                android:text="Ngon "
-                android:textSize="15dp" />
-
-            <TextView
-                android:id="@+id/trend_rate"
-                android:layout_width="wrap_content"
+            <ScrollView
+                android:layout_width="210dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/trend_description"
-                android:drawableStart="@drawable/ic_rate_star"
-                android:padding="5dp"
-                android:text=" 5.0"
-                android:textSize="15dp" />
+                android:layout_below="@id/trend_name"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:id="@+id/trend_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:padding="10dp"
+                    android:text="- Cà phê capuchino gồm có 3 phần, đó là: cà phê espresso, sữa nóng được tạo bọt và một ít bột cacao (hoặc bột sô cô la, bột quế). "
+                    android:textSize="15dp" />
+            </ScrollView>
 
         </RelativeLayout>
 

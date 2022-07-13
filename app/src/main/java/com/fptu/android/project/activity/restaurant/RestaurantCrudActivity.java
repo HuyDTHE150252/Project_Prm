@@ -89,7 +89,9 @@ public class RestaurantCrudActivity extends AppCompatActivity implements Adapter
             edit_quantity.setText(quantity);
 
         }else {
+
             btnAdd.setText("Save");
+
 
         }
 
@@ -133,10 +135,18 @@ public class RestaurantCrudActivity extends AppCompatActivity implements Adapter
                 if(bundle!= null){
                     String Id = id;
                     updateToFireStore(Id,name, price, description,quantity,type,url);
+                    edit_name.setText("");
+                    edit_price.setText("");
+                    edit_description.setText("");
+                    edit_quantity.setText("");
 
                 }else {
                     String id = UUID.randomUUID().toString();
                     saveToFireStore(id,name, price, description,quantity,type,url);}
+                edit_name.setText("");
+                edit_price.setText("");
+                edit_description.setText("");
+                edit_quantity.setText("");
             }
 
 

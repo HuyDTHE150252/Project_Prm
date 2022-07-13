@@ -25,33 +25,33 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.List;
 
 public class MyRestaurantAdapter extends RecyclerView.Adapter<MyRestaurantAdapter.MyViewHolder> {
-      private ShowActivity activity;
-      private List<Product> pList;
-      Context context;
-      private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private ShowActivity activity;
+    private List<Product> pList;
+    Context context;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public MyRestaurantAdapter(Context context) {
         this.context = context;
     }
 
     public MyRestaurantAdapter(ShowActivity activity, List<Product> pList){
-          this.activity = activity;
-          this.pList = pList;
-      }
-      public void updateData(int position){
-          Product item = pList.get(position);
-          Bundle bundle = new Bundle();
-          bundle.putString("id", item.getProduct_id());
-          bundle.putString("name", item.getProduct_name());
-          bundle.putString("price", String.valueOf(item.getProduct_price()));
-          bundle.putString("description", String.valueOf(item.getDescription()));
-          bundle.putString("quantity", String.valueOf(item.getQuantity()));
-          bundle.putString("cate_id", item.getCategoryId());
-          Intent intent = new Intent(activity, RestaurantCrudActivity.class);
-          intent.putExtras(bundle);
-          activity.startActivity(intent);
+        this.activity = activity;
+        this.pList = pList;
+    }
+    public void updateData(int position){
+        Product item = pList.get(position);
+        Bundle bundle = new Bundle();
+        bundle.putString("id", item.getProduct_id());
+        bundle.putString("name", item.getProduct_name());
+        bundle.putString("price", String.valueOf(item.getProduct_price()));
+        bundle.putString("description", String.valueOf(item.getDescription()));
+        bundle.putString("quantity", String.valueOf(item.getQuantity()));
+        bundle.putString("cate_id", item.getCategoryId());
+        Intent intent = new Intent(activity, RestaurantCrudActivity.class);
+        intent.putExtras(bundle);
+        activity.startActivity(intent);
 
-      }
+    }
     public void deleteData(int position){
         Product item = pList.get(position);
         db.collection("product").document(item.getProduct_id()).delete()
@@ -64,9 +64,9 @@ public class MyRestaurantAdapter extends RecyclerView.Adapter<MyRestaurantAdapte
                             Toast.makeText(activity, "Delete is fail" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
-    });
+                });
 
-}
+    }
 
     @NonNull
     @Override
@@ -99,8 +99,6 @@ public class MyRestaurantAdapter extends RecyclerView.Adapter<MyRestaurantAdapte
             name = itemView.findViewById(R.id.product_name);
             description = itemView.findViewById(R.id.product_description);
             price = itemView.findViewById(R.id.product_price);
-            rate = itemView.findViewById(R.id.product_rate);
-
         }
     }
 }
