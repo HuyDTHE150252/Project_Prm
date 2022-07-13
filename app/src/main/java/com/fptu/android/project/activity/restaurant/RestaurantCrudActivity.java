@@ -52,6 +52,7 @@ public class RestaurantCrudActivity extends AppCompatActivity implements Adapter
     private DatabaseReference root = FirebaseDatabase.getInstance().getReference("ImageProduct");
     private StorageReference reference = FirebaseStorage.getInstance().getReference("ImgProduct");
     Spinner spinner;
+    String urls;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +120,6 @@ public class RestaurantCrudActivity extends AppCompatActivity implements Adapter
             @Override
             public void onClick(View v) {
                 if (imageUri != null){
-                    uploadToFirebase(imageUri);
 
                 }else{
                     Toast.makeText(RestaurantCrudActivity.this, "Please Select Image", Toast.LENGTH_SHORT).show();
@@ -129,24 +129,21 @@ public class RestaurantCrudActivity extends AppCompatActivity implements Adapter
                 String price = edit_price.getText().toString();
                 String description = edit_description.getText().toString();
                 String quantity = edit_quantity.getText().toString();
-                String url = imageUri.toString();
+
 
                 Bundle bundle1 = getIntent().getExtras();
                 if(bundle!= null){
-                    String Id = id;
-                    updateToFireStore(Id,name, price, description,quantity,type,url);
-                    edit_name.setText("");
-                    edit_price.setText("");
-                    edit_description.setText("");
-                    edit_quantity.setText("");
+
+                    uploadToFirebase1(imageUri);
+
 
                 }else {
-                    String id = UUID.randomUUID().toString();
-                    saveToFireStore(id,name, price, description,quantity,type,url);}
-                edit_name.setText("");
-                edit_price.setText("");
-                edit_description.setText("");
-                edit_quantity.setText("");
+
+                    uploadToFirebase(imageUri);
+
+
+                    }
+
             }
 
 
@@ -157,6 +154,10 @@ public class RestaurantCrudActivity extends AppCompatActivity implements Adapter
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
+                            edit_name.setText("");
+                            edit_price.setText("");
+                            edit_description.setText("");
+                            edit_quantity.setText("");
                             Toast.makeText(RestaurantCrudActivity.this, "Update is sussecful", Toast.LENGTH_SHORT).show();
                         }else {
                             Toast.makeText(RestaurantCrudActivity.this, "Update is fail"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -182,7 +183,7 @@ public class RestaurantCrudActivity extends AppCompatActivity implements Adapter
             map.put("description", description);
             map.put("quantity", quantity);
             map.put("url", url);
-            map.put("type", spinner.getSelectedItem().toString());
+            map.put("type", type);
             map.put("date", CurrentDate);
 
             db.collection("product").document(id).set(map)
@@ -190,6 +191,10 @@ public class RestaurantCrudActivity extends AppCompatActivity implements Adapter
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){
+                                edit_name.setText("");
+                                edit_price.setText("");
+                                edit_description.setText("");
+                                edit_quantity.setText("");
                                 Toast.makeText(RestaurantCrudActivity.this, "Record is inserted", Toast.LENGTH_SHORT).show();
                             }}
                     }).addOnFailureListener(new OnFailureListener() {
@@ -198,6 +203,7 @@ public class RestaurantCrudActivity extends AppCompatActivity implements Adapter
                             Toast.makeText(RestaurantCrudActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
+
         }else
             Toast.makeText(this, "Empty fields not Allowed", Toast.LENGTH_SHORT).show();
     }
@@ -221,11 +227,55 @@ public class RestaurantCrudActivity extends AppCompatActivity implements Adapter
                 fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
+                        String id = UUID.randomUUID().toString();
+                        String type = spinner.getSelectedItem().toString();
+                        String name = edit_name.getText().toString();
+                        String price = edit_price.getText().toString();
+                        String description = edit_description.getText().toString();
+                        String quantity = edit_quantity.getText().toString();
                         Product pro = new Product(uri.toString());
                         String proId = root.push().getKey();
                         root.child(proId).setValue(pro.getProduct_url());
+                        urls = pro.getProduct_url();
 
-                        Toast.makeText(RestaurantCrudActivity.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
+                        saveToFireStore(id,name, price, description,quantity, type,urls);
+                        System.out.println("hadkjhsfkhdsf=========="+pro.getProduct_url());
+                        System.out.println("98058403-============================="+id + name + price + description);
+
+
+                        //Toast.makeText(RestaurantCrudActivity.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
+                        imageView.setImageResource(R.drawable.ic_baseline_add_photo_alternate_24);
+                    }
+                });
+            }});
+
+    }
+
+    private void uploadToFirebase1(Uri uri){
+        final StorageReference fileRef = reference.child(System.currentTimeMillis() + "." + getFileExtension(uri));
+        fileRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        String Id = id;
+                        String type = spinner.getSelectedItem().toString();
+                        String name = edit_name.getText().toString();
+                        String price = edit_price.getText().toString();
+                        String description = edit_description.getText().toString();
+                        String quantity = edit_quantity.getText().toString();
+                        Product pro = new Product(uri.toString());
+                        String proId = root.push().getKey();
+                        root.child(proId).setValue(pro.getProduct_url());
+                        urls = pro.getProduct_url();
+                        updateToFireStore(id,name, price, description,quantity, type,urls);
+                        //saveToFireStore(id,name, price, description,quantity, type,urls);
+                        System.out.println("hadkjhsfkhdsf=========="+pro.getProduct_url());
+                        System.out.println("98058403-============================="+id + name + price + description);
+
+
+                        //Toast.makeText(RestaurantCrudActivity.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
                         imageView.setImageResource(R.drawable.ic_baseline_add_photo_alternate_24);
                     }
                 });
