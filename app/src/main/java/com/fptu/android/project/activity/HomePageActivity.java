@@ -29,6 +29,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.nio.charset.StandardCharsets;
+
 
 public class HomePageActivity extends AppCompatActivity {
 
@@ -80,32 +82,49 @@ public class HomePageActivity extends AppCompatActivity {
                         }
                         break;
                     case R.id.aboutApp:
-                        startActivity(new Intent(HomePageActivity.this, RestaurantActivity.class));
+                        if(auth.getCurrentUser()!=null){
+                            startActivity(new Intent(HomePageActivity.this, RestaurantActivity.class));
+
+                        }else{
+                            Intent i = new Intent(HomePageActivity.this, LoginActivity.class);
+                            Toast.makeText(HomePageActivity.this, "Login first then review", Toast.LENGTH_SHORT).show();
+                            startActivity(i);
+                        }
                         break;
                     case R.id.logoutUser:
                         auth.signOut();//logout
                         startActivity(new Intent(HomePageActivity.this, LoginActivity.class));
                         break;
                     case R.id.orderUser:
-                        Intent intent = new Intent(HomePageActivity.this, OrderHistoryActivity.class);
-                        Toast.makeText(HomePageActivity.this, "List order", Toast.LENGTH_SHORT).show();
-                        startActivity(intent);
+                        if(auth.getCurrentUser()!=null){
+                            Intent intent = new Intent(HomePageActivity.this, OrderHistoryActivity.class);
+                            Toast.makeText(HomePageActivity.this, "List order", Toast.LENGTH_SHORT).show();
+                            startActivity(intent);
+                        }else{
+                            Toast.makeText(HomePageActivity.this, "Please Login", Toast.LENGTH_SHORT).show();
+                        }
+
                         break;
                     case R.id.locationUser:
                         startActivity(new Intent(HomePageActivity.this, GoogmapActivity.class));
                         break;
                     case R.id.allOrder:
-                        firestore.collection("users").document(auth.getCurrentUser().getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                            @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                String role = documentSnapshot.getString("role");
-                                if (role.equals("admin") || role.equals("shipper")) {
-                                    startActivity(new Intent(HomePageActivity.this, ShipperActivity.class));
-                                } else {
-                                    Toast.makeText(HomePageActivity.this, "Only Shipper and Admin can see current orders!", Toast.LENGTH_SHORT).show();
+                        if(auth.getCurrentUser()!=null){
+                            firestore.collection("users").document(auth.getCurrentUser().getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                @Override
+                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                    String role = documentSnapshot.getString("role");
+                                    if (role.equals("admin") || role.equals("shipper")) {
+                                        startActivity(new Intent(HomePageActivity.this, ShipperActivity.class));
+                                    } else {
+                                        Toast.makeText(HomePageActivity.this, "Only Shipper and Admin can see current orders!", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                            }
-                        });
+                            });
+                        }else{
+                            Toast.makeText(HomePageActivity.this, "Please Login", Toast.LENGTH_SHORT).show();
+                        }
+
                         break;
                     case R.id.restaurant_product:
                         firestore.collection("users").document(auth.getCurrentUser().getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
