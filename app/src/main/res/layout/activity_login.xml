@@ -69,8 +69,8 @@
                         android:drawableLeft="@drawable/ic_person"
                         android:drawablePadding="12dp"
                         android:hint="@string/hint_email"
-                        android:inputType="textEmailAddress"
                         android:imeOptions="actionNext"
+                        android:inputType="textEmailAddress"
                         android:minWidth="320dp"
                         android:minHeight="50dp"
                         android:singleLine="true" />

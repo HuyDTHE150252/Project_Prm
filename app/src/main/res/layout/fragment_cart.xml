@@ -29,7 +29,7 @@
                 android:paddingStart="16dp"
                 android:text="My Cart"
                 android:textAlignment="viewStart"
-                android:textColor="#ff3d00"
+                android:textColor="@color/md_red_900"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -82,7 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_margin="16dp"
-                android:background="@drawable/yellow_btn_background">
+                android:background="@color/FPT_orange">
 
                 <TextView
                     android:id="@+id/cart_checkout"
