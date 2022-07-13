@@ -54,9 +54,7 @@ public class ShipperActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(orderHistoryAdapter);
         loadAllOrder();
-        if(orderList.size()==0){
-            Toast.makeText(ShipperActivity.this, "List is empty", Toast.LENGTH_SHORT).show();
-        }
+
 
     }
 

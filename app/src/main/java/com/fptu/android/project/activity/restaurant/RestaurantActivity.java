@@ -75,7 +75,6 @@ public class RestaurantActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-
                             for (DocumentSnapshot document: task.getResult()) {
                                 if (document.exists()) {
                                     Feedback feedback = document.toObject(Feedback.class);
@@ -110,7 +109,6 @@ public class RestaurantActivity extends AppCompatActivity {
                 });
         return list;
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,6 +118,7 @@ public class RestaurantActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         rcvFeedback.setLayoutManager(linearLayoutManager);
         feedbackList = new ArrayList<>();
+
         feedbackadapter.setData(getListFeedback());
         rcvFeedback.setAdapter(feedbackadapter);
 

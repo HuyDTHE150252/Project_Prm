@@ -108,7 +108,6 @@ public class HomePageActivity extends AppCompatActivity {
                         });
                         break;
                     case R.id.restaurant_product:
-
                         firestore.collection("users").document(auth.getCurrentUser().getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                             @Override
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
