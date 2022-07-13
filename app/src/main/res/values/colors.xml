@@ -188,6 +188,7 @@
     <color name="md_light_green_A100">#CCFF90</color>
     <color name="md_light_green_A200">#B2FF59</color>
     <color name="md_light_green_A400">#76FF03</color>
+    <color name="FPT_green">#4EB748</color>
     <color name="md_light_green_A700">#64DD17</color>
 
     <!-- lime-->
@@ -253,6 +254,7 @@
     <color name="md_orange_A200">#FFAB40</color>
     <color name="md_orange_A400">#FF9100</color>
     <color name="md_orange_A700">#FF6D00</color>
+    <color name="FPT_orange">#F37022</color>
 
     <!--deep orange-->
     <color name="md_deep_orange_50">#FBE9A7</color>

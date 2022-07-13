@@ -20,7 +20,8 @@
 
         <RelativeLayout
             android:layout_width="414dp"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/FPT_orange">
 
             <ImageView
                 android:id="@+id/product_image"
@@ -68,7 +69,7 @@
                 android:layout_toEndOf="@+id/product_image"
                 android:padding="10dp"
                 android:text="35000"
-                android:textColor="#eb3434"
+                android:textColor="@color/md_red_800"
                 android:textStyle="bold" />
 
             <TextView
@@ -81,7 +82,7 @@
                 android:layout_toEndOf="@+id/product_image"
                 android:padding="10dp"
                 android:text="VND"
-                android:textColor="#eb3434"
+                android:textColor="@color/md_red_800"
                 android:textStyle="bold" />
 
             <TextView
@@ -95,7 +96,7 @@
                 android:layout_toEndOf="@+id/product_image"
                 android:padding="10dp"
                 android:text="Price: "
-                android:textColor="#eb3434"
+                android:textColor="@color/md_red_800"
 
                 android:textStyle="bold" />
 
