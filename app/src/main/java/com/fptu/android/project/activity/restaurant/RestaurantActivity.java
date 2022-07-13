@@ -43,6 +43,9 @@ public class RestaurantActivity extends AppCompatActivity {
     RatingBar ratingBar;
     FirebaseAuth auth;
     FirebaseFirestore firestore;
+    RatingBar ratingRes;
+    float sum=0;
+    int count =0;
 
     private void bindingView() {
         feedbackUserName=findViewById(R.id.feedback_username);
@@ -53,6 +56,7 @@ public class RestaurantActivity extends AppCompatActivity {
         tvFeedback=findViewById(R.id.tvFeedback);
         ratingBar=findViewById(R.id.feedback_rating);
         auth=FirebaseAuth.getInstance();
+        ratingRes=findViewById(R.id.res_rating);
         firestore=FirebaseFirestore.getInstance();
 
     }
@@ -71,30 +75,37 @@ public class RestaurantActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
+
                             for (DocumentSnapshot document: task.getResult()) {
                                 if (document.exists()) {
                                     Feedback feedback = document.toObject(Feedback.class);
+                                    String username=document.getString("username");
+                                    String rating = document.getString("rating");
+                                    feedback.setRate(Float.valueOf(rating.toString()));
+                                    String review = document.getString("review");
+                                    feedback.setDescription(review);
+                                    String dateF = document.getString("currentDateFeedback");
+                                    feedback.setFeedback_date(dateF);
+                                    feedback.setUser_name(username);
+                                    Toast.makeText(RestaurantActivity.this, "OK", Toast.LENGTH_SHORT).show();
+                                    list.add(feedback);
+                                    feedbackadapter.notifyDataSetChanged();
+                                    Log.d("t", "DocumentSnapshot data: " + document.getData());
+                                    Log.d("t", "db rating getString() is: " + document.getString("rating"));
+                                    Log.d("t", "db rating getString() is: " + document.getString("review"));
 
-                                        String rating = document.getString("rating");
-                                        feedback.setRate(Float.valueOf(rating.toString()));
-                                        String review = document.getString("review");
-                                        feedback.setDescription(review);
+                                    sum+=Float.parseFloat(String.valueOf(feedback.getRate()));
+                                    count++;
 
-                                        String dateF = document.getString("currentDateFeedback");
-                                        feedback.setFeedback_date(dateF);
-                                        Toast.makeText(RestaurantActivity.this, "OK", Toast.LENGTH_SHORT).show();
-                                        list.add(feedback);
-                                        feedbackadapter.notifyDataSetChanged();
-                                        Log.d("t", "DocumentSnapshot data: " + document.getData());
 
-                                        Log.d("t", "db rating getString() is: " + document.getString("rating"));
-                                        Log.d("t", "db rating getString() is: " + document.getString("review"));
-                                    } else {
-                                        Toast.makeText(RestaurantActivity.this, "Nice", Toast.LENGTH_SHORT).show();
-                                    }
+                                } else {
+                                    Toast.makeText(RestaurantActivity.this, "Nice", Toast.LENGTH_SHORT).show();
+                                }
 
                             }
-                            }
+                            float avr=sum/count;
+                            ratingRes.setRating(avr);
+                        }
                     }
                 });
         return list;
@@ -111,6 +122,9 @@ public class RestaurantActivity extends AppCompatActivity {
         feedbackList = new ArrayList<>();
         feedbackadapter.setData(getListFeedback());
         rcvFeedback.setAdapter(feedbackadapter);
+
+
+
 
     }
 }

@@ -56,9 +56,10 @@ public class GoogmapActivity extends FragmentActivity implements OnMapReadyCallb
             }
         });
     }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        LatLng latLng = new LatLng(21.013450,105.527075);
+        LatLng latLng = new LatLng(21.02087841923371,105.52022289355075);
         MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("I am here!");
         googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
