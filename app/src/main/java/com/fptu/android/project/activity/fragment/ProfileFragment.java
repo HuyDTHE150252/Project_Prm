@@ -158,10 +158,13 @@ public class ProfileFragment extends Fragment {
                             }
                             for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {
                                 String currentDate = documentSnapshot.getString("currentDateOrder");
-                                String month = currentDate.split(" ")[1];
+                                String month = currentDate.split(" ")[0];
+//
                                 if (!month.contains(",")) {
                                     staticData.put(Integer.parseInt(month), staticData.get(Integer.parseInt(month)) + 1);
                                 }
+//
+                                System.out.println(month);
                             }
                             List<Entry> entries = new ArrayList<Entry>();
                             for (Integer item : staticData.keySet()) {

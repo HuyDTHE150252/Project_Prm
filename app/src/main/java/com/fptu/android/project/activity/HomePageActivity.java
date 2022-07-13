@@ -76,9 +76,7 @@ public class HomePageActivity extends AppCompatActivity {
                         if (auth.getCurrentUser() != null) {
                             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
                         } else {
-
                             Toast.makeText(HomePageActivity.this, "You have to login to see your profile!", Toast.LENGTH_SHORT).show();
-
                         }
                         break;
                     case R.id.aboutApp:
