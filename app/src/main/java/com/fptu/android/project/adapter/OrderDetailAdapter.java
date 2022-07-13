@@ -64,12 +64,10 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
         if(orderStatus.equals("In Progress")){
             holder.status.setTextColor(context.getResources().getColor(R.color.colorPrimary));
         }else if(orderStatus.equals("Completed")){
-            holder.status.setTextColor(context.getResources().getColor(R.color.md_green_100));
+            holder.status.setTextColor(context.getResources().getColor(R.color.md_green_900));
         }else if(orderStatus.equals("Cancel")){
-            holder.status.setTextColor(context.getResources().getColor(R.color.md_red_A100));
+            holder.status.setTextColor(context.getResources().getColor(R.color.md_deep_orange_A700));
         }
-
-
 
     }
 
@@ -87,9 +85,6 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
             quantity=itemView.findViewById(R.id.order_item_detail_quantity);
             price=itemView.findViewById(R.id.order_item_price);
             name = itemView.findViewById(R.id.order_history_item_name);
-
-
-
             status=itemView.findViewById(R.id.tvStatusShipping);
         }
     }

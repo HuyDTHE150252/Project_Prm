@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn = "navigation_view">
+    tools:showIn="navigation_view">
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/homepage"
@@ -15,43 +15,43 @@
             android:id="@+id/proflie"
             android:icon="@drawable/ic_login_menu"
             android:title="Profile" />
-
         <item
-            android:id="@+id/smartQuiz"
-            android:title="Funny Quiz"
-            android:icon="@drawable/quiz"
-            />
+            android:id="@+id/orderUser"
+            android:icon="@drawable/ic_invoice"
+            android:title="Your Order" />
+
+
+        <item android:title="Other">
+            <menu>
+                <item
+                    android:id="@+id/allOrder"
+                    android:icon="@drawable/ic_invoice"
+                    android:title="All Order" />
+
+                <item
+                    android:id="@+id/restaurant_product"
+                    android:icon="@drawable/admin_dashboard_icon_png_16"
+                    android:title="Manage Product" />
+
+                <item
+                    android:id="@+id/locationUser"
+                    android:icon="@drawable/ic_location_24dp"
+                    android:title="Location" />
+                <item
+                    android:id="@+id/smartQuiz"
+                    android:icon="@drawable/quiz"
+                    android:title="Funny Quiz" />
+                <item
+                    android:id="@+id/aboutApp"
+                    android:icon="@drawable/admin_dashboard_icon_png_16"
+                    android:title="About Restaurant" />
+                <item
+                    android:id="@+id/logoutUser"
+                    android:icon="@drawable/ic_lock"
+                    android:title="Log Out" />
+            </menu>
+        </item>
     </group>
 
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/locationUser"
-                android:icon="@drawable/ic_location_24dp"
-                android:title="Location" />
-
-            <item
-                android:id="@+id/orderUser"
-                android:icon="@drawable/ic_invoice"
-                android:title="HistoryOrder" />
-            <item
-                android:id="@+id/allOrder"
-                android:icon="@drawable/ic_invoice"
-                android:title="AllOrder" />
-
-            <item
-                android:id="@+id/restaurant_product"
-                android:icon="@drawable/admin_dashboard_icon_png_16"
-                android:title="Add product" />
-            <item
-                android:id="@+id/aboutApp"
-                android:icon="@drawable/admin_dashboard_icon_png_16"
-                android:title="About Restaurant" />
-            <item
-                android:id="@+id/logoutUser"
-                android:icon="@drawable/ic_lock"
-                android:title="Logout" />
-        </menu>
-    </item>
 
 </menu>

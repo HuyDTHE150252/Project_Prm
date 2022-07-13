@@ -1,6 +1,9 @@
 package com.fptu.android.project.activity.restaurant;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fptu.android.project.R;
+import com.fptu.android.project.activity.HomePageActivity;
 import com.fptu.android.project.adapter.MyRestaurantAdapter;
 import com.fptu.android.project.model.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,11 +25,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShowActivity extends AppCompatActivity {
-    
+
     private RecyclerView recyclerView;
     private FirebaseFirestore db;
     private MyRestaurantAdapter adapter;
     private List<Product> list;
+    private Button btn_Back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +40,7 @@ public class ShowActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycleShowView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        btn_Back = findViewById(R.id.backToHome);
         db = FirebaseFirestore.getInstance();
         list = new ArrayList<>();
         adapter = new MyRestaurantAdapter(this, list);
@@ -45,6 +50,14 @@ public class ShowActivity extends AppCompatActivity {
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
         getListProduct();
+
+        btn_Back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(ShowActivity.this, HomePageActivity.class));
+            }
+        });
 
     }
 
@@ -66,8 +79,6 @@ public class ShowActivity extends AppCompatActivity {
                         adapter.notifyDataSetChanged();
                     }
                 });
-
-
     }
 
 }
