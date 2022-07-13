@@ -2,25 +2,17 @@ package com.fptu.android.project.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fptu.android.project.R;
 import com.fptu.android.project.model.Feedback;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
@@ -65,10 +57,12 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.Feedba
     }
 
 
-
     @Override
     public int getItemCount() {
-        return listFeedback.size();
+        if (listFeedback != null) {
+            return listFeedback.size();
+        }
+        return 0;
     }
 
     public class FeedbackViewHolder extends RecyclerView.ViewHolder {
