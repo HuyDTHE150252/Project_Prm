@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/shippingAddress"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/md_orange_50">
 
     <ScrollView
         android:layout_width="409dp"
@@ -39,7 +40,6 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="Name Product"
-                android:textColor="@color/black"
                 android:textSize="18sp" />
 
             <EditText
@@ -59,7 +59,6 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="Price Product"
-                android:textColor="@color/black"
                 android:textSize="18sp" />
             <EditText
                 android:id="@+id/edtPrice"
@@ -79,7 +78,6 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="Description"
-                android:textColor="@color/black"
                 android:textSize="18sp" />
 
             <EditText
@@ -99,7 +97,6 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="Quantity"
-                android:textColor="@color/black"
                 android:textSize="18sp" />
             <EditText
                 android:id="@+id/edtQuantity"
@@ -118,9 +115,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="Category"
-                android:textColor="@color/black"
                 android:textSize="18sp" />
-
             <Spinner
                 android:id="@+id/spinner1"
                 android:layout_width="375dp"
@@ -130,7 +125,8 @@
                 android:ems="10"
                 android:hint="Enter Category"
                 android:inputType="textPersonName"
-                android:textSize="16sp"></Spinner>
+                android:textSize="16sp">
+            </Spinner>
 
             <TextView
                 android:id="@+id/text_img"
@@ -139,7 +135,6 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="Add Image"
-                android:textColor="@color/black"
                 android:textSize="18sp" />
 
 
@@ -160,7 +155,6 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="5dp"
-                android:backgroundTint="#00cc00"
                 android:text="Show" />
 
             <Button
@@ -171,7 +165,6 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="5dp"
                 android:onClick="onConfirmAddressClick"
-                android:backgroundTint="#990033"
                 android:text="Add New Product"/>
 
         </LinearLayout>

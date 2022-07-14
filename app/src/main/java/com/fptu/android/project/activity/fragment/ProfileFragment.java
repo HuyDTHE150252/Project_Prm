@@ -159,11 +159,9 @@ public class ProfileFragment extends Fragment {
                             for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {
                                 String currentDate = documentSnapshot.getString("currentDateOrder");
                                 String month = currentDate.split(" ")[0];
-//
                                 if (!month.contains(",")) {
                                     staticData.put(Integer.parseInt(month), staticData.get(Integer.parseInt(month)) + 1);
                                 }
-//
                                 System.out.println(month);
                             }
                             List<Entry> entries = new ArrayList<Entry>();
@@ -175,9 +173,7 @@ public class ProfileFragment extends Fragment {
                             LineDataSet dataSet = new LineDataSet(entries, "Orders"); // add entries to dataset
                             dataSet.setColor(ColorTemplate.COLORFUL_COLORS[0]);
                             LineData lineData = new LineData(dataSet);
-
                             lineChart.setData(lineData);
-
                             lineChart.setDescription(null);
                             lineChart.setScaleEnabled(false);
                             lineChart.getAxisRight().setDrawLabels(false);
