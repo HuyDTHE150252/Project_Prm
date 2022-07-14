@@ -47,8 +47,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/trend_name"
                 android:layout_marginLeft="2dp"
-                android:layout_marginRight="2dp"
-                android:layout_marginTop="5dp">
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="2dp">
 
                 <TextView
                     android:id="@+id/trend_description"
