@@ -12,7 +12,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="match_parent"
         android:padding="10dp">
 
         <TextView
@@ -82,13 +82,15 @@
             android:id="@+id/completed_btn"
             android:layout_width="wrap_content"
             android:layout_height="53dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginStart="42dp"
+            android:layout_marginTop="90dp"
+            android:layout_marginBottom="9dp"
             android:backgroundTint="#33cc33"
             android:text="Completed"
             android:textColor="#cc3300"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/order_address" />
+            app:layout_constraintTop_toBottomOf="@+id/is_order_date" />
 
         <ImageButton
             android:id="@+id/tickIMG"
@@ -124,15 +126,12 @@
             android:id="@+id/btnCancelOrder"
             android:layout_width="wrap_content"
             android:layout_height="52dp"
-            android:layout_marginStart="70dp"
-            android:layout_marginTop="63dp"
-            android:layout_marginEnd="38dp"
-            android:text="Cancel"
+            android:layout_marginEnd="46dp"
+            android:layout_marginBottom="10dp"
             android:backgroundTint="@color/md_red_700"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.222"
-            app:layout_constraintStart_toEndOf="@+id/completed_btn"
-            app:layout_constraintTop_toBottomOf="@+id/tickIMG" />
+            android:text="Cancel"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

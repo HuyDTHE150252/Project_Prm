@@ -1,7 +1,6 @@
 package com.fptu.android.project.activity;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -83,6 +82,8 @@ public class SearchActivity extends AppCompatActivity {
         }
 
         if(newList.isEmpty()){
+            searchList.clear();
+            productAdapter.setData(newList);
             Toast.makeText(this, "No Product Found.", Toast.LENGTH_SHORT).show();
         }else{
             productAdapter.setData(newList);

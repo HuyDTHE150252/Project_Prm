@@ -239,8 +239,7 @@ public class RestaurantCrudActivity extends AppCompatActivity implements Adapter
                         urls = pro.getProduct_url();
 
                         saveToFireStore(id,name, price, description,quantity, type,urls);
-                        System.out.println("hadkjhsfkhdsf=========="+pro.getProduct_url());
-                        System.out.println("98058403-============================="+id + name + price + description);
+
 
 
                         //Toast.makeText(RestaurantCrudActivity.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
@@ -294,7 +293,7 @@ public class RestaurantCrudActivity extends AppCompatActivity implements Adapter
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String text = parent.getItemAtPosition(position).toString();
-        Toast.makeText(parent.getContext(), text, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(parent.getContext(), text, Toast.LENGTH_SHORT).show();
     }
 
     @Override
