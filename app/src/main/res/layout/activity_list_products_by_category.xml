@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:layout_centerHorizontal="true"
-        android:text="********Các sản phẩm********" />
+        android:text="********All Products Of This Category********" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_listProductbyCate"
