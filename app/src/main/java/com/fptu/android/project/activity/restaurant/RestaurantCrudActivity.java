@@ -88,14 +88,9 @@ public class RestaurantCrudActivity extends AppCompatActivity implements Adapter
             edit_price.setText(price);
             edit_description.setText(description);
             edit_quantity.setText(quantity);
-
         }else {
-
             btnAdd.setText("Save");
-
-
         }
-
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,16 +131,13 @@ public class RestaurantCrudActivity extends AppCompatActivity implements Adapter
 
                     uploadToFirebase1(imageUri);
 
-
                 }else {
 
                     uploadToFirebase(imageUri);
 
-
                     }
 
             }
-
 
         });}
     private void updateToFireStore(String id, String name, String price, String description,String quantity,String type, String url) {
@@ -158,7 +150,7 @@ public class RestaurantCrudActivity extends AppCompatActivity implements Adapter
                             edit_price.setText("");
                             edit_description.setText("");
                             edit_quantity.setText("");
-                            Toast.makeText(RestaurantCrudActivity.this, "Update is sussecful", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RestaurantCrudActivity.this, "Update is successful", Toast.LENGTH_SHORT).show();
                         }else {
                             Toast.makeText(RestaurantCrudActivity.this, "Update is fail"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
@@ -279,7 +271,6 @@ public class RestaurantCrudActivity extends AppCompatActivity implements Adapter
                     }
                 });
             }});
-
     }
 
     private String getFileExtension(Uri mUri){
