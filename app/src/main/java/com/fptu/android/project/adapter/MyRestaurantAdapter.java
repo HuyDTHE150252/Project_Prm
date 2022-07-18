@@ -38,6 +38,7 @@ public class MyRestaurantAdapter extends RecyclerView.Adapter<MyRestaurantAdapte
         this.activity = activity;
         this.pList = pList;
     }
+
     public void updateData(int position){
         Product item = pList.get(position);
         Bundle bundle = new Bundle();
@@ -52,6 +53,7 @@ public class MyRestaurantAdapter extends RecyclerView.Adapter<MyRestaurantAdapte
         activity.startActivity(intent);
 
     }
+
     public void deleteData(int position){
         Product item = pList.get(position);
         db.collection("product").document(item.getProduct_id()).delete()
@@ -59,12 +61,21 @@ public class MyRestaurantAdapter extends RecyclerView.Adapter<MyRestaurantAdapte
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
+                            pList.remove(pList.get(position));
+                            notifyItemChanged(position);
+                            notifyDataSetChanged();
                             Toast.makeText(activity, "Delete is sussecful", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(activity, "Delete is fail" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+
+    }
+
+    public void getData(){
+        Intent intent = new Intent(activity, ShowActivity.class);
+        activity.startActivity(intent);
 
     }
 

@@ -115,27 +115,28 @@ public class RestaurantCrudActivity extends AppCompatActivity implements Adapter
             @Override
             public void onClick(View v) {
                 if (imageUri != null){
+                    String type = spinner.getSelectedItem().toString();
+                    String name = edit_name.getText().toString();
+                    String price = edit_price.getText().toString();
+                    String description = edit_description.getText().toString();
+                    String quantity = edit_quantity.getText().toString();
+
+
+                    Bundle bundle1 = getIntent().getExtras();
+                    if(bundle!= null){
+
+                        uploadToFirebase1(imageUri);
+
+                    }else {
+
+                        uploadToFirebase(imageUri);
+
+                    }
+
 
                 }else{
                     Toast.makeText(RestaurantCrudActivity.this, "Please Select Image", Toast.LENGTH_SHORT).show();
                 }
-                String type = spinner.getSelectedItem().toString();
-                String name = edit_name.getText().toString();
-                String price = edit_price.getText().toString();
-                String description = edit_description.getText().toString();
-                String quantity = edit_quantity.getText().toString();
-
-
-                Bundle bundle1 = getIntent().getExtras();
-                if(bundle!= null){
-
-                    uploadToFirebase1(imageUri);
-
-                }else {
-
-                    uploadToFirebase(imageUri);
-
-                    }
 
             }
 
