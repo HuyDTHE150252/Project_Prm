@@ -150,7 +150,7 @@ public class HomeFragment extends Fragment {
 
     private List<Product> getListNewest() {
         List<Product> list = new ArrayList<>();
-        database.collection("product").orderBy("date", Query.Direction.DESCENDING).limit(5)
+        database.collection("product").orderBy("date", Query.Direction.DESCENDING).limit(10)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
