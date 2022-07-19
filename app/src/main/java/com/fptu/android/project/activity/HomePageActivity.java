@@ -29,8 +29,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.nio.charset.StandardCharsets;
-
 
 public class HomePageActivity extends AppCompatActivity {
 
@@ -38,6 +36,7 @@ public class HomePageActivity extends AppCompatActivity {
     private NavigationView nav_menu;
     FirebaseAuth auth;
     FirebaseFirestore firestore;
+    private String currentRole;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +50,37 @@ public class HomePageActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         drawerLayout = findViewById(R.id.drawer_layout);
         nav_menu = findViewById(R.id.nav_view);
+
         firestore = FirebaseFirestore.getInstance();
+        if (auth.getCurrentUser() != null) {
+            firestore.collection("users").document(auth.getCurrentUser().getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    currentRole = documentSnapshot.getString("role");
+                    nav_menu.getMenu().findItem(R.id.restaurant_product).setVisible(false);
+                    nav_menu.getMenu().findItem(R.id.allOrder).setVisible(false);
+                    System.out.println("currentrole: "+currentRole);
+                    if (currentRole.equals("admin")) {
+                        nav_menu.getMenu().findItem(R.id.restaurant_product).setVisible(true);
+                        nav_menu.getMenu().findItem(R.id.orderUser).setVisible(false);
+                        nav_menu.getMenu().findItem(R.id.cart).setVisible(false);
+                        nav_menu.getMenu().findItem(R.id.allOrder).setVisible(false);
+                    }
+                    if (currentRole.equals("shipper")) {
+                        nav_menu.getMenu().findItem(R.id.restaurant_product).setVisible(false);
+                        nav_menu.getMenu().findItem(R.id.orderUser).setVisible(false);
+                        nav_menu.getMenu().findItem(R.id.cart).setVisible(false);
+                        nav_menu.getMenu().findItem(R.id.allOrder).setVisible(true);
+                    }
+                }
+            });
+
+        }
+
         nav_menu.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
                 switch (item.getItemId()) {
                     case R.id.homepage:
 
@@ -80,10 +106,10 @@ public class HomePageActivity extends AppCompatActivity {
                         }
                         break;
                     case R.id.aboutApp:
-                        if(auth.getCurrentUser()!=null){
+                        if (auth.getCurrentUser() != null) {
                             startActivity(new Intent(HomePageActivity.this, RestaurantActivity.class));
 
-                        }else{
+                        } else {
                             Intent i = new Intent(HomePageActivity.this, LoginActivity.class);
                             Toast.makeText(HomePageActivity.this, "Login first then review", Toast.LENGTH_SHORT).show();
                             startActivity(i);
@@ -94,11 +120,11 @@ public class HomePageActivity extends AppCompatActivity {
                         startActivity(new Intent(HomePageActivity.this, LoginActivity.class));
                         break;
                     case R.id.orderUser:
-                        if(auth.getCurrentUser()!=null){
+                        if (auth.getCurrentUser() != null) {
                             Intent intent = new Intent(HomePageActivity.this, OrderHistoryActivity.class);
                             Toast.makeText(HomePageActivity.this, "List order", Toast.LENGTH_SHORT).show();
                             startActivity(intent);
-                        }else{
+                        } else {
                             Toast.makeText(HomePageActivity.this, "Please Login", Toast.LENGTH_SHORT).show();
                         }
 
@@ -107,35 +133,15 @@ public class HomePageActivity extends AppCompatActivity {
                         startActivity(new Intent(HomePageActivity.this, GoogmapActivity.class));
                         break;
                     case R.id.allOrder:
-                        if(auth.getCurrentUser()!=null){
-                            firestore.collection("users").document(auth.getCurrentUser().getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                @Override
-                                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                    String role = documentSnapshot.getString("role");
-                                    if (role.equals("admin") || role.equals("shipper")) {
-                                        startActivity(new Intent(HomePageActivity.this, ShipperActivity.class));
-                                    } else {
-                                        Toast.makeText(HomePageActivity.this, "Only Shipper and Admin can see current orders!", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-                        }else{
+                        if (auth.getCurrentUser() != null) {
+                            startActivity(new Intent(HomePageActivity.this, ShipperActivity.class));
+                        } else {
                             Toast.makeText(HomePageActivity.this, "Please Login", Toast.LENGTH_SHORT).show();
                         }
 
                         break;
                     case R.id.restaurant_product:
-                        firestore.collection("users").document(auth.getCurrentUser().getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                            @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                String role = documentSnapshot.getString("role");
-                                if (role.equals("admin")) {
-                                    startActivity(new Intent(HomePageActivity.this, RestaurantCrudActivity.class));
-                                } else {
-                                    Toast.makeText(HomePageActivity.this, "Only Admin can add products!", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
+                        startActivity(new Intent(HomePageActivity.this, RestaurantCrudActivity.class));
                         break;
                     case R.id.smartQuiz:
                         SmartQuiz quiz = new SmartQuiz();
@@ -156,6 +162,7 @@ public class HomePageActivity extends AppCompatActivity {
                 return true;
             }
         });
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();

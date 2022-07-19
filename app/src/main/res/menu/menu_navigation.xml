@@ -26,12 +26,14 @@
                 <item
                     android:id="@+id/allOrder"
                     android:icon="@drawable/ic_invoice"
-                    android:title="All Order" />
+                    android:title="All Order"
+                    />
 
                 <item
                     android:id="@+id/restaurant_product"
                     android:icon="@drawable/admin_dashboard_icon_png_16"
-                    android:title="Manage Product" />
+                    android:title="Manage Product"
+                   />
 
                 <item
                     android:id="@+id/locationUser"
