@@ -76,13 +76,14 @@ public class ShipperActivity extends AppCompatActivity {
                                 String address=documentSnapshot.getString("addressShipping");
                                 String currentDate=documentSnapshot.getString("currentDateOrder");
                                 String status=documentSnapshot.getString("orderStatus");
+                                String statusS=documentSnapshot.getString("status");
 //                               String currentTime=documentSnapshot.getString("currentDateOrder");
                                 if(status.equalsIgnoreCase("In Progress")){
                                     orderViewModel = documentSnapshot.toObject(Order.class);
                                     orderViewModel.setDocumentId(docId);
                                     orderViewModel.setAddress(address);
                                     orderViewModel.setCurrentDate(currentDate);
-//                                orderViewModel.setOrderStatus(status);
+                                    orderViewModel.setOrderStatus(statusS);
                                     orderList.add(orderViewModel);
                                     orderHistoryAdapter.notifyDataSetChanged();
                                     Log.d("data", "DocumentSnapshot data: " + documentSnapshot.getId());

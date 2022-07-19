@@ -54,6 +54,7 @@ public class ShipperApdapter extends RecyclerView.Adapter<ShipperApdapter.ViewHo
         holder.currentD.setText(orderList.get(position).getCurrentDate());
         holder.addressOrder.setText(orderList.get(position).getAddress());
         holder.orderID.setText(orderList.get(position).getDocumentId());
+        holder.tvStatus.setText(orderList.get(position).getOrderStatus());
         holder. completedBtn.setVisibility(View.VISIBLE);
         holder. cancelBtn.setVisibility(View.VISIBLE);
 
@@ -131,12 +132,13 @@ public class ShipperApdapter extends RecyclerView.Adapter<ShipperApdapter.ViewHo
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView currentD, addressOrder, orderID;
+        TextView currentD, addressOrder, orderID,tvStatus;
         Button completedBtn, cancelBtn;
         ImageView stick;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            tvStatus=itemView.findViewById(R.id.tvStatus);
             orderID = itemView.findViewById(R.id.order_history_item_id);
             currentD = itemView.findViewById(R.id.order_history_item_order_date);
             addressOrder = itemView.findViewById(R.id.order_history_item_address);
