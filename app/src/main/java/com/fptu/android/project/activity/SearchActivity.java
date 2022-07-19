@@ -84,7 +84,6 @@ public class SearchActivity extends AppCompatActivity {
         if(newList.isEmpty()){
             searchList.clear();
             productAdapter.setData(newList);
-            Toast.makeText(this, "No Product Found.", Toast.LENGTH_SHORT).show();
         }else{
             productAdapter.setData(newList);
         }
